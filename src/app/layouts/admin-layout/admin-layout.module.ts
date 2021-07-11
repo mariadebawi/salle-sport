@@ -9,6 +9,10 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
+import { MangersComponent } from './pages/mangers/mangers.component';
+import { OffersComponent } from './pages/offers/offers.component';
+import { GymsComponent } from './pages/gyms/gyms.component';
+import { DetailsGymComponent } from './pages/details-gym/details-gym.component';
 
 @NgModule({
   imports: [
@@ -20,6 +24,10 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component";
   ],
   declarations: [
     DashboardComponent,
+    MangersComponent,
+    OffersComponent,
+    GymsComponent,
+    DetailsGymComponent,
   ]
 })
 export class AdminLayoutModule {}

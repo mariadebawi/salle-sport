@@ -15,6 +15,7 @@ import { ComponentsModule } from "./components/components.module";
 import { MangerComponent } from "./layouts/manger/manger.component";
 import { VetrineComponent } from "./layouts/vetrine/vetrine.component";
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

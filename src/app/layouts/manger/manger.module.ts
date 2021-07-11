@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ManagerLayoutRoutes } from './manager-layout.routing';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { ClientDetailsComponent } from './pages/clientDetails/clientDetails.component';
+import { ActitviesListComponent } from './pages/actitviesList/actitviesList.component';
+import { CoachsComponent } from './pages/coachs/coachs.component';
+import { AddActivityComponent } from './pages/activites/add-activity/add-activity.component';
 
 @NgModule({
   imports: [
@@ -11,7 +14,7 @@ import { ClientDetailsComponent } from './pages/clientDetails/clientDetails.comp
     RouterModule.forChild(ManagerLayoutRoutes),
 
   ],
-  declarations: [ ClientsComponent ,ClientDetailsComponent]
+  declarations: [ ClientsComponent ,ClientDetailsComponent , ActitviesListComponent, CoachsComponent, AddActivityComponent]
 })
 export class MangerModule { }
 
