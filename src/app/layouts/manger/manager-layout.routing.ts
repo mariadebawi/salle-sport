@@ -8,6 +8,8 @@ import {ListAdComponent} from './pages/adherents/list-ad/list-ad.component';
 import {AddAdherentComponent} from './pages/adherents/add-adherent/add-adherent.component';
 import {ListOfComponent} from './pages/offers/list-of/list-of.component';
 import {AddOfComponent} from './pages/offers/add-of/add-of.component';
+import {EditProfileComponent} from './pages/user/edit-profile/edit-profile.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 
 
 export const ManagerLayoutRoutes: Routes = [
@@ -16,6 +18,7 @@ export const ManagerLayoutRoutes: Routes = [
     component: MangerComponent,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'clients'  },
+      { path: "dashboard", component: DashboardComponent },
       { path: "activities", component: ActitviesListComponent },
       { path: "activities/add", component: AddActivityComponent },
       { path: 'employees',component: ListComponent},
@@ -24,7 +27,7 @@ export const ManagerLayoutRoutes: Routes = [
       { path: 'adherent/add',component: AddAdherentComponent},
       { path: 'offers',component: ListOfComponent},
       { path: 'offers/add',component: AddOfComponent},
-
+      { path: 'profile/edit',component: EditProfileComponent},
     ]
     }
 ];
