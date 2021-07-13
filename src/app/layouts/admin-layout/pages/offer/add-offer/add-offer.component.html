@@ -20,11 +20,8 @@
               <div class=" col-md-6 px-md-1">
                 <div class=" form-group">
                   <label> Coach </label>
-                  <select
-                    class=" form-control"
-                    value="coach_id"
-                  >
-                    <option *ngFor="let coach of allcoachs" value="{{coach.id}}">{{coach.first_name}} {{coach.last_name}}</option>
+                  <select class="form-control" value="coach_id">
+                    <option>test</option>
                   </select>
 
                 </div>
@@ -38,11 +35,10 @@
                 </div>
               </div>
             </div>
-
           </form>
         </div>
         <div class=" card-footer">
-          <button class=" btn btn-fill btn-danger" type="submit" style="float: right">Ajouter</button>
+          <button class=" btn btn-fill btn-danger" type="submit" style="float: right">Save</button>
         </div>
       </div>
     </div>

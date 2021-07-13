@@ -10,9 +10,9 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { MangersComponent } from './pages/mangers/mangers.component';
-import { OffersComponent } from './pages/offers/offers.component';
-import { GymsComponent } from './pages/gyms/gyms.component';
-import { DetailsGymComponent } from './pages/details-gym/details-gym.component';
+import { OffersComponent } from './pages/offer/offers/offers.component';
+import { GymsComponent } from './pages/gym/gyms/gyms.component';
+import { DetailsGymComponent } from './pages/gym/details-gym/details-gym.component';
 
 @NgModule({
   imports: [
