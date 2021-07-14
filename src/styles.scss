@@ -2,5 +2,14 @@
 
 
 .text-black{
+    color: #000 !important;
+}
+
+.text-red{
+    color: #ff0000 !important;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Parcourir" !important;
     color: #000;
 }

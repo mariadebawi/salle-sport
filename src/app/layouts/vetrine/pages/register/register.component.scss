@@ -1,0 +1,73 @@
+
+
+// .login-page {
+//     background-size: contain;
+//     background-image: url(https://oxygene-fitness.tn/wp-content/uploads/2020/03/b1-1.jpg);
+//     background-attachment: fixed;
+//     .content{
+//         transform: translate(10%, 110%);
+//     }
+// }
+
+.card-login {
+    border-radius: .4285rem;
+    padding-bottom: .7rem;
+}
+.full-page.lock-page, .full-page.login-page, .full-page.pricing-page, .full-page.register-page {
+    min-height: 100vh;
+    background: radial-gradient(#1e1e2f,#1e1e24);
+}
+
+.full-page>.content {
+    padding-bottom: 150px;
+    padding-top: 150px;
+}
+
+.full-page>.content, .full-page>.footer {
+    position: absolute;
+    z-index: 4;
+    top: 5%;
+    width: 100%;
+}
+
+.card .card-header:not([data-background-color]) {
+    background-color: transparent;
+}
+
+
+.card .card-header {
+    padding: 0 0 10px;
+    overflow: hidden;
+    text-align: center;
+    
+.card-title {
+    position: relative;
+    font-size: 3em;
+    font-weight: 900;
+    color: #000 !important;
+    text-transform: capitalize;
+    margin-left: -5px;
+    z-index: 1;
+    margin-top: 40px;
+}
+
+}
+.card-header:first-child {
+    border-radius: calc(.2857rem - .0625rem) calc(.2857rem - .0625rem) 0 0;
+}
+.form-control:focus {
+    border-color: rgba(29, 37, 59, 0.2) !important;
+}
+
+h6 {
+ a:hover , a:focus {
+    color: #000 !important;
+ }
+
+}
+
+label {
+    font-weight: bold;
+    color: #000 !important;
+    text-transform: capitalize;
+}

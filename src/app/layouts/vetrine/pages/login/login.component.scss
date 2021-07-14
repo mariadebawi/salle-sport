@@ -44,7 +44,7 @@
     position: relative;
     font-size: 3em;
     font-weight: 900;
-   // color: #fff;
+    color: #000 !important;
     text-transform: capitalize;
     margin-left: -5px;
     z-index: 1;
@@ -55,7 +55,7 @@
 .card-header:first-child {
     border-radius: calc(.2857rem - .0625rem) calc(.2857rem - .0625rem) 0 0;
 }
-.form-control:focus {
+ .form-control:focus {
     border-color: rgba(29, 37, 59, 0.2) !important;
 }
 
