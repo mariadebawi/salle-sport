@@ -24,7 +24,7 @@ export const ManagerLayoutRoutes: Routes = [
       { path: 'employees',component: ListComponent},
       { path: 'employees/add',component: AddEmpComponent},
       { path: 'adherents',component: ListAdComponent},
-      { path: 'adherent/add',component: AddAdherentComponent},
+      { path: 'adherents/add',component: AddAdherentComponent},
       { path: 'offers',component: ListOfComponent},
       { path: 'offers/add',component: AddOfComponent},
       { path: 'profile/edit',component: EditProfileComponent},
