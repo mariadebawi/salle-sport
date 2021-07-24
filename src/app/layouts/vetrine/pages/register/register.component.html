@@ -1,3 +1,189 @@
-<p>
-  register works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+  <div class=" container-fluid">
+    <div class=" navbar-wrapper">
+      <div class=" navbar-toggle d-inline">
+        <button class=" navbar-toggler" type="button">
+          <span class=" navbar-toggler-bar bar1"></span>
+          <span class=" navbar-toggler-bar bar2"></span>
+          <span class=" navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a class=" navbar-brand" [routerLink]="[ '/register' ]"> S'inscrire
+      </a>
+    </div>
+    <button aria-label="Toggle navigation" class=" navbar-toggler" id="navigation" type="button">
+      <span class=" navbar-toggler-bar navbar-kebab"></span>
+      <span class=" navbar-toggler-bar navbar-kebab"></span>
+      <span class=" navbar-togler-bar navbar-kebab"></span></button>
+    <div class="navbar-collapse collapse" id="navigation" aria-expanded="false" style="display: none;">
+      <ul class=" navbar-nav ml-auto">
+        <li class=" nav-item"><a class=" nav-link" [routerLink]="[ '/register' ]"><i class=" tim-icons icon-laptop"></i>
+            S'inscrire
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a class=" nav-link" [routerLink]="[ '/login' ]">
+            <i class=" tim-icons icon-single-02"></i> Connexion </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="full-page login-page ">
+  <div class=" content">
+    <div class=" container">
+      <div class=" col-md-12">
+        <form class=" form-horizontal">
+          <div class=" card card-login card-white">
+            <div class=" card-header">
+              <h1 class=" card-title">S'inscrire</h1>
+            </div>
+            <div class=" card-body">
+              <h4 class="text-red my-3 font-weight-bold"> Salle de sport
+              </h4>
+              <hr  >
+              <div class="row">
+                <div class="form-group has-label  col-md-6"><label> Name </label><input
+                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                    required="" type="text">
+                </div>
+                <div class="form-group has-label  col-md-6"><label> Addresse </label><input
+                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                  required="" type="text">
+              </div>
+              <div class="form-group has-label  col-md-3"><label>  de </label>
+                <select class="custom-select  text-black" >
+                  <option  value="lundi">Lundi</option>
+                  <option value="mardi">Mardi</option>
+                  <option value="mercredi">Mercredi</option>
+                  <option value="jeudi">Jeudi</option>
+                  <option value="vendredi">Vendredi</option>
+                  <option value="samedi">Samedi</option>
+                  <option value="dimanche">Dimanche</option>
+                </select>
+            </div>
+            <div class="form-group has-label  col-md-3"><label> heure </label>
+              <input class=" form-control" type="time" id="meeting-time" name="meeting-time">
+          </div>
+              <div class="form-group has-label  col-md-3"><label>  à </label>
+                <select class="custom-select text-black">
+                  <option value="lundi">Lundi</option>
+                  <option value="mardi">Mardi</option>
+                  <option value="mercredi">Mercredi</option>
+                  <option value="jeudi">Jeudi</option>
+                  <option value="vendredi">Vendredi</option>
+                  <option value="samedi">Samedi</option>
+                  <option value="dimanche">Dimanche</option>
+                </select>
+            </div>
+            <div class="form-group has-label  col-md-3"><label> heure </label>
+              <input class=" form-control" type="time" id="meeting-time" name="meeting-time">
+          </div>
+          <div class="form-group has-label  col-md-6"><label> Description </label>
+            <textarea  class=" form-control"name="" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form-group has-label  col-md-6"><label> Logo </label>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group " style="margin-top: 40px;">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input"   (change)="selectFile($event)"id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <img [src]="url" *ngIf="url">
+            </div>
+          </div>
+      </div>
+              </div>
+            </div>
+            <div class=" card-body">
+              <h4 class="text-red my-3 font-weight-bold"> Directeur
+              </h4>
+              <hr  >
+              <div class="row">
+                <div class="form-group has-label  col-md-4"><label> First Name </label><input
+                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                    required="" type="text">
+                </div>
+                <div class="form-group has-label  col-md-4"><label> Last Name </label><input
+                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                  required="" type="text">
+              </div>
+              <div class="form-group has-label  col-md-4"><label> Phone </label><input
+                class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                required="" type="text">
+            </div>
+            <div class="form-group has-label  col-md-4"><label> Adresse </label><input
+              class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+              required="" type="text">
+          </div>
+          <div class="form-group has-label  col-md-4"><label> email </label><input
+            class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+            required="" type="email">
+        </div>
+        <div class="form-group has-label  col-md-4"><label> Password </label><input
+          class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+          required="" type="password">
+      </div>
+      <div class="form-group has-label  col-md-6"><label> Avatar </label>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group " >
+              <div class="custom-file">
+                <input type="file" class="custom-file-input"   (change)="selectFilePreview($event)"id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <img [src]="urlPreview" *ngIf="urlPreview">
+          </div>
+        </div>
+    </div>
+              </div>
+            </div>
+            <div class=" card-body">
+              <h4 class="text-red my-3 font-weight-bold"> Offres
+              </h4>
+              <hr  >
+              <div class="row">
+              
+              <div class="form-group has-label  col-md-4"><label>  Type d'offre </label>
+                <select class="custom-select  text-black" >
+                  <option  value="semaine">Semaine</option>
+                  <option value="mois">Mois</option>
+                  <option value="annualire">Annualire</option>
+                </select>
+            </div>
+            
+            <div class="form-group has-label  col-md-6"><label>  Reçu de paiement </label>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group " >
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input"   (change)="selectFilePrevStyle($event)"id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <img [src]="urlStyle" *ngIf="urlStyle">
+            </div>
+          </div>
+      </div>
+              </div>
+            </div>
+            <div class=" card-footer mt-5">
+              <a class=" btn btn-success btn-lg btn-block mb-3" href="#pablo">  S'inscrire </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
