@@ -28,9 +28,32 @@ login(email, password) {
         }));
 }
 
+register(userForm) {
+  console.log(userForm)
+  return this.http.post(`${environment.basUrl}auth/sign_up`, userForm)
+}
+
+
 logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+}
+
+public genFormData(obj: {[index: string]: any}): FormData {
+  const FORM = new FormData();
+  const KEYS = Object.keys(obj);
+
+  for (const KEY of KEYS) {
+    FORM.set(KEY, obj[KEY]);
+  }
+
+  return FORM;
+}
+
+
+uploadFile(data?: File) {
+  const FILE = { image: data };
+    return  this.http.post<any>(`${environment.basUrl}upload_file` ,  this.genFormData(FILE) );
 }
 
 }

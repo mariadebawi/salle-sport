@@ -7,4 +7,5 @@
     price: number;
     status:boolean;
     created_at: Date;
+    unit: string;
 }

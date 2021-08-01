@@ -35,7 +35,7 @@
   <div class=" content">
     <div class=" container">
       <div class=" col-md-12">
-        <form class=" form-horizontal" [formGroup]="registerForm" (ngSubmit)="regiter()">
+        <form class=" form-horizontal" [formGroup]="registerForm" (ngSubmit)="register()">
           <div class=" card card-login card-white">
             <div class=" card-header">
               <h1 class=" card-title">S'inscrire</h1>
@@ -55,11 +55,11 @@
                 </div>
                 <div class="form-group has-label  col-md-4"><label> Url Facebook </label><input
                     class="form-control ng-untouched ng-pristine ng-invalid" formControlName="urlFacebookSalle"
-                    name="urlFacebookSalle" required="" type="text">
+                    name="urlFacebookSalle" required="" type="url">
                 </div>
                 <div class="form-group has-label  col-md-4"><label> Jour de congé
                   </label>
-                  <select class="custom-select  text-black" formControlName="jourConge">
+                  <select class="custom-select  text-black" formControlName="jourConge"  >
                     <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>
@@ -151,7 +151,7 @@
               <div class="row">
 
                 <div class="form-group has-label  col-md-4"><label> Type d'offre </label>
-                  <select class="custom-select  text-black" formControlName="offreId">
+                  <select class="custom-select  text-black" [(ngModel)]="offreId" formControlName="offreId" (change)="onChange($event.target.value)">
                     <option [value]="off.id" *ngFor="let off of offreList"> <span class="spanName">{{off.name}} :</span>
                       {{off.duration}} {{getUnit(off.unit)}} / {{off.price}} DT</option>
                   </select>
