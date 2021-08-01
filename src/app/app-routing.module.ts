@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: "",
     redirectTo: "home",
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: "",
@@ -38,9 +38,9 @@ const routes: Routes = [
     ]
   }, 
   {
-    path: "manger",
+    path: "manager",
     component: MangerComponent,
-    canActivate: [AuthGuard] ,
+    //canActivate: [AuthGuard] ,
     children: [
       {
         path: "",

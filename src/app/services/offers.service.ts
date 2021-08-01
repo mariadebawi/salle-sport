@@ -9,10 +9,11 @@ import {stripUnnecessaryQuotes} from '@angular/compiler/src/render3/view/style_p
 export class OffersService {
   BASEURL=environment.basUrl;
   constructor(private http: HttpClient) { }
-  getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
-  changeStatus(id,status)
-  {
 
+  getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
+
+  changeStatus(id,status)
+  { 
     return this.http.post(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
   }
 

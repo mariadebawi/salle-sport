@@ -45,16 +45,21 @@
               </h4>
               <hr  >
               <div class="row">
-                <div class="form-group has-label  col-md-6"><label> Name </label><input
-                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                <div class="form-group has-label  col-md-4"><label> Nom de Salle </label><input
+                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="nomSalle" name="email"
                     required="" type="text">
                 </div>
-                <div class="form-group has-label  col-md-6"><label> Addresse </label><input
-                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                <div class="form-group has-label  col-md-4"><label> Addresse </label><input
+                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="adresseSalle" name="email"
                   required="" type="text">
               </div>
-              <div class="form-group has-label  col-md-3"><label>  de </label>
-                <select class="custom-select  text-black" >
+              <div class="form-group has-label  col-md-4"><label> Url Facebook   </label><input
+                class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="urlFacebookSalle" name="email"
+                required="" type="text">
+            </div>
+              <div class="form-group has-label  col-md-4"><label>  Jour de congé
+              </label>
+                <select class="custom-select  text-black"  formControlName="jourConge"  >
                   <option  value="lundi">Lundi</option>
                   <option value="mardi">Mardi</option>
                   <option value="mercredi">Mercredi</option>
@@ -64,27 +69,15 @@
                   <option value="dimanche">Dimanche</option>
                 </select>
             </div>
-            <div class="form-group has-label  col-md-3"><label> heure </label>
-              <input class=" form-control" type="time" id="meeting-time" name="meeting-time">
+            <div class="form-group has-label  col-md-4"><label> code fiscal </label><input
+              class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="codeFiscal" name="email"
+              required="" type="text">
           </div>
-              <div class="form-group has-label  col-md-3"><label>  à </label>
-                <select class="custom-select text-black">
-                  <option value="lundi">Lundi</option>
-                  <option value="mardi">Mardi</option>
-                  <option value="mercredi">Mercredi</option>
-                  <option value="jeudi">Jeudi</option>
-                  <option value="vendredi">Vendredi</option>
-                  <option value="samedi">Samedi</option>
-                  <option value="dimanche">Dimanche</option>
-                </select>
-            </div>
-            <div class="form-group has-label  col-md-3"><label> heure </label>
-              <input class=" form-control" type="time" id="meeting-time" name="meeting-time">
-          </div>
-          <div class="form-group has-label  col-md-6"><label> Description </label>
-            <textarea  class=" form-control"name="" id="" cols="30" rows="10"></textarea>
+        
+          <div class="form-group has-label  col-md-5"><label> La description  </label>
+            <textarea   formcontrolname="description" class=" form-control"name="" id="" cols="30" rows="10"></textarea>
         </div>
-        <div class="form-group has-label  col-md-6"><label> Logo </label>
+        <div class="form-group has-label  col-md-7"><label> Logo </label>
           <div class="row">
             <div class="col-md-6">
               <div class="input-group " style="margin-top: 40px;">
@@ -95,7 +88,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <img [src]="url" *ngIf="url">
+              <img [src]="urlSalle" *ngIf="urlSalle">
             </div>
           </div>
       </div>
@@ -106,31 +99,34 @@
               </h4>
               <hr  >
               <div class="row">
-                <div class="form-group has-label  col-md-4"><label> First Name </label><input
-                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                <div class="form-group has-label  col-md-4"><label> Prénom
+                </label>
+                  <input
+                    class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="firstname" name="firstname"
                     required="" type="text">
                 </div>
-                <div class="form-group has-label  col-md-4"><label> Last Name </label><input
-                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+                <div class="form-group has-label  col-md-4"><label>Nom </label><input
+                  class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="lastname" name="lastname"
                   required="" type="text">
               </div>
-              <div class="form-group has-label  col-md-4"><label> Phone </label><input
-                class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+              <div class="form-group has-label  col-md-4"><label> N° Telephone </label><input
+                class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="numroTel" name="numroTel"
                 required="" type="text">
             </div>
-            <div class="form-group has-label  col-md-4"><label> Adresse </label><input
-              class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+            <div class="form-group has-label  col-md-4"><label> Address
+            </label><input
+              class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="address" name="address"
               required="" type="text">
           </div>
-          <div class="form-group has-label  col-md-4"><label> email </label><input
-            class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+          <div class="form-group has-label  col-md-4"><label> Email </label><input
+            class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="emailDirector" name="email"
             required="" type="email">
         </div>
-        <div class="form-group has-label  col-md-4"><label> Password </label><input
-          class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="email" name="email"
+        <div class="form-group has-label  col-md-4"><label> Mot de passe </label><input
+          class="form-control ng-untouched ng-pristine ng-invalid" formcontrolname="passwordDirector" name="email"
           required="" type="password">
       </div>
-      <div class="form-group has-label  col-md-6"><label> Avatar </label>
+      <div class="form-group has-label  col-md-6"><label> Photo </label>
         <div class="row">
           <div class="col-md-6">
             <div class="input-group " >
@@ -141,7 +137,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <img [src]="urlPreview" *ngIf="urlPreview">
+            <img [src]="urlDirector" *ngIf="urlDirector">
           </div>
         </div>
     </div>
@@ -154,10 +150,8 @@
               <div class="row">
               
               <div class="form-group has-label  col-md-4"><label>  Type d'offre </label>
-                <select class="custom-select  text-black" >
-                  <option  value="semaine">Semaine</option>
-                  <option value="mois">Mois</option>
-                  <option value="annualire">Annualire</option>
+                <select class="custom-select  text-black"  formcontrolname="offreId" >
+                  <option  [value]="off.id" *ngFor="let off of offreList"> <span class="spanName">{{off.name}} :</span> {{off.duration}} {{getUnit(off.unit)}} / {{off.price}} DT</option>
                 </select>
             </div>
             
@@ -172,7 +166,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <img [src]="urlStyle" *ngIf="urlStyle">
+              <img [src]="urlpayment_receipt" *ngIf="urlpayment_receipt">
             </div>
           </div>
       </div>

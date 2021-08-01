@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -6,5 +7,20 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "black-dashboard-angular";
+  constructor( private route: ActivatedRoute, private router: Router, ) {
+    this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
+  }
+
+  wichRoute(currentUser) {    
+       if (currentUser  && currentUser.role === "admin") {            
+             this.router.navigate(['/admin']);
+         }else if(currentUser && currentUser.role === "manager") {
+          console.log('ok');
+
+             this.router.navigate(['/manager']);
+        }else {
+            this.router.navigate(['/login']);
+         }
+}
+ 
 }

@@ -16,10 +16,20 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(private formBuilder: FormBuilder , private authService : AuthService ,  private route: ActivatedRoute, private router: Router, ) {
-    if (this.authService.currentUserValue) {
-      console.log(this.authService.currentUserValue);
-      this.router.navigate(['/']);
-  }
+    if (JSON.parse(localStorage.getItem('currentUser'))) {
+      this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
+    }
+   }
+
+
+   wichRoute(currentUser) {        
+           if (currentUser  && currentUser.role === "admin") {            
+                 this.router.navigate(['/admin']);
+             }else if(currentUser && currentUser.role === "manager") {               
+                 this.router.navigate(['/manager']);
+            }else {
+                this.router.navigate(['/login']);
+             }
    }
 
   ngOnInit() {
@@ -29,7 +39,7 @@ export class LoginComponent implements OnInit {
         //  password: ['', [Validators.required, Validators.minLength(6)]],
       });
 
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 
@@ -46,7 +56,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
           data => {
-              this.router.navigate([this.returnUrl]);
+            this.wichRoute(data.data.user)
           },
           error => {
               this.error = error;

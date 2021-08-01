@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   public currentUser:any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient , private router: Router,) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 }
 
@@ -29,6 +30,7 @@ login(email, password) {
 
 logout() {
     localStorage.clear();
+    this.router.navigate(['/login']);
 }
 
 }

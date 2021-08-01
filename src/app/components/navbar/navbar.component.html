@@ -36,15 +36,15 @@
           </a>
           <ul class=" dropdown-navbar" ngbDropdownMenu>
             <li class=" nav-link">
-              <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem routerLink="/manger/profile/edit">
+              <a class=" nav-item" ngbDropdownItem routerLink="/manger/profile/edit">
                 Saif Eddine Hajji
               </a>
             </li>
             <li class=" dropdown-divider"></li>
             <li class=" nav-link">
-              <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem routerLink="/login">
+              <button class=" nav-item" (click)="authService.logout()" ngbDropdownItem >
                 Déconnexion
-              </a>
+              </button>
             </li>
           </ul>
         </li>

@@ -18,7 +18,7 @@ GetAllOffers()
 {
   this._offersService.getAlOffers().subscribe((res:any)=>{
     this.allOffers=res.data;
-    console.log(this.allOffers)
+   // console.log(this.allOffers)
   })
 }
 changeStatus(id,status) {

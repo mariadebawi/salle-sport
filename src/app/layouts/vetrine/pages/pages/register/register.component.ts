@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OffersModel } from 'src/app/models/offers.model';
+import { OffersService } from 'src/app/services/offers.service';
 
 @Component({
   selector: 'app-register',
@@ -6,13 +8,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  url: any; 
-  urlPreview:any;
-  urlStyle:any;
+	urlSalle: any; 
+	urlDirector:any;
+	urlpayment_receipt:any;
 	msg = "";
-  constructor() { }
+	offreList : OffersModel[] = [] ;
+
+  constructor(private offreService : OffersService) { }
 
   ngOnInit() {
+	this.getOffreList()
+  }
+
+  getOffreList() {
+    this.offreService.getAlOffers().subscribe((res:any)=>{
+		res.data.forEach(e => {
+			if(e.status) {
+				this.offreList.push(e);
+			}
+		});		
+	  })
+  }
+
+  getUnit(unit : string) {
+     if(unit === 'day') { return 'jours' ;}
+	 if(unit === 'mouth') { return 'mois' ;}
+	 if(unit === 'year') { return 'année' ;}
   }
 
 	selectFile(event: any) { 
@@ -33,8 +54,7 @@ export class RegisterComponent implements OnInit {
 		
 		reader.onload = (_event) => {
 			this.msg = "";
-			this.url = reader.result; 
-      this.urlPreview= reader.result; 
+            this.urlSalle= reader.result; 
 		}
 	}
 
@@ -56,7 +76,7 @@ export class RegisterComponent implements OnInit {
 		
 		reader.onload = (_event) => {
 			this.msg = "";
-      this.urlPreview= reader.result; 
+      this.urlDirector= reader.result; 
 		}
 	}
 
@@ -79,7 +99,7 @@ export class RegisterComponent implements OnInit {
 		
 		reader.onload = (_event) => {
 			this.msg = "";
-      this.urlStyle= reader.result; 
+      this.urlpayment_receipt= reader.result; 
 		}
 	}
 
