@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OffersModel } from 'src/app/models/offers.model';
 import { OffersService } from 'src/app/services/offers.service';
 
@@ -13,12 +14,36 @@ export class RegisterComponent implements OnInit {
 	urlpayment_receipt:any;
 	msg = "";
 	offreList : OffersModel[] = [] ;
-
-  constructor(private offreService : OffersService) { }
+	registerForm: FormGroup;
+	submitted = false;
+	returnUrl: string;
+	error = '';
+  
+  constructor(private formBuilder: FormBuilder ,private offreService : OffersService) { }
 
   ngOnInit() {
-	this.getOffreList()
+	this.getOffreList() ;
+	this.registerForm = this.formBuilder.group({
+	  nomSalle: ['', [Validators.required]],
+	  adresseSalle: ['', [Validators.required]],
+	  urlFacebookSalle: [''],
+	  jourConge: ['', [Validators.required]],
+	  codeFiscal: ['', [Validators.required]],
+	  description: [''],
+	  urlSalle: ['', [Validators.required]],
+	  lastname  :['', [Validators.required]],
+	  firstname:['', [Validators.required]],
+	  numroTel:['', [Validators.required]],
+	  addressDirector:['', [Validators.required]],
+	  emailDirector : ['', [Validators.required, Validators.email]],
+	  passwordDirector:['', [Validators.required]],
+	  urlDirector: [''],
+	  offreId:['', [Validators.required]],
+	  urlpayment_receipt:['', [Validators.required]],
+	});
   }
+
+  get f() { return this.registerForm.controls; }
 
   getOffreList() {
     this.offreService.getAlOffers().subscribe((res:any)=>{
@@ -29,6 +54,7 @@ export class RegisterComponent implements OnInit {
 		});		
 	  })
   }
+
 
   getUnit(unit : string) {
      if(unit === 'day') { return 'jours' ;}
@@ -101,6 +127,17 @@ export class RegisterComponent implements OnInit {
 			this.msg = "";
       this.urlpayment_receipt= reader.result; 
 		}
+	}
+
+
+	regiter() {
+		this.submitted = true;
+		if (this.registerForm.invalid) {        
+			return;
+		}
+	    
+		console.log(this.registerForm.value);
+		
 	}
 
 }

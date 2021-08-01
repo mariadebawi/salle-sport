@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: "manager",
     component: MangerComponent,
-    //canActivate: [AuthGuard] ,
+    canActivate: [AuthGuard] ,
     children: [
       {
         path: "",

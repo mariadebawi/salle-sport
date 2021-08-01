@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  registerForm: FormGroup;
+  loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
   error = '';
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-      this.registerForm = this.formBuilder.group({
+      this.loginForm = this.formBuilder.group({
           email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required]],
         //  password: ['', [Validators.required, Validators.minLength(6)]],
@@ -44,12 +44,12 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
+  get f() { return this.loginForm.controls; }
 
   login() {
       this.submitted = true;
       // stop here if form is invalid
-      if (this.registerForm.invalid) {        
+      if (this.loginForm.invalid) {        
           return;
       }
       this.authService.login(this.f.email.value, this.f.password.value)

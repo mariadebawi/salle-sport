@@ -17,7 +17,7 @@ export const ManagerLayoutRoutes: Routes = [
     path: '',
     component: MangerComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'clients'  },
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard'  },
       { path: "dashboard", component: DashboardComponent },
       { path: "activities", component: ActitviesListComponent },
       { path: "activities/add", component: AddActivityComponent },

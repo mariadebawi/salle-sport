@@ -27,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   },
   {
-    path: "/admin/mangers",
+    path: "/admin/managers",
     title: "mangers",
     icon: "icon-single-02",
     class: ""
