@@ -6,6 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { MangerComponent } from "./layouts/manger/manger.component";
 import { VetrineComponent } from "./layouts/vetrine/vetrine.component";
+import { AuthGuard } from "./services/auth.guard";
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
   {
     path: "admin",
     component: AdminLayoutComponent,
+     canActivate: [AuthGuard] ,
     children: [
       {
         path: "",
@@ -38,6 +40,7 @@ const routes: Routes = [
   {
     path: "manger",
     component: MangerComponent,
+    canActivate: [AuthGuard] ,
     children: [
       {
         path: "",
@@ -58,7 +61,7 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
+      useHash: false
     })
   ],
   exports: [RouterModule]

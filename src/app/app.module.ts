@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
 
@@ -14,6 +14,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { MangerComponent } from "./layouts/manger/manger.component";
 import { VetrineComponent } from "./layouts/vetrine/vetrine.component";
+import { BasicAuthInterceptor } from "./services/basic-auth.interceptor";
+import { ErrorInterceptor } from "./services/error.interceptor";
 
 
 @NgModule({
@@ -24,11 +26,16 @@ import { VetrineComponent } from "./layouts/vetrine/vetrine.component";
     ComponentsModule,
     NgbModule,
     RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
   declarations: [AppComponent, AdminLayoutComponent , MangerComponent , VetrineComponent],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
