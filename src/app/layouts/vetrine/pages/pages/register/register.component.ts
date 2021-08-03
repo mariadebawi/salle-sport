@@ -6,6 +6,7 @@ import { OffersModel } from 'src/app/models/offers.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { OffersService } from 'src/app/services/offers.service';
 import * as moment from 'moment';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -30,14 +31,10 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder ,private offreService : OffersService  , private authService : AuthService , private router: Router,) { }
 
   ngOnInit() {
-	  const date = new Date() ;
-	  console.log(moment(date).format('YYYY-MM-DD'));
-	  
-	
 	this.getOffreList() ;
 	this.registerForm = this.formBuilder.group({
 	  nomSalle: ['', [Validators.required]],
-	  adresseSalle: ['', [Validators.required]],
+	  adresseSalle: [''],
 	  urlFacebookSalle: [''],
 	  jourConge: ['', [Validators.required]],
 	  codeFiscal: ['', [Validators.required]],
@@ -45,7 +42,7 @@ export class RegisterComponent implements OnInit {
 	  lastname  :['', [Validators.required]],
 	  firstname:['', [Validators.required]],
 	  numroTel:['', [Validators.required]],
-	  addressDirector:['', [Validators.required]],
+	  addressDirector:[''],
 	  emailDirector : ['', [Validators.required, Validators.email]],
 	  passwordDirector:['', [Validators.required]],
 	  offreId:['', [Validators.required]],
@@ -64,7 +61,6 @@ export class RegisterComponent implements OnInit {
 	  })
   }
 
-
   getUnit(unit : string) {
      if(unit === 'day') { return 'jours' ;}
 	 if(unit === 'mouth') { return 'mois' ;}
@@ -76,7 +72,7 @@ export class RegisterComponent implements OnInit {
 			this.msg = 'You must select an image';
 			return;
 		}
-		
+
 		var mimeType = event.target.files[0].type;
 		
 		if (mimeType.match(/image\/*/) == null) {
@@ -192,19 +188,25 @@ export class RegisterComponent implements OnInit {
 		  this.submitted = true;
 		 if (this.registerForm.invalid) {    			    
 		 	return;
-		 }
-		// console.log(this.registerObject);
-		
+		 }		
 		 this.authService.register(this.registerObject)
 		 .pipe(first())
 		 .subscribe(
 		 	(res :any) => {
 			 if(res.success){
-				this.router.navigate(['/login']);
+				//this.router.navigate(['/login']);
+				Swal.fire(
+					'Abonnement	!',
+					'votre Abonnement a été effectuée avec succés.',
+					'success'
+				  )
 			 }
 			 else {
-				 console.log(res);
-				 
+				Swal.fire(
+					'Abonnement	!',
+					`erreur : ${res.message}` ,
+					'error'
+				  )
 			 }
 		 	},
 		 	error => {
