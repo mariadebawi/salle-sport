@@ -45,7 +45,8 @@
                 <div class=" input-group-prepend">
                   <div class=" input-group-text"><i class=" tim-icons icon-email-85"></i></div>
                 </div>
-                <input type="email" formControlName="email" placeholder="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <input type="email" formControlName="email" placeholder="email" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                             <div *ngIf="f.email.errors.required" style="color: #0e84f8">L'email est obligatoire</div>
                             <div *ngIf="f.email.errors.email">L'email doit être une adresse e-mail valide
