@@ -13,6 +13,7 @@ import { MangersComponent } from './pages/mangers/mangers.component';
 import { OffersComponent } from './pages/offer/offers/offers.component';
 import { GymsComponent } from './pages/gym/gyms/gyms.component';
 import { DetailsGymComponent } from './pages/gym/details-gym/details-gym.component';
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { DetailsGymComponent } from './pages/gym/details-gym/details-gym.compone
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgxPaginationModule 
   ],
   declarations: [
     DashboardComponent,

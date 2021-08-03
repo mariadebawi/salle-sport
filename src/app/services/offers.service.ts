@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {stripUnnecessaryQuotes} from '@angular/compiler/src/render3/view/style_parser';
 
 @Injectable({
@@ -10,7 +10,10 @@ export class OffersService {
   BASEURL=environment.basUrl;
   constructor(private http: HttpClient) { }
 
-  getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
+
+  getAlOffers(page:string) {
+    let params = new HttpParams().set('page', page); 
+    return this.http.get(this.BASEURL+`offers/`, { params: params } )}
 
   changeStatus(id,status)
   { 

@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   getOffreList() {
-    this.offreService.getAlOffers().subscribe((res:any)=>{
+    this.offreService.getAlOffers('1').subscribe((res:any)=>{
 		res.data.forEach(e => {
 			if(e.status) {
 				this.offreList.push(e);
@@ -194,23 +194,19 @@ export class RegisterComponent implements OnInit {
 		 .subscribe(
 		 	(res :any) => {
 			 if(res.success){
-				//this.router.navigate(['/login']);
 				Swal.fire(
 					'Abonnement	!',
 					'votre Abonnement a été effectuée avec succés.',
 					'success'
 				  )
 			 }
-			 else {
-				Swal.fire(
-					'Abonnement	!',
-					`erreur : ${res.message}` ,
-					'error'
-				  )
-			 }
 		 	},
 		 	error => {
-		 		this.error = error;
+				Swal.fire(
+					'Abonnement	!',
+					`<b>Erreur :</b> ${error}` ,
+					'error'
+				  )
 		 	});
 		
 	}

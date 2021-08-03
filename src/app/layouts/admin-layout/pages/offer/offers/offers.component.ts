@@ -10,16 +10,30 @@ import * as moment from 'moment';
 })
 export class OffersComponent implements OnInit {
    allOffers:OffersModel[];
+   page="1" ;
+   config: any;
+  public labels: any = {
+      previousLabel: '&nbsp;',
+      nextLabel: '&nbsp;',
+      screenReaderPaginationLabel: 'Pagination',
+      screenReaderPageLabel: 'page',
+      screenReaderCurrentLabel: `You're on page`
+  };
   constructor(private _offersService:OffersService) { }
   ngOnInit(): void {
     this.GetAllOffers();
   }
 
-  GetAllOffers()
-  {
-    this._offersService.getAlOffers().subscribe((res:any)=>{
+  GetAllOffers(){
+    this._offersService.getAlOffers(this.page).subscribe((res:any)=>{
       this.allOffers=res.data;
-    // console.log(this.allOffers)
+      console.log(this.allOffers);
+  
+      this.config = {
+        itemsPerPage: 10,
+        currentPage: 1,
+       totalItems: this.allOffers.length
+      };
     })
   }
 
@@ -47,5 +61,9 @@ export class OffersComponent implements OnInit {
   if(unit === 'mouth') { return 'mois' ;}
   if(unit === 'year') { return 'année' ;}
  }
+
+ getPage(p) {   
+  this.page = p.toString();
+  }
 
 }
