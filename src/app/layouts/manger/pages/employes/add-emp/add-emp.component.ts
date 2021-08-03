@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CoachsService} from "../../../../../services/coachs.service";
 
 @Component({
   selector: 'app-add-emp',
@@ -6,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-emp.component.scss']
 })
 export class AddEmpComponent implements OnInit {
+  constructor()
+  {
 
-  constructor() { }
-
+  }
   ngOnInit(): void {
   }
 

@@ -11,4 +11,8 @@ export class ActivityService {
         getAllActivites() { return this.http.get(this.BASEURL+`activities`); }
         deleteActivity(id)  { return this.http.delete(this.BASEURL+'activities'+'/'+id); }
         changeStatus(id,status)  { return this.http.post(this.BASEURL+'activities'+'/'+id,status);}
+      add(data:any) {
+        return this.http.post<any>(this.BASEURL+`activities`, data);
+
       }
+}

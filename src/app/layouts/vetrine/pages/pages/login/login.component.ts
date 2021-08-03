@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
    }
 
 
-   wichRoute(currentUser) {        
-           if (currentUser  && currentUser.role === "admin") {            
+   wichRoute(currentUser) {
+           if (currentUser  && currentUser.role === "admin") {
                  this.router.navigate(['/admin']);
-             }else if(currentUser && currentUser.role === "manager") {               
+             }else if(currentUser && currentUser.role === "manager") {
                  this.router.navigate(['/manager']);
             }else {
                 this.router.navigate(['/login']);
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
           password: ['', [Validators.required]],
         //  password: ['', [Validators.required, Validators.minLength(6)]],
       });
-
      // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
@@ -49,9 +48,7 @@ export class LoginComponent implements OnInit {
   login() {
       this.submitted = true;
       // stop here if form is invalid
-      if (this.loginForm.invalid) {        
-          return;
-      }
+      if (this.loginForm.invalid) {return;}
       this.authService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
@@ -62,8 +59,6 @@ export class LoginComponent implements OnInit {
               this.error = error;
           });
 }
-  
 }
-  
 
 
