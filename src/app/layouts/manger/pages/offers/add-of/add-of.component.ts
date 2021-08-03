@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserObject} from "../../../../../models/coach.model";
+import {CoachsService} from "../../../../../services/coachs.service";
 
 @Component({
   selector: 'app-add-of',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddOfComponent implements OnInit {
 
-  constructor() { }
-
+ coachList : UserObject[] = [] ;
+  constructor(private coachService : CoachsService)
+  {
+    this.getAllCoach();
+  }
   ngOnInit(): void {
   }
-
+  getAllCoach() {
+    this.coachService.getAllCoach().subscribe((res: any) => {
+      this.coachList = res.data;
+    });
+  }
 }

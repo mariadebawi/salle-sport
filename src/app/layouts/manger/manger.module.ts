@@ -12,9 +12,10 @@ import { ListOfComponent } from './pages/offers/list-of/list-of.component';
 import { AddOfComponent } from './pages/offers/add-of/add-of.component';
 import { EditProfileComponent } from './pages/user/edit-profile/edit-profile.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(ManagerLayoutRoutes),],
+    imports: [CommonModule, RouterModule.forChild(ManagerLayoutRoutes), ReactiveFormsModule,],
   declarations: [   ActitviesListComponent, AddActivityComponent, ListComponent, AddEmpComponent, AddAdherentComponent, ListAdComponent, ListOfComponent, AddOfComponent, EditProfileComponent, DashboardComponent]
 })
 export class MangerModule { }

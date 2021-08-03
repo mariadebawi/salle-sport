@@ -8,5 +8,5 @@ import {HttpClient} from '@angular/common/http';
 export class CoachsService {
   BASEURL=environment.basUrl;
   constructor(private http: HttpClient) { }
-  getAllCoach() { return this.http.get(this.BASEURL+`coachs`); }
+  getAllCoach() { return this.http.get(this.BASEURL+`employees?role=coach`); }
 }
