@@ -16,19 +16,21 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Durée</th>
-              <th scope="col">Date de creation</th>
+              <th scope="col">Statut</th>
               <th scope="col">Prix</th>
+              <th scope="col">Date de creation</th>
               <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let offer of allOffers">
               <th scope="row">{{offer.id}}</th>
-              <td>{{offer.duration}} mois</td>
-              <td>{{offer.created_at|date}}</td>
-              <td>{{offer.price}}</td>
+              <td>{{offer.duration}} {{getUnit(offer.unit)}}</td>
+              <td><span class="badge" [ngClass]="{'badge-danger': !offer.status , 'badge-success': offer.status}" >{{getStatus(offer.status)}}</span></td>
+              <td>{{offer.price}} Dt</td>
+              <td>{{getDate(offer.created_at)}}</td>
               <td>
-                <a class="btn btn-danger btn-sm" *ngIf="offer.status==false" (click)="changeStatus(offer.id,true)"> bloquer</a>
+                <a class="btn btn-danger btn-sm mx-2" *ngIf="offer.status==false" (click)="changeStatus(offer.id,true)"> bloquer</a>
                 <a class="btn btn-primary btn-sm" *ngIf="offer.status==true" (click)="changeStatus(offer.id,false)"> débloquer</a>
               </td>
             </tr>

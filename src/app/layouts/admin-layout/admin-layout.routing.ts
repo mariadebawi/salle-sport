@@ -14,7 +14,7 @@ export const AdminLayoutRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard'  },
       { path: 'dashboard',component: DashboardComponent},
-      { path: 'mangers',component: MangersComponent},
+      { path: 'managers',component: MangersComponent},
       { path: 'offers',component: OffersComponent},
       { path: 'offers/add',component: AddOfferComponent},
       { path: 'gyms',component: GymsComponent},

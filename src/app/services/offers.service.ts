@@ -14,7 +14,7 @@ export class OffersService {
 
   changeStatus(id,status)
   { 
-    return this.http.post(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
+    return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
   }
 
 }

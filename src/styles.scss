@@ -21,6 +21,9 @@
     cursor: pointer;
 }
 
-input.is-invalid {
+input.is-invalid   {
     border-color: #ff8d72 !important;
+    .input-group-prepend  {
+        border-color: #ff8d72 !important;
+    }
 }
