@@ -16,6 +16,8 @@ import { MangerComponent } from "./layouts/manger/manger.component";
 import { VetrineComponent } from "./layouts/vetrine/vetrine.component";
 import { BasicAuthInterceptor } from "./services/basic-auth.interceptor";
 import { ErrorInterceptor } from "./services/error.interceptor";
+import { LoaderService } from "./services/loading.service";
+import { LoaderInterceptor } from "./services/loadertercept.service";
 
 
 @NgModule({
@@ -33,8 +35,11 @@ import { ErrorInterceptor } from "./services/error.interceptor";
   ],
   declarations: [AppComponent, AdminLayoutComponent , MangerComponent , VetrineComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    LoaderService ,
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true  },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+
 ],
   bootstrap: [AppComponent]
 })

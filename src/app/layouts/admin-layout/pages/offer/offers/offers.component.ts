@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {OffersService} from '../../../../../services/offers.service';
 import { OffersModel } from 'src/app/models/offers.model';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { LoaderService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-offers',
@@ -19,7 +21,10 @@ export class OffersComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private _offersService:OffersService) { }
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
+ 
+  constructor(private _offersService:OffersService ,     private loaderService: LoaderService
+    ) { }
   ngOnInit(): void {
     this.GetAllOffers();
   }
@@ -27,7 +32,6 @@ export class OffersComponent implements OnInit {
   GetAllOffers(){
     this._offersService.getAlOffers(this.page).subscribe((res:any)=>{
       this.allOffers=res.data;
-      console.log(this.allOffers);
   
       this.config = {
         itemsPerPage: 10,

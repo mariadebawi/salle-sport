@@ -1,14 +1,21 @@
-import { Component } from "@angular/core";
+import {  Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { LoaderService } from "./services/loading.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
-  constructor( private route: ActivatedRoute, private router: Router, ) {
+export class AppComponent   {
+  isLoading: Subject<boolean> = this.loaderService.isLoading;
+  constructor( private route: ActivatedRoute, private router: Router,  
+    private loaderService: LoaderService
+    ) {
+
     this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
+    
   }
 
   wichRoute(currentUser) {    
@@ -21,4 +28,6 @@ export class AppComponent {
          }
 }
  
+
+
 }
