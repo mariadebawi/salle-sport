@@ -34,6 +34,7 @@ export class OffersComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.GetAllOffers();
 
     this.offreForm = this.formBuilder.group({

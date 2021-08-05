@@ -14,6 +14,7 @@ import { OffersComponent } from './pages/offer/offers/offers.component';
 import { GymsComponent } from './pages/gym/gyms/gyms.component';
 import { DetailsGymComponent } from './pages/gym/details-gym/details-gym.component';
 import { NgxPaginationModule } from "ngx-pagination";
+import { NgToggleModule } from 'ng-toggle-button';
 
 @NgModule({
   imports: [
@@ -25,6 +26,8 @@ import { NgxPaginationModule } from "ngx-pagination";
     NgxPaginationModule ,
     ReactiveFormsModule,
     FormsModule,
+    NgToggleModule
+
   ],
   declarations: [
     DashboardComponent,

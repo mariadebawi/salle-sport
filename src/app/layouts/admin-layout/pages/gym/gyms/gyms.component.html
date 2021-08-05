@@ -22,42 +22,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr >
-              <th scope="row">1</th>
-              <td>mois</td>
-              <td>fff</td>
-              <td>gggg</td>
-              <td>gggg</td>
-              <td><img src="https://turbologo.com/articles/wp-content/uploads/2020/12/fitness-2.png" height="50px"> </td>
+            <tr *ngFor="let gym of allManagers" >
+              <th scope="row">{{gym.gym_id}}</th>
+              <td>{{gym.gym.name}}</td>
+              <td>{{gym.first_name}} {{gym.last_name}}    </td>
+              <td>{{gym.email}}</td>
+              <td>{{gym.phone}}</td>
+              <td><img  [src]="gym.gym.logo ? gym.gym.logo : './assets/img/fitness-2.png'" height="50px"> </td>
               <td>
                 <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
                 <a class="btn btn-primary btn-sm" routerLink="/admin/gyms/1"> <i class="icon-bullet-list-67"> </i></a>
               </td>
             </tr>
-            <tr >
-              <th scope="row">1</th>
-              <td>mois</td>
-              <td>fff</td>
-              <td>gggg</td>
-              <td>gggg</td>
-              <td><img src="https://turbologo.com/articles/wp-content/uploads/2020/12/fitness-2.png" height="50px"> </td>
-              <td>
-                <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class="icon-bullet-list-67"> </i></a>
-              </td>
-            </tr>
-            <tr >
-              <th scope="row">1</th>
-              <td>mois</td>
-              <td>fff</td>
-              <td>gggg</td>
-              <td>gggg</td>
-              <td><img src="https://turbologo.com/articles/wp-content/uploads/2020/12/fitness-2.png" height="50px"> </td>
-              <td>
-                <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class="icon-bullet-list-67"> </i></a>
-              </td>
-            </tr>
+          
             </tbody>
           </table>
         </div>

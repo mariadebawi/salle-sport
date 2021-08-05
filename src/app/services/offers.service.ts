@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {stripUnnecessaryQuotes} from '@angular/compiler/src/render3/view/style_parser';
 
 @Injectable({
   providedIn: 'root'

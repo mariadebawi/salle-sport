@@ -13,26 +13,37 @@
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Photo</th>
-              <th scope="col">Nom</th>
-              <th scope="col">Prénom</th>
+              <th scope="col">Nom Prenom</th>
               <th scope="col">Email</th>
               <th scope="col">Telephone</th>
               <th scope="col">Nom de salle de sport</th>
-              <th scope="col">action</th>
+              <th scope="col">Bloquer</th>
             </tr>
             </thead>
             <tbody>
-            <tr >
-              <th scope="row">1</th>
-              <td><img src="https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg" height="50px" style="border-radius: 50%"> </td>
-              <td>fff</td>
-              <td>gggg</td>
-              <td>gggg</td>
-              <td>gggg</td>
-              <td>gggg</td>
+            <tr   *ngFor="let mang of allManagers">
+              <th scope="row">{{mang.id}}</th>
+              <td><img [src]="mang.photo ? mang.photo : ' https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'" height="50px" style="border-radius: 50%"> </td>
+              <td>{{mang.first_name}} {{mang.last_name}}   </td>
+              <td>{{mang.email}}</td>
+              <td>{{mang.phone}}</td>
+              <td>{{mang.gym.name}}</td>
               <td>
-                <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class="icon-bullet-list-67"> </i></a>
+                <ng-toggle
+                (change)="changeValue(mang.id ,configg.value)"	
+                [(ngModel)]="!mang.status"
+                [disabled]="configg.disabled"
+                [width]="configg.width"
+                [height]="configg.height"
+                [margin]="configg.margin"
+                [labels]="configg.labels"
+                [color]="configg.color"
+                [switchColor]="configg.switchColor"
+                [fontColor]="configg.fontColor"
+                [fontSize]="configg.fontSize"
+              ></ng-toggle>
+                <!-- <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
+                <a class="btn btn-primary btn-sm"> <i class="icon-bullet-list-67"> </i></a> -->
               </td>
             </tr>
             </tbody>

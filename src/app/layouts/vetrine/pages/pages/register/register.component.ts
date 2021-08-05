@@ -173,6 +173,7 @@ export class RegisterComponent implements OnInit {
 		    address: this.registerForm.value.addressDirector,
 			addressGym: this.registerForm.value.urlSalle,
 			photo: this.avatarPath,
+			phone : this.registerForm.value.numroTel ,
 			name: this.registerForm.value.nomSalle,
 			description:this.registerForm.value.description,
 			code_fiscal: this.registerForm.value.codeFiscal,
