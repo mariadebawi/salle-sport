@@ -89,3 +89,8 @@ input.is-invalid   {
 .pagination-previous.disabled ,.pagination-next.disabled {
     display: none;
 }
+
+
+input , input:focus , input:hover {
+    color: #000 !important;
+}

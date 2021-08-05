@@ -36,9 +36,9 @@ import { LoaderInterceptor } from "./services/loadertercept.service";
   declarations: [AppComponent, AdminLayoutComponent , MangerComponent , VetrineComponent],
   providers: [
     LoaderService ,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true  },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
 
 ],
   bootstrap: [AppComponent]

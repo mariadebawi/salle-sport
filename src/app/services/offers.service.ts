@@ -15,9 +15,15 @@ export class OffersService {
     let params = new HttpParams().set('page', page); 
     return this.http.get(this.BASEURL+`offers/`, { params: params } )}
 
+
   changeStatus(id,status)
   { 
     return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
+  }
+
+
+  addNewOffre(newOffre)
+  { return this.http.post(this.BASEURL+`offers` , newOffre);
   }
 
 }
