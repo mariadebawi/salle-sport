@@ -11,7 +11,7 @@
   padding: $input-padding-y $input-padding-x;
   font-size: $font-size-base;
   line-height: $input-line-height;
-  color: $input-color;
+  color: #000;
   background-color: $input-bg;
   background-clip: padding-box;
   border: $input-border-width solid $input-border-color;
@@ -64,7 +64,6 @@ select.form-control {
     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
     // match the appearance of the native widget.
     // See https://github.com/twbs/bootstrap/issues/19398.
-    color: $input-color;
     background-color: $input-bg;
   }
 }
@@ -118,7 +117,6 @@ select.form-control {
   padding-bottom: $input-padding-y;
   margin-bottom: 0; // match inputs if this class comes on inputs with default margins
   line-height: $input-line-height;
-  color: $input-plaintext-color;
   background-color: transparent;
   border: solid transparent;
   border-width: $input-border-width 0;

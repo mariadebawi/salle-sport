@@ -5,7 +5,6 @@ import {OffersComponent} from './pages/offer/offers/offers.component';
 import {MangersComponent} from "./pages/mangers/mangers.component";
 import {GymsComponent} from "./pages/gym/gyms/gyms.component";
 import {DetailsGymComponent} from "./pages/gym/details-gym/details-gym.component";
-import {AddOfferComponent} from './pages/offer/add-offer/add-offer.component';
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -16,7 +15,6 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'dashboard',component: DashboardComponent},
       { path: 'managers',component: MangersComponent},
       { path: 'offers',component: OffersComponent},
-      { path: 'offers/add',component: AddOfferComponent},
       { path: 'gyms',component: GymsComponent},
       { path: 'gyms/:id',component: DetailsGymComponent},
     ]
