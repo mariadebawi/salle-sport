@@ -20,10 +20,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr >
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let offer of ListOffers">
+              <td>{{offer.id}}</td>
+              <td>{{offer.name}}</td>
+              <td>{{offer.duration}}</td>
               <td></td>
               <td></td>
               <td></td>

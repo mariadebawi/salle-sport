@@ -5,6 +5,7 @@ import {CoachsService} from '../../../../../services/coachs.service';
 import {ActivityService} from '../../../../../services/activity.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {first} from "rxjs/operators";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-add-activity',
@@ -33,7 +34,6 @@ export class AddActivityComponent implements OnInit {
   {
     this._CoachServ.getAllCoach().subscribe((res : any) =>{
       this.allcoachs=res.data;
-      console.log(this.allcoachs)
     })
   }
   save() {
@@ -46,12 +46,21 @@ export class AddActivityComponent implements OnInit {
     this._ActivitySer.add(this.saveForm.value)
       .pipe(first())
       .subscribe(
-        data => {
-          console.log('mergil');
-        },
-        error => {
-          this.error = error;
-        });
+        (res :any) => {
+          if (res.success) {
+            Swal.fire(
+              'Abonnement	!',
+              'l\'insertion est effectué avec success.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Abonnement	!',
+              `erreur : ${res.message}`,
+              'error'
+            )
+          }
+        })
   }
   changeCoachId($event)
   {

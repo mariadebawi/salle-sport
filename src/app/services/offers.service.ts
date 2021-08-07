@@ -11,11 +11,9 @@ export class OffersService {
   constructor(private http: HttpClient) { }
 
   getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
-
-  changeStatus(id,status)
-  { 
-    return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
-  }
+  add(data:any) {return this.http.post<any>(this.BASEURL+`offers`, data);}
+  getAllActivites() { return this.http.get(this.BASEURL+`activities?list=1`); }
+  changeStatus(id,status) {return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});}
 
 }
 

@@ -12,8 +12,7 @@ allAvtivity:ActivityModel[];
 
   ngOnInit() {
     this._activityServ.getAllActivites().subscribe((res : any) =>{
-     this.allAvtivity=res.data;
-     console.log(this.allAvtivity)
+     this.allAvtivity=res.data.list;
     })
   }
 

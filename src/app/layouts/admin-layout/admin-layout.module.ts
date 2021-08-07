@@ -6,7 +6,6 @@ import { FormsModule } from "@angular/forms";
 
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 
-
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { MangersComponent } from './pages/mangers/mangers.component';
