@@ -118,7 +118,7 @@
               <select class="custom-select  text-black"  formControlName="unit"
                 [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" (change)="onChange($event.target.value)">
                 <option value="day">Jours</option>
-                <option value="mounth">Mois</option>
+                <option value="month">Mois</option>
                 <option value="year">Année</option>
               </select>
               <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">

@@ -50,15 +50,12 @@ export class MangersComponent implements OnInit {
 
   changeValue(id , value) {
     console.log(value);
-    this.gymSerrvic.changeStatusMang(id,value).subscribe((res: any) => {
+    this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
       console.log(res);
       this.GetAllManagers();
       });
 
   }
-
-
-
 
   GetAllManagers() {
       this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
