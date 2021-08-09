@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-	urlSalle: any; 
+	urlSalle: any;
 	urlDirector:any;
 	urlpayment_receipt:any;
 	msg = "";
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
 	urlSallePath = ""
 	avatarPath = ""
 	urlPayment = ""
-  constructor(private formBuilder: FormBuilder ,private offreService : OffersService  , private authService : AuthService , private router: Router,) { }
+  constructor(private formBuilder: FormBuilder ,private offreService : OffersService  , private authService : AuthService , private router: Router) { }
 
   ngOnInit() {
 	this.getOffreList() ;
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
 			if(e.status) {
 				this.offreList.push(e);
 			}
-		});		
+		});
 	  })
   }
 
@@ -67,43 +67,43 @@ export class RegisterComponent implements OnInit {
 	 if(unit === 'year') { return 'année' ;}
   }
 
-	selectFile(event: any) { 
+	selectFile(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
 			return;
 		}
 
 		var mimeType = event.target.files[0].type;
-		
+
 		if (mimeType.match(/image\/*/) == null) {
 			this.msg = "Only images are supported";
 			return;
 		}
-		
+
 		this.authService.uploadFile(event.target.files[0])
         .pipe(first())
-        .subscribe((res: any) => {			
+        .subscribe((res: any) => {
             this.urlSallePath = res.data.path ;
          });
 
-		
+
 		var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
-		
+
 		reader.onload = (_event) => {
 			this.msg = "";
-            this.urlSalle= reader.result; 
+            this.urlSalle= reader.result;
 		}
 	}
 
-  selectFilePreview(event: any) { 
+  selectFilePreview(event: any) {
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
 			return;
 		}
-		
+
 		var mimeType = event.target.files[0].type;
-		
+
 		if (mimeType.match(/image\/*/) == null) {
 			this.msg = "Only images are supported";
 			return;
@@ -114,25 +114,25 @@ export class RegisterComponent implements OnInit {
         .subscribe((res: any) => {
             this.avatarPath = res.data.path
          });
-		
+
 		var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
-		
+
 		reader.onload = (_event) => {
 			this.msg = "";
-      this.urlDirector= reader.result; 
+      this.urlDirector= reader.result;
 		}
 	}
 
 
-  selectFilePrevStyle(event){ 
+  selectFilePrevStyle(event){
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
 			this.msg = 'You must select an image';
 			return;
 		}
-		
+
 		var mimeType = event.target.files[0].type;
-		
+
 		if (mimeType.match(/image\/*/) == null) {
 			this.msg = "Only images are supported";
 			return;
@@ -143,27 +143,27 @@ export class RegisterComponent implements OnInit {
         .subscribe((res: any) => {
             this.urlPayment = res.data.path
          });
-		
+
 		var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
-		
+
 		reader.onload = (_event) => {
 		 this.msg = "";
-         this.urlpayment_receipt= reader.result; 
+         this.urlpayment_receipt= reader.result;
 		}
 	}
 
 
 	onChange(value) {
 		this.offreId = value ;
-		this.offreList.forEach(e => {			
-			if(e.id == value) {				
+		this.offreList.forEach(e => {
+			if(e.id == value) {
 			   this.DateEnd.setTime(this.DateEnd.getTime() +  (e.duration * 24 * 60 * 60 * 1000));
 			}
 		  })
 	}
 
-	register() {	
+	register() {
 		const date = new Date()
 		this.registerObject = {
 			first_name: this.registerForm.value.firstname,
@@ -177,19 +177,19 @@ export class RegisterComponent implements OnInit {
 			name: this.registerForm.value.nomSalle,
 			description:this.registerForm.value.description,
 			code_fiscal: this.registerForm.value.codeFiscal,
-			logo: this.urlSallePath, 
+			logo: this.urlSallePath,
 			vacation_day: this.registerForm.value.jourConge,
 			url_fcb: this.registerForm.value.urlFacebookSalle,
 			start_at: moment(date).format('YYYY-MM-DD'),
-			end_at:   moment(this.DateEnd).format('YYYY-MM-DD'), 
-			payment_receipt: this.urlPayment, 
+			end_at:   moment(this.DateEnd).format('YYYY-MM-DD'),
+			payment_receipt: this.urlPayment,
 			offer_id:Number(this.offreId),
 		}
-		
+
 		  this.submitted = true;
-		 if (this.registerForm.invalid) {    			    
+		 if (this.registerForm.invalid) {
 		 	return;
-		 }		
+		 }
 		 this.authService.register(this.registerObject)
 		 .pipe(first())
 		 .subscribe(
@@ -209,7 +209,7 @@ export class RegisterComponent implements OnInit {
 					'error'
 				  )
 		 	});
-		
+
 	}
 
 }

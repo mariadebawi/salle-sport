@@ -31,7 +31,9 @@
                   >
                     <option *ngFor="let coach of allcoachs" value="{{coach.id}}">{{coach.first_name}} {{coach.last_name}}</option>
                   </select>
-
+                  <div *ngIf="submitted && f.coach_id.errors" class="invalid-feedback" style="color: #0e84f8">
+                    <div *ngIf="f.coach_id.errors.required">l'identifiant de coach  est obligatoire</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -40,7 +42,10 @@
                 <div class=" form-group">
                   <label> Description </label>
                   <textarea class=" form-control" rows="5" name="description" formControlName="description"
-                          >description...</textarea>
+                            [ngClass]="{ 'is-invalid': submitted && f.description.errors}">description...</textarea>
+                  <div *ngIf="submitted && f.description.errors" class="invalid-feedback" style="color: #0e84f8">
+                    <div *ngIf="f.description.errors.required">le description est obligatoire</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,7 +54,7 @@
             </div>
           </form>
         </div>
-      
+
       </div>
     </div>
   </div>
