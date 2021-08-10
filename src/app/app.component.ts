@@ -16,6 +16,9 @@ export class AppComponent   {
 
     this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
     
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
   }
 
   wichRoute(currentUser) {    

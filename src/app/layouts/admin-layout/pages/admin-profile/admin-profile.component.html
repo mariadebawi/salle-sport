@@ -48,21 +48,27 @@
                 </div>
               </div>
             </div>
-            <div class=" row" *ngIf="me.role ===  'admin' ">
+            <div class=" row">
               <div class=" col-md-6">
                 <div class=" form-group form-password">
-                  <label> Mot de passe </label>
-                  <input [type]="passwordType"  formControlName="password" placeholder="Mot de passe" class="form-control"
-                   />
+                  <label> Ancien mot de passe </label>
+                  <input [type]="passwordType"  formControlName="oldPassword" placeholder="Mot de passe" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.oldPassword.errors }" />
                   <i class="fa" [ngClass]="passwordType === 'password' ? 'fa-eye' : 'fa-eye-slash '" (click)="ShowPassword()"></i>
-                        
+                         <div *ngIf="submitted && f.oldPassword.errors" class="invalid-feedback">
+                             <div *ngIf="f.oldPassword.errors.required" >Le mot de passe est obligatoire</div>
+                             </div>
                 </div>
               </div>
               <div class=" col-md-6">
                 <div class=" form-group form-password">
-                  <label> Confirmer le passe </label>
-                  <input  [type]="passwordType"  formControlName="confirmPassword" placeholder="Confirmer" class="form-control"  />
+                  <label> Nouveau mot de passe  </label>
+                  <input  [type]="passwordType"  formControlName="newPassword" placeholder="Confirmer" class="form-control" 
+                  [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }" />
                   <i class="fa" [ngClass]="passwordType === 'password' ? 'fa-eye' : 'fa-eye-slash '" (click)="ShowPassword()"></i>
+                  <div *ngIf="submitted && f.newPassword.errors" class="invalid-feedback">
+                    <div *ngIf="f.newPassword.errors.required" >Le nouveau mot de passe est obligatoire</div>
+                    </div>
                 </div>
               </div>
             </div>

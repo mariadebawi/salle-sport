@@ -26,37 +26,18 @@ export class AdminProfileComponent implements OnInit {
     this.me = JSON.parse(localStorage.getItem('currentUser')) ;
     
     this.photoProfile= this.me.photo ;
-    if(this.me.role == 'admin') {
+
       this.adminProfile = this.formBuilder.group({
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         address: [''],
         phone: [''],
-        password: [''],
-        confirmPassword: [''],
-  
-    }, {validators: this.checkPasswords})
-    }else {
-      this.adminProfile = this.formBuilder.group({
-        first_name: ['', [Validators.required]],
-        last_name: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        address: [''],
-        phone: [''],
-        password: ['', [Validators.required]],
-        confirmPassword: ['', [Validators.required]],
-    })
+        oldPassword: [''],
+        newPassword: [''],
+      })
     }
-  }
-
-
-  checkPasswords = function (group) {
-    var pass = group.get('password').value;
-    var confirmPass = group.get('confirmPassword').value;
-    return pass === confirmPass ? null : { notSame: true };
-};
-
+  
   get f() { return this.adminProfile.controls; }
     
   
@@ -98,21 +79,28 @@ export class AdminProfileComponent implements OnInit {
 
   updateProfile() {
     this.submitted = true;
-   const  updatePass = {
-      newPassword:this.adminProfile.value.password, 
-      oldPassword:this.adminProfile.value.password
-    }
-    this.profileService.updatePAsswordAdmin(updatePass) ;
-    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,this.photoProfile).subscribe((res: any) => { 
-      if(res.success) {
-        Swal.fire(
-          'Modification!',
-          'Modification de profile est effectuée avec succées',
-          'success'
-        )
-      }
-      
-    })
+  
+    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,this.photoProfile)
+      .subscribe(
+        (res : any) => {
+          if(res.success) {
+            Swal.fire(
+              'Modification!',
+              'Modification de profile est effectuée avec succées',
+              'success'
+            )     
+            localStorage.removeItem('currentUser')       
+            localStorage.setItem('currentUser', JSON.stringify(res.data));
+          }
+        },
+        error => {
+          Swal.fire(
+            'Modification!',
+            `<b>Erreur :</b> ${error}` ,
+            'error'
+            )
+        });
+    
 
 }
 
