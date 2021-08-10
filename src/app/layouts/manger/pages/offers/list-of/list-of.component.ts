@@ -19,4 +19,5 @@ ListOffers:OffersModel;
       this.ListOffers=res.data;
   })
   }
+  //
 }
