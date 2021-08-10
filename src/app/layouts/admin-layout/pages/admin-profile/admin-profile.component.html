@@ -1,0 +1,130 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-8">
+      <div class=" card">
+        <div class=" card-header"><h5 class=" title">Modifier Mon  Profile</h5></div>
+        <div class=" card-body">
+          <form class="form" [formGroup]="adminProfile" (ngSubmit)="updateProfile()">
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Nom </label>
+                  <input type="text"   [(ngModel)]="me.first_name" formControlName="first_name" placeholder="first_name" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                         <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                             <div *ngIf="f.first_name.errors.required" >Le nom est obligatoire</div>
+                             </div>
+                  </div>
+              </div>
+              <div class=" col-md-4 pl-md-1">
+                <div class=" form-group">
+                  <label> Prénom </label>
+                  <input type="text"   [(ngModel)]="me.last_name" formControlName="last_name" placeholder="last_name" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                         <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                             <div *ngIf="f.last_name.errors.required" >Le prenom est obligatoire</div>
+                             </div>
+                </div>
+              </div>
+              <div class=" col-md-4 pl-md-1">
+                <div class=" form-group">
+                  <label> Email </label>
+                  <input type="email"  [(ngModel)]="me.email"   formControlName="email" placeholder="email" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                             <div *ngIf="f.email.errors.required" >L'email est obligatoire</div>
+                             <div *ngIf="f.email.errors.email">L'email doit être une adresse e-mail valide
+                             </div>
+                         </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Address </label>
+                  <input type="text"  [(ngModel)]="me.address"   formControlName="address" placeholder="address" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class=" row" *ngIf="me.role ===  'admin' ">
+              <div class=" col-md-6">
+                <div class=" form-group form-password">
+                  <label> Mot de passe </label>
+                  <input [type]="passwordType"  formControlName="password" placeholder="Mot de passe" class="form-control"
+                   />
+                  <i class="fa" [ngClass]="passwordType === 'password' ? 'fa-eye' : 'fa-eye-slash '" (click)="ShowPassword()"></i>
+                        
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <div class=" form-group form-password">
+                  <label> Confirmer le passe </label>
+                  <input  [type]="passwordType"  formControlName="confirmPassword" placeholder="Confirmer" class="form-control"  />
+                  <i class="fa" [ngClass]="passwordType === 'password' ? 'fa-eye' : 'fa-eye-slash '" (click)="ShowPassword()"></i>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Phone </label>
+                  <input type="number"   [(ngModel)]="me.phone" formControlName="phone" placeholder="phone" class="form-control"/>
+                </div>
+              </div>
+              
+              <div class=" col-md-8 pl-md-1 mt-4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="input-group ">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" (change)="selectFilePrevStyle($event)"
+                        [ngClass]="{ 'is-invalid': submitted && !photoProfile }"
+                          id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <div *ngIf="submitted && !photoProfile" class="invalid-feedback " style="margin-top: 4rem !important;">
+                          <div *ngIf="submitted && !photoProfile">Photo de profile</div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <img [src]="photoProfile" *ngIf="photoProfile">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" card-footer">
+              <button class=" btn btn-fill btn-success btn-block mt-2" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+   
+      </div>
+    </div>
+    <div class=" col-md-4">
+      <div class=" card card-user">
+        <div class=" card-body">
+          <p class=" card-text"></p>
+          <div class=" author">
+            <div class=" block block-one"></div>
+            <div class=" block block-two"></div>
+            <div class=" block block-three"></div>
+            <div class=" block block-four"></div>
+            <a href="javascript:void(0)">
+              <img alt="..." class=" avatar" [src]="me.photo" />
+
+              <h5 class=" title">  {{me.first_name}} {{me.last_name}}</h5>
+            </a>
+            <p class=" description"> {{me.role}}</p>
+            <p class=" description">+216 {{me.phone}}</p>
+            <p class=" description">{{me.email}}</p>
+            <p class=" description">{{me.address}}</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

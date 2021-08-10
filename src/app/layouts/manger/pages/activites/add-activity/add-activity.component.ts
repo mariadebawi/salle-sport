@@ -36,6 +36,7 @@ export class AddActivityComponent implements OnInit {
       this.allcoachs=res.data;
     })
   }
+
   save() {
     console.log(this.saveForm.value)
     this.submitted = true;

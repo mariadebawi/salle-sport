@@ -5,6 +5,7 @@ import {OffersComponent} from './pages/offer/offers/offers.component';
 import {MangersComponent} from "./pages/mangers/mangers.component";
 import {GymsComponent} from "./pages/gym/gyms/gyms.component";
 import {DetailsGymComponent} from "./pages/gym/details-gym/details-gym.component";
+import { AdminProfileComponent } from "./pages/admin-profile/admin-profile.component";
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -17,6 +18,8 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'offers',component: OffersComponent},
       { path: 'gyms',component: GymsComponent},
       { path: 'gyms/:id',component: DetailsGymComponent},
+      { path: 'my-profile',component: AdminProfileComponent},
+
     ]
     }
 
