@@ -15,9 +15,8 @@ ListOffers:OffersModel;
   }
   getListOffer()
   {
-    this._OfferSer.getAlOffers().subscribe((res : any) =>{
+    this._OfferSer.getAlOffers('1').subscribe((res : any) =>{
       this.ListOffers=res.data;
-      console.log(this.ListOffers)
   })
   }
 }
