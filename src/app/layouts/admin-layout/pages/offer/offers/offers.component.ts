@@ -19,8 +19,6 @@ export class OffersComponent implements OnInit {
    closeResult = '';
    page="1" ;
    config: any;
-   offreForm: FormGroup;
-   submitted = false;
    configg = {
     value: false,
     name: "",
@@ -49,6 +47,9 @@ export class OffersComponent implements OnInit {
       unchecked: "#ffffff"
     }
   };
+   offreForm: FormGroup;
+   submitted = false;
+ 
   public labels: any = {
       previousLabel: '&nbsp;',
       nextLabel: '&nbsp;',

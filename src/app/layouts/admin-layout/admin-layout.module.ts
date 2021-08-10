@@ -24,9 +24,9 @@ import { AdminProfileComponent } from "./pages/admin-profile/admin-profile.compo
     HttpClientModule,
     NgbModule,
     NgxPaginationModule ,
+    NgToggleModule,
     ReactiveFormsModule,
     FormsModule,
-    NgToggleModule
 
   ],
   declarations: [

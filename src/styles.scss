@@ -95,7 +95,13 @@ input , input:focus , input:hover {
     color: #000 !important;
 }
 
+textarea {
+    color: #000 !important;
+}
 
+button.icon-shape {
+    border: none;
+}
 .icon-shape {
     display: inline-flex;
     padding: 12px;

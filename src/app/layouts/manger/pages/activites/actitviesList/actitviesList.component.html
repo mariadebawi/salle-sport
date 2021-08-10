@@ -7,38 +7,191 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des activites</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" routerLink="/manager/activities/add" >+</a>
+          <a class="btn btn-success" style="float: right" (click)="open(content)">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
               <th>Id</th>
               <th>Nom</th>
               <th>Description</th>
-              <th>Date de creation</th>
               <th>Nom de coach</th>
-              <th>action</th>
+              <th>Status</th>
+              <th>Date de creation</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let activity of allAvtivity">
+            <tr *ngFor="let activity of allAvtivity | paginate: config">
               <td>{{activity.id}}</td>
               <td>{{activity.name}}</td>
               <td>{{activity.description}}</td>
-              <td>{{activity.created_at|date}}</td>
               <td>{{activity.coach.first_name}} {{activity.coach.last_name}}</td>
+              <td><span class="badge"
+                [ngClass]="{'badge-danger': !activity.status , 'badge-success': activity.status}">{{getStatus(activity.status)}}</span>
+            </td>
+              <td>{{getDate(activity.created_at)}}</td>
+
               <td>
-                <a class="btn btn-danger btn-sm" (click)="delete(activity.id)"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class=" tim-icons icon-pencil"> </i>
-                </a>
+                <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+                (change)="changeStatus(activity.id,activity.status)"	
+                [(ngModel)]="activity.status"
+                [disabled]="configg.disabled"
+                [width]="configg.width"
+                [height]="configg.height"
+                [margin]="configg.margin"
+                [labels]="configg.labels"
+                [color]="configg.color"
+                [switchColor]="configg.switchColor"
+                [fontColor]="configg.fontColor"
+                [fontSize]="configg.fontSize"
+              ></ng-toggle>
+              <button placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt , activity)">
+                <i class="fas fa-edit"></i>
+              </button>
               </td>
             </tr>
 
             </tbody>
           </table>
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+            <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
+              (pageChange)="config.currentPage = $event">
+              <div class="custom-pagination">
+                <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                  <span *ngIf="!p.isFirstPage()" (click)="p.previous()">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <ul class="pager">
+                  <li class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                    <span (click)="p.setCurrent(page.value)"
+                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                    <div *ngIf="p.getCurrent() === page.value">
+                      <span>{{ page.label }}</span>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                  <span *ngIf="!p.isLastPage()" (click)="p.next()"> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+
+            </pagination-template>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  
+  <!-- add activity -->
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Ajouter une nouvelle activitée</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="activityForm" (ngSubmit)="addActivity()">
+
+        <div class="row">
+          <div class="form-group has-label  col-md-6"><label> Nom d'activitée
+            </label>
+            <input type="text" formControlName="name" placeholder="Nom" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Le Nom est obligatoire</div>
+            </div>
+          </div>
+
+          <div class="form-group has-label  col-md-6"><label> Nom de Coatch
+          </label>
+
+          <select class="custom-select  text-black"  formControlName="coach_id"
+            [ngClass]="{ 'is-invalid': submitted && f.coach_id.errors }" >
+            <option [value]="coach.id" *ngFor="let coach of allcoachs">{{coach.first_name}} {{coach.last_name}}</option>
+          
+          </select>
+          <div *ngIf="submitted && f.coach_id.errors" class="invalid-feedback">
+            <div *ngIf="f.coach_id.errors.required">Le nom de coatch est obligatoire</div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group has-label  col-md-12"><label> Descrption
+            </label>
+            <textarea formControlName="description" placeholder="description" class="form-control" id="" cols="10" rows="10"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark text-white mx-2"
+            (click)="modal.dismiss('Cross click')">Annuler</button>
+          <button type="button" type="submit" class="btn btn-success ">Ajouter</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
+
+  <!-- Update -->
+  <ng-template #contentt let-modal>
+    <div class="modal-header">
+      <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">modifier l'activitée : {{activityUpdated.name}}</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="activityForm" (ngSubmit)="updateActivity()">
+
+        <div class="row">
+          <div class="form-group has-label  col-md-6"><label> Nom d'activitée
+            </label>
+            <input type="text" [(ngModel)]="activityUpdated.name" formControlName="name" placeholder="Nom" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Le Nom est obligatoire</div>
+            </div>
+          </div>
+
+          <div class="form-group has-label  col-md-6"><label> Nom de Coatch
+          </label>
+
+          <select class="custom-select  text-black" [(ngModel)]="activityUpdated.coach.id"  formControlName="coach_id"
+            [ngClass]="{ 'is-invalid': submitted && f.coach_id.errors }" >
+            <option [value]="coach.id" *ngFor="let coach of allcoachs">{{coach.first_name}} {{coach.last_name}}</option>
+          
+          </select>
+          <div *ngIf="submitted && f.coach_id.errors" class="invalid-feedback">
+            <div *ngIf="f.coach_id.errors.required">Le nom de coatch est obligatoire</div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group has-label  col-md-12"><label> Descrption
+            </label>
+            <textarea [(ngModel)]="activityUpdated.description" formControlName="description" placeholder="description" class="form-control" id="" cols="10" rows="10"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark text-white mx-2"
+            (click)="modal.dismiss('Cross click')">Annuler</button>
+          <button type="button" type="submit" class="btn btn-warning ">modifier</button>
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
 </div>
 
 

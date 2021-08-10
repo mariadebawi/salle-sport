@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { MangerComponent } from "./manger.component";
 import { ActitviesListComponent } from "./pages/activites/actitviesList/actitviesList.component";
-import {AddActivityComponent} from './pages/activites/add-activity/add-activity.component';
 import {ListComponent} from './pages/employes/list/list.component';
 import {AddEmpComponent} from './pages/employes/add-emp/add-emp.component';
 import {ListAdComponent} from './pages/adherents/list-ad/list-ad.component';
@@ -20,7 +19,6 @@ export const ManagerLayoutRoutes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard'  },
       { path: "dashboard", component: DashboardComponent },
       { path: "activities", component: ActitviesListComponent },
-      { path: "activities/add", component: AddActivityComponent },
       { path: 'employees',component: ListComponent},
       { path: 'employees/add',component: AddEmpComponent},
       { path: 'adherents',component: ListAdComponent},

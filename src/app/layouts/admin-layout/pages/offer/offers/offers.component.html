@@ -31,19 +31,19 @@
                 <td>{{offer.price}} Dt</td>
                 <td>{{getDate(offer.created_at)}}</td>
                 <td>
-                    <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                    (change)="changeStatus(offer.id,configg.value)"	
-                    [(ngModel)]="!offer.status"
-                    [disabled]="configg.disabled"
-                    [width]="configg.width"
-                    [height]="configg.height"
-                    [margin]="configg.margin"
-                    [labels]="configg.labels"
-                    [color]="configg.color"
-                    [switchColor]="configg.switchColor"
-                    [fontColor]="configg.fontColor"
-                    [fontSize]="configg.fontSize"
-                  ></ng-toggle>
+                  <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+                  (change)="changeStatus(activity.id,offer.status)"	
+                  [(ngModel)]="offer.status"
+                  [disabled]="configg.disabled"
+                  [width]="configg.width"
+                  [height]="configg.height"
+                  [margin]="configg.margin"
+                  [labels]="configg.labels"
+                  [color]="configg.color"
+                  [switchColor]="configg.switchColor"
+                  [fontColor]="configg.fontColor"
+                  [fontSize]="configg.fontSize"
+                ></ng-toggle>
                   
                   <button placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt , offer)">
                     <i class="fas fa-edit"></i>
@@ -130,7 +130,7 @@
               </label>
 
               <select class="custom-select  text-black"  formControlName="unit"
-                [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" (change)="onChange($event.target.value)">
+                [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" >
                 <option value="day">Jours</option>
                 <option value="month">Mois</option>
                 <option value="year">Année</option>
@@ -157,7 +157,6 @@
       </div>
 
     </ng-template>
-
 
 
     <!-- Update Offre-->
@@ -223,4 +222,6 @@
       </div>
 
     </ng-template>
+
+    
   </div>
