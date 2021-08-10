@@ -10,7 +10,6 @@ export interface OffersModel {
     unit: string;
     activity: ActivityModel;
     status: boolean,
-
 }
 
 export interface Coach {

@@ -55,4 +55,5 @@ export class ListOfComponent implements OnInit {
       };
   })
   }
+  //
 }

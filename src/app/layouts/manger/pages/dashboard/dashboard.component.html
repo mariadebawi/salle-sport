@@ -1,5 +1,78 @@
 
 <div class=" content">
+  <div class="card-static mb-4">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card card-stats mb-4 mb-lg-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-uppercase text-white mb-0">Nombre des employees</h5>
+                <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_employees}}</span>
+              </div>
+              <div class="col-auto">
+                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-stats mb-4 mb-lg-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-white mb-0">Nombre de activites</h5>
+              <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_activites}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card card-stats mb-4 mb-lg-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title text-uppercase text-white mb-0">Nombre des adherents   </h5>
+            <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_adherents}}</span>
+          </div>
+          <div class="col-auto">
+            <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="card card-stats mb-4 mb-lg-0">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title text-uppercase text-white mb-0">Nombre des abonnements &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; </h5>
+          <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_subscription}}</span>
+        </div>
+        <div class="col-auto">
+          <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+  </div>
+
+</div>
   <div class=" row">
     <div class=" col-12">
       <div class=" card card-chart">
@@ -105,11 +178,12 @@
       </div>
     </div>
   </div>
+
   <div class=" row">
     <div class=" col-lg-12 col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title">les derniers 5 inscriptions</h4>
+          <h4 class=" card-title"> les 5 dernières inscriptions</h4>
           <table class="table">
             <thead>
             <tr>
@@ -118,33 +192,33 @@
               <th>Durée</th>
               <th>Activité</th>
               <th>Coach</th>
-              <th>Email Adherent</th>
               <th>téléphone Adherent</th>
+              <th>status</th>
             </tr>
             </thead>
             <tbody>
-            <tr >
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let subscription of subscriptionAdherentLast">
+              <td>{{subscription.id}}</td>
+              <td>{{subscription.adherent.first_name}} {{subscription.adherent.last_name}}</td>
+              <td>{{subscription.types_subscription.duration}} {{getUnit(subscription.types_subscription.unit)}}</td>
+              <td>{{subscription.types_subscription.name}}</td>
+              <td>{{subscription.types_subscription.activity.coach.first_name}} {{subscription.types_subscription.activity.coach.last_name}}</td>
+              <td> {{getPhone(subscription.adherent.phone)}}</td>
+              <td><span class="badge"
+                [ngClass]="{'badge-danger': !subscription.status , 'badge-success': subscription.status}">{{getStatus(subscription.status)}}</span>
+            </td>
             </tr>
-
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
   </div>
   <div class=" row">
     <div class=" col-lg-12 col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title">le plus ... inscriptions</h4>
+          <h4 class=" card-title"> les 5 plus proche de fini inscriptions</h4>
           <table class="table">
             <thead>
             <tr>
@@ -153,19 +227,21 @@
               <th>Durée</th>
               <th>Activité</th>
               <th>Coach</th>
-              <th>Email Adherent</th>
               <th>téléphone Adherent</th>
+              <th>status</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let subscription of subscriptionAdherentFirst">
+              <td>{{subscription.id}}</td>
+              <td>{{subscription.adherent.first_name}} {{subscription.adherent.last_name}}</td>
+              <td>{{subscription.types_subscription.duration}} {{getUnit(subscription.types_subscription.unit)}}</td>
+              <td>{{subscription.types_subscription.name}}</td>
+              <td>{{subscription.types_subscription.activity.coach.first_name}} {{subscription.types_subscription.activity.coach.last_name}}</td>
+              <td> {{getPhone(subscription.adherent.phone)}}</td>
+              <td><span class="badge"
+                [ngClass]="{'badge-danger': !subscription.status , 'badge-success': subscription.status}">{{getStatus(subscription.status)}}</span>
+            </td>
             </tr>
             </tbody>
           </table>
