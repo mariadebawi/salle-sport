@@ -5,7 +5,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des offers</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add">+</a>
+          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -13,26 +13,40 @@
               <th>Nom</th>
               <th>Durée</th>
               <th>Prix</th>
-              <th>Nom d'activité</th>
-              <th>Description</th>
+              <th scope="col">Statut</th>
+              <th>Nom d'activitée</th>
               <th>Nombre de séance</th>
-              <th>action</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let offer of ListOffers">
+            <tr *ngFor="let offer of ListTypeSub">
               <td>{{offer.id}}</td>
               <td>{{offer.name}}</td>
-              <td>{{offer.duration}}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{{offer.duration}} {{getUnit(offer.unit)}}</td>
+              <td>{{offer.price}}</td>
+              <td><span class="badge"
+                [ngClass]="{'badge-danger': !offer.status , 'badge-success': offer.status}">{{getStatus(offer.status)}}</span>
+            </td>
+              <td>{{offer.activity.name}}</td>
+              <td>{{offer.number_of_sessions}}</td>
               <td>
-                <a class="btn btn-danger btn-sm"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class=" tim-icons icon-pencil"> </i>
-                </a>
-              </td>
+                <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+                (change)="changeStatus(offer.id,offer.status)"	
+                [(ngModel)]="offer.status"
+                [disabled]="configg.disabled"
+                [width]="configg.width"
+                [height]="configg.height"
+                [margin]="configg.margin"
+                [labels]="configg.labels"
+                [color]="configg.color"
+                [switchColor]="configg.switchColor"
+                [fontColor]="configg.fontColor"
+                [fontSize]="configg.fontSize"
+              ></ng-toggle>
+              <a placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ '/manager/offers', offer.id ]" >
+                <i class="fas fa-edit"></i>
+              </a>
             </tr>
             </tbody>
           </table>

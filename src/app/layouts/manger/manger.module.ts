@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgToggleModule } from 'ng-toggle-button';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { EditOfComponent } from './pages/offers/editOf/editOf.component';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
       ListOfComponent,
        AddOfComponent,
         EditProfileComponent,
-         DashboardComponent
+         DashboardComponent,
+         EditOfComponent
         ]
 })
 export class MangerModule { }

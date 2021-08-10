@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   getOffreList() {
-    this.offreService.getAlOffers('1').subscribe((res:any)=>{
+    this.offreService.getAlOffers('1').subscribe((res:any)=>{		
 		res.data.forEach(e => {
 			if(e.status) {
 				this.offreList.push(e);

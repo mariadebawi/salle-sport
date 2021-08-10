@@ -26,8 +26,8 @@
               <td>{{mang.gym.name}}</td>
               <td>
                 <ng-toggle
-                (change)="changeValue(mang.id ,configg.value)"	
-                [(ngModel)]="!mang.status"
+                (change)="changeValue(mang.id ,mang.status)"	
+                [(ngModel)]="mang.status"
                 [disabled]="configg.disabled"
                 [width]="configg.width"
                 [height]="configg.height"

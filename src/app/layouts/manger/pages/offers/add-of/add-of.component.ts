@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivityService} from "../../../../../services/activity.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {ActivityModel} from "../../../../../models/activity.model";
 import {first} from "rxjs/operators";
@@ -24,15 +23,16 @@ export class AddOfComponent implements OnInit {
     this.saveForm =
       this.formBuilder.group({
           name: ['', [Validators.required]],
-          description: ['', [Validators.required]],
-          activity_id: [1, [Validators.required]],
+          description: [''],
+          activity_id: ['', [Validators.required]],
           duration :['',[Validators.required]],
-           unit:['',Validators.required],
+          unit:['',Validators.required],
           number_of_sessions:['',Validators.required],
           price:['',Validators.required]
     });
   }
   get f() { return this.saveForm.controls; }
+
 
   getAllActivity()
   {
@@ -41,13 +41,18 @@ export class AddOfComponent implements OnInit {
       console.log(res.data)
     })
   }
-  save() {
-    console.log(this.saveForm.value)
+
+  reset(){
+    this.saveForm.reset() ;
+  }
+ 
+  addNewTypeSypscritipn() {
     this.submitted = true;
     if (this.saveForm.invalid) {
       return;
     }
-    this._OfferSer.add(this.saveForm.value)
+    
+    this._OfferSer.addNewTypeSubscription(this.saveForm.value)
       .pipe(first())
       .subscribe(
         (res :any) => {
@@ -67,7 +72,11 @@ export class AddOfComponent implements OnInit {
           }
         },
         error => {
-          this.error = error;
+          Swal.fire(
+            'Abonnement	!',
+            `erreur : ${error}` ,
+            'error'
+          )
         });
   }
   changeActivityId($event)

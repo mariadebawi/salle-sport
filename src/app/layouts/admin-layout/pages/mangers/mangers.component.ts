@@ -50,7 +50,7 @@ export class MangersComponent implements OnInit {
   }
 
   changeValue(id , value) {
-    if(!value) {
+    if(value) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer ce manager ?!!",

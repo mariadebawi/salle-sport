@@ -103,7 +103,7 @@ export class ActitviesListComponent implements OnInit {
   }
 
   changeStatus(id,status) {
-    if(!status) {
+    if(status) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer cet activitée ?!!",
@@ -138,7 +138,7 @@ export class ActitviesListComponent implements OnInit {
     
   }
 
-  
+
   getStatus(status : boolean){
     if(status) {
       return 'disponible'

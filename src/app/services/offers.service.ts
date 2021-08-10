@@ -25,6 +25,9 @@ export class OffersService {
     return this.http.get(this.BASEURL+`offers/`, { params: params } );
   }
 
+  addNewTypeSubscription(data:any) {return this.http.post<any>(this.BASEURL+`types_subscriptions`, data) }
+
+
   getAllTypeSubscription() { return this.http.get(this.BASEURL+`types_subscriptions`); }
 
   changeStatus(id,status)
@@ -32,6 +35,15 @@ export class OffersService {
     return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
   }
 
+  changeStatusTypeSub(id,status)
+  {
+    return this.http.put(this.BASEURL+`types_subscriptions/`+id,{'status':status});
+  }
+
+  updateTypeSub(id,data)
+  {
+    return this.http.put(this.BASEURL+`types_subscriptions/`+id,data);
+  }
 
   addNewOffre(newOffre)
   { return this.http.post(this.BASEURL+`offers` , newOffre);
@@ -39,6 +51,10 @@ export class OffersService {
 
   updateOffre(OffreUpdated , id:number) {
     return this.http.put(this.BASEURL+`offers/`+id,OffreUpdated);
+  }
+
+  getTypeSubscrptionById(id:number) {
+    return this.http.get(this.BASEURL+`types_subscriptions/`+id);
   }
 
 }

@@ -32,7 +32,7 @@
                 <td>{{getDate(offer.created_at)}}</td>
                 <td>
                   <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                  (change)="changeStatus(activity.id,offer.status)"	
+                  (change)="changeStatus(offer.id,offer.status)"	
                   [(ngModel)]="offer.status"
                   [disabled]="configg.disabled"
                   [width]="configg.width"

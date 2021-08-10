@@ -1,5 +1,6 @@
 import { GymModel } from "./gym.model";
-import { OffersModel } from "./offers.model";
+import {  TypeSubscriptionModel } from "./offers.model";
+
  export  interface  subscriptionGym{
         id: number;
         gym_id: number;
@@ -9,6 +10,6 @@ import { OffersModel } from "./offers.model";
         payment_receipt: string;
         status: number;
         created_at: Date;
-        offer: OffersModel;
+        offer: TypeSubscriptionModel;
         gym: GymModel;
     }

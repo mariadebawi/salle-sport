@@ -1,4 +1,4 @@
-export interface OffersModel {
+export interface TypeSubscriptionModel {
     id: number;
     name: string;
     description: string;
@@ -11,6 +11,18 @@ export interface OffersModel {
     activity: ActivityModel;
     status: boolean,
 }
+
+
+export interface OffersModel {
+  id: number;
+  name: string;
+  duration: string;
+  price: number;
+  created_at: Date;
+  unit: string;
+  status: boolean,
+}
+
 
 export interface Coach {
   id: number;
