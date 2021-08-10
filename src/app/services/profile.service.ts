@@ -13,29 +13,33 @@ export class ProfileService {
 
  
   updateProfileFunction( profileRole : string , formProfile : FormGroup , photoProfile? : string) {
-    console.log(formProfile.value)
-    // stop here if form is invalid
     if (formProfile.invalid) {
       return;
     }
 
-    const profileAdmin = {
-        first_name : formProfile.value.first_name ,
-        last_name: formProfile.value.last_name ,
-        email: formProfile.value.email ,
-        address: formProfile.value.address ,
-        phone: formProfile.value.phone ,
-        photo : photoProfile,
-        role:profileRole
-    } 
+    if(formProfile.value.newPassword !== '') {
+        console.log('ok');
+        
+        const  updatePass = {
+          newPassword:formProfile.value.newPassword, 
+          oldPassword:formProfile.value.oldPassword
+        }
+       return this.http.put(this.BASEURL+`auth/update_password`,updatePass) ;
+      }
+  
 
-    return this.http.put(this.BASEURL+`auth/me`,{'profile': profileAdmin});
+     const profileAdmin = {
+         first_name : formProfile.value.first_name ,
+         last_name: formProfile.value.last_name ,
+         email: formProfile.value.email ,
+         address: formProfile.value.address ,
+         phone: formProfile.value.phone ,
+         photo : photoProfile,
+         role:profileRole
+     } 
+
+     return this.http.put(this.BASEURL+`auth/me`, profileAdmin);
   }
 
-
-  updatePAsswordAdmin( newPAssword) {
-      return this.http.put(this.BASEURL+`auth/update_password`,{'newPAssword': newPAssword});
-
-  }
 
 }
