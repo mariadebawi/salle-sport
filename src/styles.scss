@@ -108,6 +108,9 @@ input , input:focus , input:hover {
         width: 3em;
          i {
             font-size: 1.25rem;
+            &.fas{
+                font-size: 1rem;
+            }
         }
     }
 }

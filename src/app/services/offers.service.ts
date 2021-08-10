@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import { OffersModel } from '../models/offers.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class OffersService {
 
   addNewOffre(newOffre)
   { return this.http.post(this.BASEURL+`offers` , newOffre);
+  }
+
+  updateOffre(OffreUpdated , id:number) {
+    return this.http.put(this.BASEURL+`offers/`+id,OffreUpdated);
   }
 
 }

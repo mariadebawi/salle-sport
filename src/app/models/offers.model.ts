@@ -9,6 +9,8 @@ export interface OffersModel {
     created_at: Date;
     unit: string;
     activity: ActivityModel;
+    status: boolean,
+
 }
 
 export interface Coach {

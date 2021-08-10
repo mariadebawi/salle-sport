@@ -15,12 +15,40 @@ import Swal from 'sweetalert2';
 })
 export class OffersComponent implements OnInit {
    allOffers:OffersModel[];
+   offreUpdated:OffersModel;
    closeResult = '';
    page="1" ;
    config: any;
    offreForm: FormGroup;
    submitted = false;
-
+   configg = {
+    value: false,
+    name: "",
+    disabled: false,
+    height: 25,
+    width: 50,
+    margin: 3,
+    fontSize: 10,
+    speed: 300,
+    color: {
+      checked: "#56C128",
+      unchecked: "#dcdcdc"
+    },
+    switchColor: {
+      checked: "#3366FF",
+      unchecked: "crimson"
+    },
+    labels: {
+      unchecked: "off",
+      checked: "on"
+    },
+    checkedLabel: "",
+    uncheckedLabel: "",
+    fontColor: {
+      checked: "#fafafa",
+      unchecked: "#ffffff"
+    }
+  };
   public labels: any = {
       previousLabel: '&nbsp;',
       nextLabel: '&nbsp;',
@@ -58,13 +86,51 @@ export class OffersComponent implements OnInit {
   }
 
 
-  open(content) {
+  open(content , offre?:OffersModel) {
+    if(offre) {
+      this.offreUpdated = offre ;
+    }
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  UpdateOffre() {
+    this.submitted = true;
+    if (this.offreForm.invalid) {
+        return;
+    }
+    
+    const offre  = {
+      name: this.offreForm.value.name,
+      duration:  this.offreForm.value.duration,
+      price:  this.offreForm.value.price,
+      unit:  this.offreForm.value.unit,
+      status: this.offreUpdated.status,
+  }
+    this._offersService.updateOffre( offre , this.offreUpdated.id).subscribe((res : any) => {
+      if(res.success) {
+        Swal.fire(
+          'Modification !',
+          'Votre offre est modifié avec succée.',
+          'success'
+        )  
+        this.GetAllOffers() ;
+      }
+     
+    },
+    error => {
+      Swal.fire(
+        'Modification!',
+        `<b>Erreur :</b> ${error}` ,
+        'error'
+        )
+    });
+  }
+
+
 
 
   private getDismissReason(reason: any): string {
@@ -123,9 +189,35 @@ addOffre() {
 }
 
   changeStatus(id,status) {
-    this._offersService.changeStatus(id, status).subscribe((res: any) => {
-      this.GetAllOffers();
-      });
+    if(!status) {
+      Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: "vous êtes sur de bloquer cet offre ?!!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Non',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._offersService.changeStatus(id, status).subscribe((res: any) => {
+            this.GetAllOffers();
+            });
+          Swal.fire(
+            'Bloqué!',
+            'ce manager est bloqué.',
+            'success'
+          )
+        }
+      })
+    }
+    else {
+      this._offersService.changeStatus(id, status).subscribe((res: any) => {
+        this.GetAllOffers();
+        });
+    }
+    
   }
 
   getStatus(status : boolean){

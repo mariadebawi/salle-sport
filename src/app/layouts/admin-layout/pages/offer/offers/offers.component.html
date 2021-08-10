@@ -31,11 +31,25 @@
                 <td>{{offer.price}} Dt</td>
                 <td>{{getDate(offer.created_at)}}</td>
                 <td>
-                  <a class="btn btn-danger btn-sm mx-2" *ngIf="!offer.status" (click)="changeStatus(offer.id,true)">
-                    Débloquer</a>
-                  <a class="btn btn-primary btn-sm" *ngIf="offer.status" (click)="changeStatus(offer.id,false)">
-                    Bloquer</a>
+                    <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+                    (change)="changeStatus(offer.id,configg.value)"	
+                    [(ngModel)]="!offer.status"
+                    [disabled]="configg.disabled"
+                    [width]="configg.width"
+                    [height]="configg.height"
+                    [margin]="configg.margin"
+                    [labels]="configg.labels"
+                    [color]="configg.color"
+                    [switchColor]="configg.switchColor"
+                    [fontColor]="configg.fontColor"
+                    [fontSize]="configg.fontSize"
+                  ></ng-toggle>
+                  
+                  <button placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt , offer)">
+                    <i class="fas fa-edit"></i>
+                  </button>
                 </td>
+
               </tr>
               <tr *ngIf="allOffers.length===0 ">
                 <td colspan="6">
@@ -138,6 +152,72 @@
             <button type="button" class="btn btn-outline-dark text-white mx-2"
               (click)="modal.dismiss('Cross click')">Annuler</button>
             <button type="button" type="submit" class="btn btn-success ">Ajouter</button>
+          </div>
+        </form>
+      </div>
+
+    </ng-template>
+
+
+
+    <!-- Update Offre-->
+    <ng-template #contentt let-modal>
+      <div class="modal-header">
+        <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Modifier l'offre : <strong>{{offreUpdated.name}}</strong></h3>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="offreForm" (ngSubmit)="UpdateOffre()">
+
+          <div class="row">
+
+            <div class="form-group has-label  col-md-6"><label> Nom
+              </label>
+              <input type="text" [(ngModel)]="offreUpdated.name" formControlName="name" placeholder="Nom" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Le Nom est obligatoire</div>
+              </div>
+            </div>
+
+            <div class="form-group has-label  col-md-6"><label> Prix
+              </label>
+              <input type="number"  [(ngModel)]="offreUpdated.price" formControlName="price" placeholder="prix" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+              <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                <div *ngIf="f.price.errors.required">Le prix est obligatoire</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group has-label  col-md-6"><label> Unitée
+              </label>
+
+              <select class="custom-select  text-black" [(ngModel)]="offreUpdated.unit" formControlName="unit"
+                [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" (change)="onChange($event.target.value)">
+                <option value="day">Jours</option>
+                <option value="month">Mois</option>
+                <option value="year">Année</option>
+              </select>
+              <div *ngIf="submitted && f.unit.errors" class="invalid-feedback">
+                <div *ngIf="f.unit.errors.required">L'Unitée est obligatoire</div>
+              </div>
+            </div>
+            <div class="form-group has-label  col-md-6"><label> Durée
+              </label>
+              <input type="number"  [(ngModel)]="offreUpdated.duration" formControlName="duration" placeholder="Durée" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.duration.errors }" />
+              <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
+                <div *ngIf="f.duration.errors.required">La Durée est obligatoire</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark text-white mx-2"
+              (click)="modal.dismiss('Cross click')">Annuler</button>
+            <button type="button" type="submit" class="btn btn-warning ">Modifier</button>
           </div>
         </form>
       </div>

@@ -57,8 +57,10 @@ export class MangersComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
+        cancelButtonText: 'Non',
+
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'oui'
       }).then((result) => {
         if (result.isConfirmed) {
           this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
