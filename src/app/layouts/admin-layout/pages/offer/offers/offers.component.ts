@@ -143,7 +143,7 @@ addOffre() {
 
   getUnit(unit : string) {
     if(unit === 'day') { return 'jours' ;}
-  if(unit === 'mounth') { return 'mois' ;}
+  if(unit === 'month') { return 'mois' ;}
   if(unit === 'year') { return 'année' ;}
  }
 

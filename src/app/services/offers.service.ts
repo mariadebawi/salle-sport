@@ -11,8 +11,11 @@ export class OffersService {
 
   getAlOffersList() { return this.http.get(this.BASEURL+`offers`); }
   add(data:any) {return this.http.post<any>(this.BASEURL+`offers`, data);}
-  getAllActivites() { return this.http.get(this.BASEURL+`activities?list=1`); }
+ // getAllActivites() { return this.http.get(this.BASEURL+`activities?list=1`); }
  //changeStatus(id,status) {return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});}
+  //getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
+ // add(data:any) {return this.http.post<any>(this.BASEURL+`offers`, data);}
+  getAllActivites() { return this.http.get(this.BASEURL+`activities?list=1`); }
 
   getAlOffers(page:string) {
     let params = new HttpParams().set('page', page);

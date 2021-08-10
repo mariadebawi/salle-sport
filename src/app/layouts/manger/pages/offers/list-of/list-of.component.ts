@@ -17,7 +17,6 @@ ListOffers:OffersModel;
   {
     this._OfferSer.getAlOffersList().subscribe((res : any) =>{
       this.ListOffers=res.data;
-      console.log(this.ListOffers)
   })
   }
 }

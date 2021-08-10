@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerModel } from 'src/app/models/gym.model';
 import { GymService } from 'src/app/services/gym.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mangers',
@@ -49,21 +50,45 @@ export class MangersComponent implements OnInit {
   }
 
   changeValue(id , value) {
-    console.log(value);
-    this.gymSerrvic.changeStatusMang(id,value).subscribe((res: any) => {
-      console.log(res);
-      this.GetAllManagers();
-      });
+    if(!value) {
+      Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: "vous êtes sur de bloquer ce manager ?!!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
+            this.GetAllManagers();
+            });
+          Swal.fire(
+            'Bloqué!',
+            'ce manager est bloqué.',
+            'success'
+          )
+        }
+      })
+    }
+    else {
+      this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
+        this.GetAllManagers();
+        });
+        Swal.fire(
+          'Débloqué!',
+          'ce manager est debloqué.',
+          'success'
+        )
+    }
+    
 
   }
-
-
-
 
   GetAllManagers() {
       this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
       this.allManagers=res.data.list;
-      console.log(this.allManagers);
       
   
       this.config = {

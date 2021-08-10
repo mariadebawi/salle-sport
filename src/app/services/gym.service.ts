@@ -21,9 +21,9 @@ export class GymService {
     return this.http.get(this.BASEURL+`managers`, { params: params } )
   }
 
-  changeStatusMang(id,status)
+  changeStatusMang(id)
   { 
-    return this.http.put(this.BASEURL+`managers`+'/change_status/'+id,{'status':status});
+    return this.http.put(this.BASEURL+`managers/change_status/`+id,{'status':status});
   }
 
 
