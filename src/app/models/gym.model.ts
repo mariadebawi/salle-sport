@@ -16,7 +16,7 @@
         first_name : string;
         last_name: string;
         photo?: string;
-        phone: null,
+        phone?: string;
         role:string;
         email: string;
         status: boolean;
