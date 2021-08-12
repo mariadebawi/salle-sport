@@ -1,27 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { UserObject } from 'src/app/models/coach.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-emp',
-  templateUrl: './add-emp.component.html',
-  styleUrls: ['./add-emp.component.scss']
+  selector: 'app-editEmpl',
+  templateUrl: './editEmpl.component.html',
+  styleUrls: ['./editEmpl.component.scss']
 })
-export class AddEmpComponent implements OnInit {
+export class EditEmplComponent implements OnInit {
   photoProfile :any ;
-  msg ="" ;
+  msg ="" ;  
+  employUpdated:UserObject;
   urlPhotot ="" ;
   employeProfile: FormGroup;
   submitted = false;
   passwordType = 'password';
   roleEmploye='coach';
-  constructor(private formBuilder: FormBuilder , private profileService :ProfileService   ,private authService : AuthService ) { }
+  id:number;
+  constructor(private formBuilder: FormBuilder , private serviceEmploy :ProfileService   ,private authService : AuthService  ,  private _route: ActivatedRoute) { }
   
   ngOnInit(): void {
-    this.employeProfile = this.formBuilder.group({
+    this._route.params.subscribe(params => {
+      this.id = +params.id;
+    });
+    this.getEditedEmply(this.id)
+
+    this.employeProfile
+     = this.formBuilder.group({
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       role: ['', [Validators.required]],
@@ -88,30 +98,43 @@ export class AddEmpComponent implements OnInit {
 		}
 	}
 
-  addEmploye() {
+  getEditedEmply(id){
+    this.serviceEmploy.getEmployById(id).subscribe((res : any) =>{
+      this.employUpdated=res.data;
+      this.urlPhotot=this.employUpdated?.photo;
+      this.roleEmploye=this.employUpdated?.role
+      
+    })
+  }
+
+  getImage(photo:string) {
+    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
+    }else {
+      return photo
+    }
+  }
+
+  UpdateEmploye(){
     this.submitted = true;
   
-    this.profileService.updateProfileFunction(this.roleEmploye ,this.employeProfile , 'addEmployer',this.urlPhotot )
+    this.serviceEmploy.updateProfileFunction(this.roleEmploye ,this.employeProfile , 'ediyEmploy' ,this.urlPhotot  , this.id)
       .subscribe(
         (res :any) => {
           if(res.success){
             Swal.fire(
-              'Ajout	!',
-              'l\'insertion est effectué avec success',
+              'Modification	!',
+              'la Modification est effectué avec success',
               'success'
             )
           }
         },
         error => {
           Swal.fire(
-            'AJout	!',
+            'Modification	!',
             `erreur : ${error}` ,
             'error'
           )
         }); 
-
-}
-
-  
- 
+  }
 }

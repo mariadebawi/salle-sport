@@ -80,7 +80,7 @@ export class AdminProfileComponent implements OnInit {
   updateProfile() {
     this.submitted = true;
   
-    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,this.photoProfile)
+    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,'updateAdmin' ,this.photoProfile  )
       .subscribe(
         (res : any) => {
           if(res.success) {

@@ -22,13 +22,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let gym of allManagers" >
-              <th scope="row">{{gym.gym_id}}</th>
-              <td>{{gym.gym.name}}</td>
-              <td>{{gym.first_name}} {{gym.last_name}}    </td>
-              <td>{{gym.email}}</td>
-              <td>{{gym.phone}}</td>
-              <td><img  [src]="gym.gym.logo ? gym.gym.logo : './assets/img/fitness-2.png'" height="50px"> </td>
+            <tr *ngFor="let gyggm of allManagers" >
+              <th scope="row">{{gyggm.gym.id}}</th>
+              <td>{{gyggm.gym.name}}</td>
+              <td>{{gyggm.first_name}} {{gyggm.last_name}}    </td>
+              <td>{{gyggm.email}}</td>
+              <td>{{gyggm.phone}}</td>
+              <td><img  [src]="getImage(gyggm.gym.logo)" height="50px"> </td>
               <!-- <td>
                 <a class="btn btn-danger btn-sm mx-2"> <i class=" tim-icons icon-simple-delete"> </i></a>
                 <a class="btn btn-primary btn-sm" routerLink="/admin/gyms/1"> <i class="icon-bullet-list-67"> </i></a>

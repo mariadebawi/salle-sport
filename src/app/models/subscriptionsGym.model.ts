@@ -3,7 +3,7 @@ import {  TypeSubscriptionModel } from "./offers.model";
 
  export  interface  subscriptionGym{
         id: number;
-        gym_id: number;
+        gym_id?: number;
         offer_id: number;
         start_at: string;
         end_at: string;

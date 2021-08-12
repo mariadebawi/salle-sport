@@ -3,35 +3,35 @@
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h5 class=" title">Ajouter un nouveau employé</h5>
+          <h5 class=" title">Modifier l' employé <span class="text-capitalize">{{employUpdated?.first_name}}</span></h5>
         </div>
         <div class=" card-body">
-          <form class="form" [formGroup]="employeProfile" (ngSubmit)="addEmploye()">
+          <form class="form" [formGroup]="employeProfile" (ngSubmit)="UpdateEmploye()">
             <div class=" row">
-              <div class=" col-md-4 pr-md-1">
+              <div class=" col-md-4 ">
                 <div class=" form-group">
                   <label> Nom </label>
-                  <input type="text" formControlName="first_name" placeholder="first_name" class="form-control"
+                  <input type="text" [(ngModel)]="employUpdated.first_name" formControlName="first_name" placeholder="first_name" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
                   <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
                     <div *ngIf="f.first_name.errors.required">Le nom est obligatoire</div>
                   </div>
                 </div>
               </div>
-              <div class=" col-md-4 pl-md-1">
+              <div class=" col-md-4 ">
                 <div class=" form-group">
                   <label> Prénom </label>
-                  <input type="text" formControlName="last_name" placeholder="last_name" class="form-control"
+                  <input type="text" [(ngModel)]="employUpdated.last_name" formControlName="last_name" placeholder="last_name" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
                   <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
                     <div *ngIf="f.last_name.errors.required">Le prenom est obligatoire</div>
                   </div>
                 </div>
               </div>
-              <div class=" col-md-4 pl-md-1">
+              <div class=" col-md-4 ">
                 <div class=" form-group">
                   <label> Email </label>
-                  <input type="email" formControlName="email" placeholder="email" class="form-control"
+                  <input type="email" [(ngModel)]="employUpdated.email"  formControlName="email" placeholder="email" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                   <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">L'email est obligatoire</div>
@@ -45,19 +45,19 @@
               <div class=" col-md-4">
                 <div class=" form-group">
                   <label> Address </label>
-                  <input type="text" formControlName="address" placeholder="address" class="form-control" />
+                  <input type="text" formControlName="address" [(ngModel)]="employUpdated.address" placeholder="address" class="form-control" />
                 </div>
               </div>
               <div class=" col-md-4 ">
                 <div class=" form-group">
                   <label> Phone </label>
-                  <input type="number" formControlName="phone" placeholder="phone" class="form-control" />
+                  <input type="number" formControlName="phone" [(ngModel)]="employUpdated.phone" placeholder="phone" class="form-control" />
                 </div>
               </div>
               <div class=" col-md-4">
                 <div class=" form-group form-password">
                   <label> le role </label>
-                  <select class="custom-select  text-black" formControlName="role" (change)="changeRole($event.target.value)"
+                  <select class="custom-select  text-black" [(ngModel)]="employUpdated.role" formControlName="role" (change)="changeRole($event.target.value)"
                     [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
                     <option value="coach">Coach</option>
                     <option value="recepetionist">Recepetionist</option>
@@ -69,8 +69,8 @@
               </div>
             </div>
 
-            <div class=" row mb-5">
-              <div class=" col-md-4" *ngIf="roleEmploye === 'recepetionist'">
+            <div class=" row ">
+              <div class=" col-md-4" *ngIf="roleEmploye === 'recepetionist' || employUpdated.role  === 'recepetionist'">
                 <div class=" form-group form-password">
                   <label> le mot de passe </label>
                   <input [type]="passwordType" formControlName="password" placeholder="mot de passe" class="form-control"
@@ -95,7 +95,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <img [src]="urlPhotot" *ngIf="urlPhotot">
+                    <img [src]="getImage(urlPhotot)" *ngIf="urlPhotot" height="50%">
                   </div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
             <div class=" card-footer">
               <button class=" btn btn-fill btn-default mx-2" (click)="reset()" type="submit"
                 style="float: right">Annuler</button>
-              <button class=" btn btn-fill btn-danger" type="submit" style="float: right">Ajouter</button>
+              <button class=" btn btn-fill btn-warning" type="submit" style="float: right">Modifier</button>
             </div>
           </form>
         </div>

@@ -10,6 +10,7 @@ import {AddOfComponent} from './pages/offers/add-of/add-of.component';
 import {EditProfileComponent} from './pages/user/edit-profile/edit-profile.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { EditOfComponent } from "./pages/offers/editOf/editOf.component";
+import { EditEmplComponent } from "./pages/employes/editEmpl/editEmpl.component";
 
 
 export const ManagerLayoutRoutes: Routes = [
@@ -22,6 +23,7 @@ export const ManagerLayoutRoutes: Routes = [
       { path: "activities", component: ActitviesListComponent },
       { path: 'employees',component: ListComponent},
       { path: 'employees/add',component: AddEmpComponent},
+      { path: 'employees/edit/:id',component: EditEmplComponent},
       { path: 'adherents',component: ListAdComponent},
       { path: 'adherents/add',component: AddAdherentComponent},
       { path: 'offers',component: ListOfComponent},

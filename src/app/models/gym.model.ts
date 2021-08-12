@@ -1,5 +1,6 @@
 
  export interface GymModel {
+        id: number ;
         description: string;
         name: string;
         logo?: string;
@@ -21,7 +22,7 @@
         email: string;
         status: boolean;
         address: string;
-        gym_id: number,
+        gym_id?: number,
         created_at:Date;
         updated_at:Date;
         gym: GymModel

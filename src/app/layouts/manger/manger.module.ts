@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgToggleModule } from 'ng-toggle-button';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { EditOfComponent } from './pages/offers/editOf/editOf.component';
+import { EditEmplComponent } from './pages/employes/editEmpl/editEmpl.component';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { EditOfComponent } from './pages/offers/editOf/editOf.component';
        AddOfComponent,
         EditProfileComponent,
          DashboardComponent,
-         EditOfComponent
+         EditOfComponent,
+         EditEmplComponent
         ]
 })
 export class MangerModule { }

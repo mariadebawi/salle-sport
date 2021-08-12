@@ -138,6 +138,7 @@ export class ActitviesListComponent implements OnInit {
     
   }
 
+ 
 
   getStatus(status : boolean){
     if(status) {

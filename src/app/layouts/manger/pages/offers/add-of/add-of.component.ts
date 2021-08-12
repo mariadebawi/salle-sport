@@ -58,14 +58,14 @@ export class AddOfComponent implements OnInit {
         (res :any) => {
           if(res.success){
             Swal.fire(
-              'Abonnement	!',
+              'Ajout	!',
               'l\'insertion est effectué avec success',
               'success'
             )
           }
           else {
             Swal.fire(
-              'Abonnement	!',
+              'ajout	!',
               `erreur : ${res.message}` ,
               'error'
             )

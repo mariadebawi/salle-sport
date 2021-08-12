@@ -23,7 +23,6 @@ export class EditOfComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe(params => {
       this.id = +params.id;
-      console.log(this.id);
     });
 
     this.saveForm =

@@ -20,15 +20,21 @@ export class GymsComponent implements OnInit {
   GetAllManagers() {
       this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
       this.allManagers=res.data.list;
-      console.log(this.allManagers);
-      
-  
+
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.allManagers.length
+       totalItems: res.data.total
       };
     })
+  }
+
+  getImage(photo:string) {
+    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+      return './assets/img/fitness-2.png'
+    }else {
+      return photo
+    }
   }
 
 
