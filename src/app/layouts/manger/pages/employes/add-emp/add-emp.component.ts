@@ -42,7 +42,7 @@ export class AddEmpComponent implements OnInit {
   changeRole(value){
     this.roleEmploye=value;
     
-    if(this.roleEmploye !== 'recepetionist') {
+    if(this.roleEmploye !== 'secretary') {
       this.employeProfile.value.password = null;
       this.employeProfile.get('password').setValidators([]);
     } else {

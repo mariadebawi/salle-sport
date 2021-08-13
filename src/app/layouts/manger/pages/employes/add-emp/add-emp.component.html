@@ -60,7 +60,7 @@
                   <select class="custom-select  text-black" formControlName="role" (change)="changeRole($event.target.value)"
                     [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
                     <option value="coach">Coach</option>
-                    <option value="recepetionist">Recepetionist</option>
+                    <option value="secretary">Recepetionist</option>
                   </select>
                   <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
                     <div *ngIf="f.role.errors.required">Le role de coatch est obligatoire</div>
@@ -70,7 +70,7 @@
             </div>
 
             <div class=" row mb-5">
-              <div class=" col-md-4" *ngIf="roleEmploye === 'recepetionist'">
+              <div class=" col-md-4" *ngIf="roleEmploye === 'secretary'">
                 <div class=" form-group form-password">
                   <label> le mot de passe </label>
                   <input [type]="passwordType" formControlName="password" placeholder="mot de passe" class="form-control"

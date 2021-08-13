@@ -1,4 +1,15 @@
-.form-control {
+
+  .form-password {
+    position: relative;
+    i {
+        position: absolute;
+        right: 15px;
+        top: 39px;
+        color: #979797;
+    }
+  }
+
+  .form-control {
     border-color: #fff !important;
     &:hover , &:focus {
         color: #fff !important;
@@ -9,3 +20,4 @@
 .card label {
     color: rgb(255 255 255 / 61%) !important;
 }
+ 

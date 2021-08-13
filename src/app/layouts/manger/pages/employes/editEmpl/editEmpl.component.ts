@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { UserObject } from 'src/app/models/coach.model';
+import { ManagerModel } from 'src/app/models/gym.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class EditEmplComponent implements OnInit {
   photoProfile :any ;
   msg ="" ;  
-  employUpdated:UserObject;
+  employUpdated:ManagerModel;
   urlPhotot ="" ;
   employeProfile: FormGroup;
   submitted = false;
@@ -52,7 +52,7 @@ export class EditEmplComponent implements OnInit {
   changeRole(value){
     this.roleEmploye=value;
     
-    if(this.roleEmploye !== 'recepetionist') {
+    if(this.roleEmploye !== 'secretary') {
       this.employeProfile.value.password = null;
       this.employeProfile.get('password').setValidators([]);
     } else {
@@ -102,8 +102,11 @@ export class EditEmplComponent implements OnInit {
     this.serviceEmploy.getEmployById(id).subscribe((res : any) =>{
       this.employUpdated=res.data;
       this.urlPhotot=this.employUpdated?.photo;
-      this.roleEmploye=this.employUpdated?.role
-      
+      if(this.employUpdated?.role == 'secretary') {
+        this.employeProfile.get('role').disable();
+      } else {
+        this.employeProfile.get('role').enable()
+      }
     })
   }
 

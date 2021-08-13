@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserObject } from 'src/app/models/coach.model';
+import { ManagerModel } from 'src/app/models/gym.model';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  listEmploye:UserObject[]=[] ;
+  listEmploye:ManagerModel[]=[] ;
   page='1';
   config: any;
   configg = {
@@ -53,27 +53,38 @@ export class ListComponent implements OnInit {
   constructor(private serviceEmploy:ProfileService) { }
 
   ngOnInit(): void {
-    this.getAllEmloyer('coach');
+    this.getAllEmloyer();
   }
 
   getlistWithRole(value:string){
-  console.log(value);
   if(value) {
     this.getAllEmloyer(value)
   }
-  
   }
 
-  getAllEmloyer(role) {
-    this.serviceEmploy.getListEmployer(this.page , role).subscribe((res : any) =>{
-      this.listEmploye=res.data;
-      this.config = {
-        itemsPerPage: 10,
-        currentPage: 1,
-       totalItems: res.data.length
-      };
-      
-    })
+  getAllEmloyer(role?:string) {
+    if(role) {
+      this.serviceEmploy.getListEmployer(this.page , role).subscribe((res : any) =>{
+        this.listEmploye=res.data;
+        this.config = {
+          itemsPerPage: 10,
+          currentPage: 1,
+         totalItems: res.data.length
+        };
+        
+      })
+    }else {
+      this.serviceEmploy.getListEmployer(this.page).subscribe((res : any) =>{
+        this.listEmploye=res.data.list;
+        this.config = {
+          itemsPerPage: 10,
+          currentPage: 1,
+         totalItems: res?.data?.total
+        };
+        
+      })
+    }
+    
   }
 
   getImage(photo:string) {
@@ -85,7 +96,7 @@ export class ListComponent implements OnInit {
   }
 
   
-  changeStatus(id,status , role) {
+  changeStatus(id,status) {
     if(!status) {
       Swal.fire({
         title: 'Vous êtes sur ?',
@@ -99,7 +110,7 @@ export class ListComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.serviceEmploy.changeStatus(id, status).subscribe((res: any) => {
-            this.getAllEmloyer(role);
+            this.getAllEmloyer();
             });
           Swal.fire(
             'Bloqué!',
@@ -108,13 +119,13 @@ export class ListComponent implements OnInit {
           )
         }
         else {
-          this.getAllEmloyer(role);
+          this.getAllEmloyer();
         }
       })
     }
     else {
       this.serviceEmploy.changeStatus(id, status).subscribe((res: any) => {
-        this.getAllEmloyer(role);
+        this.getAllEmloyer();
         });
     }
     

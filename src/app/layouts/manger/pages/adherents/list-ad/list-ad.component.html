@@ -14,42 +14,240 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des adhérents</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" routerLink="/manager/adherents/add">+</a>
+          <a class="btn btn-success" style="float: right"  (click)="open(content)">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
               <th>Id</th>
-              <th>Nom</th>
-              <th>photo</th>
-              <th>Prenom</th>
-              <th>role</th>
-              <th>email</th>
-              <th>phone</th>
-              <th>action</th>
+              <th>Nom Prenom</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Email</th>
+              <th>Numéro de Tel</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr >
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a class="btn btn-danger btn-sm"> <i class=" tim-icons icon-simple-delete"> </i></a>
-                <a class="btn btn-primary btn-sm"> <i class=" tim-icons icon-pencil"> </i>
-                </a>
-              </td>
+            <tr *ngFor="let adh of listAdherent | paginate: config">
+              <td>{{adh.id}}  </td>
+              <td>{{adh.first_name}} {{adh.last_name}}   </td>
+              <td>{{adh.role}}</td>   <td><span class="badge"
+                [ngClass]="{'badge-danger': !adh.status , 'badge-success': adh.status}">{{getStatus(adh.status)}}</span>
+            </td>
+            <td>{{adh.email}}  </td>
+            <td>{{adh.phone}}  </td>
+            <td>
+              <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+              (change)="changeStatus(adh.id,adh.status)"	
+              [(ngModel)]="adh.status"
+              [disabled]="configg.disabled"
+              [width]="configg.width"
+              [height]="configg.height"
+              [margin]="configg.margin"
+              [labels]="configg.labels"
+              [color]="configg.color"
+              [switchColor]="configg.switchColor"
+              [fontColor]="configg.fontColor"
+              [fontSize]="configg.fontSize"
+            ></ng-toggle>
+            <button  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+              <i class="fas fa-edit"></i>
+            </button>
+            </td>
             </tr>
 
             </tbody>
           </table>
+
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+            <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
+              (pageChange)="config.currentPage = $event">
+              <div class="custom-pagination">
+                <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                  <span *ngIf="!p.isFirstPage()" (click)="p.previous()">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <ul class="pager">
+                  <li class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                    <span (click)="p.setCurrent(page.value)"
+                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                    <div *ngIf="p.getCurrent() === page.value">
+                      <span>{{ page.label }}</span>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                  <span *ngIf="!p.isLastPage()" (click)="p.next()"> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+
+            </pagination-template>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+
+  
+  <!-- add adherent -->
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Ajouter un nouvel adhérent</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+          <form class="form" [formGroup]="formAdherent" (ngSubmit)="addAdherent()">
+            <div class=" row">
+              <div class=" col-md-6 ">
+                <div class=" form-group">
+                  <label> Nom </label>
+                  <input type="text" formControlName="first_name" placeholder="first_name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                  <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.first_name.errors.required">Le nom est obligatoire</div>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label> Prénom </label>
+                  <input type="text" formControlName="last_name" placeholder="last_name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                  <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.last_name.errors.required">Le prenom est obligatoire</div>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+            <div class=" row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label> Email </label>
+                  <input type="email" formControlName="email" placeholder="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">L'email est obligatoire</div>
+                    <div *ngIf="f.email.errors.email">L'email doit être une adresse e-mail valide
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label> Phone </label>
+                  <input type="number"  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" formControlName="phone" placeholder="phone" class="form-control" />
+                  <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Le phone est obligatoire</div>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-12 ">
+                <div class=" form-group">
+                  <label> Address </label>
+                  <input type="text" formControlName="address" placeholder="address" class="form-control" />
+                </div>
+             
+              </div>
+             
+            </div>
+
+            <div class=" card-footer">
+              <button type="button" class="btn btn-outline-dark text-white mx-2"
+            (click)="modal.dismiss('Cross click')">Annuler</button>
+              <button class=" btn btn-fill btn-danger" type="submit" >Ajouter</button>
+            </div>
+          </form>
+    </div>
+
+  </ng-template>
+
+
+
+    <!-- edot adherent -->
+
+    <ng-template #contentt let-modal>
+      <div class="modal-header">
+        <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Modifier adhérent</h3>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form class="form" [formGroup]="formAdherent" (ngSubmit)="UpdateAdherent()">
+              <div class=" row">
+                <div class=" col-md-6 ">
+                  <div class=" form-group">
+                    <label> Nom </label>
+                    <input type="text" [(ngModel)]="adherentUpdated.first_name" formControlName="first_name" placeholder="first_name" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                    <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.first_name.errors.required">Le nom est obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+                <div class=" col-md-6">
+                  <div class=" form-group">
+                    <label> Prénom </label>
+                    <input type="text" [(ngModel)]="adherentUpdated.last_name" formControlName="last_name" placeholder="last_name" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                    <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.last_name.errors.required">Le prenom est obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <div class=" row">
+                <div class=" col-md-6">
+                  <div class=" form-group">
+                    <label> Email </label>
+                    <input type="email" [(ngModel)]="adherentUpdated.email" formControlName="email" placeholder="email" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">L'email est obligatoire</div>
+                      <div *ngIf="f.email.errors.email">L'email doit être une adresse e-mail valide
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class=" col-md-6">
+                  <div class=" form-group">
+                    <label> Phone </label>
+                    <input type="number" [(ngModel)]="adherentUpdated.phone"  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" formControlName="phone" placeholder="phone" class="form-control" />
+                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                      <div *ngIf="f.phone.errors.required">Le phone est obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+                <div class=" col-md-12 ">
+                  <div class=" form-group">
+                    <label> Address </label>
+                    <input   [(ngModel)]="adherentUpdated.address"  type="text" formControlName="address" placeholder="address" class="form-control" />
+                  </div>
+               
+                </div>
+               
+              </div>
+  
+              <div class=" card-footer">
+                <button type="button" class="btn btn-outline-dark text-white mx-2"
+              (click)="modal.dismiss('Cross click')">Annuler</button>
+                <button class=" btn btn-fill btn-warning" type="submit">Modifier</button>
+              </div>
+            </form>
+      </div>
+  
+    </ng-template>
+
+
 </div>
 
 

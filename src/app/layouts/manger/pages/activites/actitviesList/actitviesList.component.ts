@@ -4,7 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { ActivityModel } from 'src/app/models/activity.model';
-import { UserObject } from 'src/app/models/coach.model';
+import { ManagerModel } from 'src/app/models/gym.model';
 import { ActivityService } from 'src/app/services/activity.service';
 import { CoachsService } from 'src/app/services/coachs.service';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ export class ActitviesListComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';activityUpdated:ActivityModel;
-  allcoachs:UserObject[];
+  allcoachs:ManagerModel[];
   closeResult = '';
   page="1" ;
    config: any;

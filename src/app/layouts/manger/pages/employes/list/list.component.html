@@ -19,7 +19,7 @@
                 <a class="btn btn-role btn-sm" id="dropdownBasic2" ngbDropdownToggle>Coach/Receptioniste</a>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
                   <button ngbDropdownItem (click)="getlistWithRole('coach')">Coach</button>
-                  <button ngbDropdownItem (click)="getlistWithRole('recepetionist')">Receptioniste</button>
+                  <button ngbDropdownItem (click)="getlistWithRole('secretary')">Receptioniste</button>
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
               <td>{{mang.gym.name}}</td>
               <td>
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                (change)="changeStatus(mang.id,mang.status , mang.role)"	
+                (change)="changeStatus(mang.id,mang.status)"	
                 [(ngModel)]="mang.status"
                 [disabled]="configg.disabled"
                 [width]="configg.width"
