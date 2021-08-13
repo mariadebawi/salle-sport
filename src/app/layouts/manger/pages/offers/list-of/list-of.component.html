@@ -5,7 +5,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des offers</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add">Ajouter</a>
+          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -16,7 +16,7 @@
               <th scope="col">Statut</th>
               <th>Nom d'activitée</th>
               <th>Nombre de séance</th>
-              <th>Actions</th>
+              <th *ngIf=" currentUser && currentUser?.role !== 'secretary'">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
             </td>
               <td>{{offer.activity.name}}</td>
               <td>{{offer.number_of_sessions}}</td>
-              <td>
+              <td *ngIf=" currentUser && currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(offer.id,offer.status)"	
                 [(ngModel)]="offer.status"
@@ -44,7 +44,7 @@
                 [fontColor]="configg.fontColor"
                 [fontSize]="configg.fontSize"
               ></ng-toggle>
-              <a placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ '/manager/offers', offer.id ]" >
+              <a *ngIf=" currentUser && currentUser?.role !== 'secretary'" placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ '/manager/offers', offer.id ]" >
                 <i class="fas fa-edit"></i>
               </a>
             </tr>

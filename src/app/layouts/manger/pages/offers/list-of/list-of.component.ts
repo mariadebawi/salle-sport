@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {OffersService} from "../../../../../services/offers.service";
 import {OffersModel, TypeSubscriptionModel} from "../../../../../models/offers.model";
 import Swal from 'sweetalert2';
+import { ManagerModel } from 'src/app/models/gym.model';
 @Component({
   selector: 'app-list-of',
   templateUrl: './list-of.component.html',
@@ -40,9 +41,14 @@ export class ListOfComponent implements OnInit {
       unchecked: "#ffffff"
     }
   };
+
+  currentUser : ManagerModel ;
+  
   constructor(private _OfferService:OffersService) { }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
+
     this.getListOffer();
   }
   getListOffer()  {

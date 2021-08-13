@@ -24,7 +24,7 @@
               </div>
             </div>
           
-            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add">Ajouter</a>
+            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
           </div>
           <hr>
           <table class="table">
@@ -37,7 +37,7 @@
               <th scope="col">Role</th>
               <th scope="col">Status</th>
               <th scope="col">Nom de salle de sport</th>
-              <th scope="col">Bloquer</th>
+              <th scope="col" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Bloquer</th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                 [ngClass]="{'badge-danger': !mang.status , 'badge-success': mang.status}">{{getStatus(mang.status)}}</span>
             </td>
               <td>{{mang.gym.name}}</td>
-              <td>
+              <td *ngIf=" currentUser && currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(mang.id,mang.status)"	
                 [(ngModel)]="mang.status"

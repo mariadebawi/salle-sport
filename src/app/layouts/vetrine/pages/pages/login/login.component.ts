@@ -17,23 +17,26 @@ export class LoginComponent  implements OnInit  {
   error = '';
 
   constructor( private formBuilder: FormBuilder ,  private authService : AuthService ,  private route: ActivatedRoute, private router: Router, ) {
-    if (JSON.parse(localStorage.getItem('currentUser'))) {
-      this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
-    }
+   
    }
 
 
    wichRoute(currentUser) {
            if (currentUser  && currentUser.role === "admin") {
                  this.router.navigate(['/admin']);
-             }else if(currentUser && currentUser.role === "manager") {
-                 this.router.navigate(['/manager']);
+                }else if(currentUser && currentUser.role === "manager" || currentUser && currentUser.role === "secretary" ) {
+                  this.router.navigate(['/manager']);
             }else {
                 this.router.navigate(['/login']);
              }
    }
 
   ngOnInit() {
+    
+    if (JSON.parse(localStorage.getItem('currentUser'))) {
+      this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
+    }
+
       this.loginForm = this.formBuilder.group({
           email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required]],

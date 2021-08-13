@@ -46,7 +46,6 @@ export class MangersComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllManagers() ;
-    
   }
 
   changeValue(id , value) {

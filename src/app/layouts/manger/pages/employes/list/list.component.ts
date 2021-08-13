@@ -49,10 +49,12 @@ export class ListComponent implements OnInit {
    screenReaderCurrentLabel: `You're on page`
 };
 
-
+currentUser: ManagerModel ;
   constructor(private serviceEmploy:ProfileService) { }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
+
     this.getAllEmloyer();
   }
 

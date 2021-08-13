@@ -7,7 +7,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des activites</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" (click)="open(content)">Ajouter</a>
+          <a class="btn btn-success" style="float: right" (click)="open(content)" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -17,7 +17,7 @@
               <th>Nom de coach</th>
               <th>Status</th>
               <th>Date de creation</th>
-              <th>Actions</th>
+              <th *ngIf=" currentUser && currentUser?.role !== 'secretary'">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
             </td>
               <td>{{getDate(activity.created_at)}}</td>
 
-              <td>
+              <td *ngIf=" currentUser && currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(activity.id,activity.status)"	
                 [(ngModel)]="activity.status"

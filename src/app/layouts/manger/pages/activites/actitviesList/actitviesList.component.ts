@@ -60,9 +60,13 @@ export class ActitviesListComponent implements OnInit {
     screenReaderCurrentLabel: `You're on page`
 };
 
+  currentUser : ManagerModel ;
+  
   constructor(private _activityServ:ActivityService ,private _CoachServ:CoachsService, private modalService: NgbModal , private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
+
     this.getALLactivities();
     this.GetListCoach();
     this.activityForm = this.formBuilder.group({
