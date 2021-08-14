@@ -48,8 +48,16 @@ export class MangersComponent implements OnInit {
     this.GetAllManagers() ;
   }
 
-  changeValue(id , value) {
-    if(value) {
+  getStatus(status : boolean){
+    if(status) {
+      return 'disponible'
+    }else {
+      return 'pas disponible'
+    }
+  }
+
+  changeStatus(id , value) {
+    if(!value) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer ce manager ?!!",
@@ -57,7 +65,6 @@ export class MangersComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonText: 'Non',
-
         cancelButtonColor: '#d33',
         confirmButtonText: 'oui'
       }).then((result) => {
@@ -85,6 +92,14 @@ export class MangersComponent implements OnInit {
     }
     
 
+  }
+
+  getImage(photo:string) {
+    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
+    }else {
+      return photo
+    }
   }
 
   GetAllManagers() {

@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let gyggm of allManagers" >
+            <tr *ngFor="let gyggm of allManagers | paginate: config" >
               <th scope="row">{{gyggm.gym.id}}</th>
               <td>{{gyggm.gym.name}}</td>
               <td>{{gyggm.first_name}} {{gyggm.last_name}}    </td>
@@ -37,6 +37,33 @@
           
             </tbody>
           </table>
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+            <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
+              (pageChange)="config.currentPage = $event">
+              <div class="custom-pagination">
+                <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                  <span *ngIf="!p.isFirstPage()" (click)="p.previous()">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <ul class="pager">
+                  <li class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                    <span (click)="p.setCurrent(page.value)"
+                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                    <div *ngIf="p.getCurrent() === page.value">
+                      <span>{{ page.label }}</span>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                  <span *ngIf="!p.isLastPage()" (click)="p.next()"> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+
+            </pagination-template>
+          </div>
         </div>
       </div>
     </div>

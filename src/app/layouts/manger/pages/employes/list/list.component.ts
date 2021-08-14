@@ -61,6 +61,8 @@ currentUser: ManagerModel ;
   getlistWithRole(value:string){
   if(value) {
     this.getAllEmloyer(value)
+  }else {
+    this.getAllEmloyer()
   }
   }
 
@@ -94,6 +96,15 @@ currentUser: ManagerModel ;
       return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
     }else {
       return photo
+    }
+  }
+
+  getRole(role) {
+    if(role === "secretary") {
+      return 'receptioniste'
+    }
+    else {
+      return 'coach'
     }
   }
 

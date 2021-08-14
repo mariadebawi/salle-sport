@@ -32,6 +32,16 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-single-02",
     class: ""
   },
+  {
+    path: "/admin/subscriptions",
+    title: "gestion de caisse",
+    icon: "icon-single-02",
+    class: ""
+  },
+
+  
+  
+
 ];
 
 @Component({

@@ -41,17 +41,16 @@ export class DashboardComponent implements OnInit {
       return 'pas en cours'
     }
  }
- getlogo(logo:string)
- {
-   
-   if(logo==null || logo=="")
+ getlogo(photo:string)
+ { if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') )
    {
      return "https://img2.freepng.fr/20180714/hxu/kisspng-user-profile-computer-icons-login-clip-art-profile-picture-icon-5b49de2f52aa71.9002514115315676633386.jpg";
    }
    else{
-     return logo;
+     return photo;
    }
  }
+ 
   getUnit(unit : string) {
     if(unit === 'day') { return 'jours' ;}
   if(unit === 'month') { return 'mois' ;}

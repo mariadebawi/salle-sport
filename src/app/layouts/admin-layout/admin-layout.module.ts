@@ -15,6 +15,7 @@ import { DetailsGymComponent } from './pages/gym/details-gym/details-gym.compone
 import { NgxPaginationModule } from "ngx-pagination";
 import { NgToggleModule } from 'ng-toggle-button';
 import { AdminProfileComponent } from "./pages/admin-profile/admin-profile.component";
+import { SubscriptionsComponent } from "./pages/subscriptions/subscriptions.component";
 
 @NgModule({
   imports: [
@@ -35,7 +36,9 @@ import { AdminProfileComponent } from "./pages/admin-profile/admin-profile.compo
     OffersComponent,
     GymsComponent,
     DetailsGymComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    SubscriptionsComponent
+
   ]
 })
 export class AdminLayoutModule {}

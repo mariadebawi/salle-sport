@@ -11,6 +11,7 @@ import {EditProfileComponent} from './pages/user/edit-profile/edit-profile.compo
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import { EditOfComponent } from "./pages/offers/editOf/editOf.component";
 import { EditEmplComponent } from "./pages/employes/editEmpl/editEmpl.component";
+import { GestionCaisseComponent } from "./pages/gestionCaisse/gestionCaisse.component";
 
 
 export const ManagerLayoutRoutes: Routes = [
@@ -30,6 +31,9 @@ export const ManagerLayoutRoutes: Routes = [
       { path: 'offers/add',component: AddOfComponent},
       { path: 'offers/:id',component: EditOfComponent},
       { path: 'profile/edit',component: EditProfileComponent},
+      { path: 'gestionCaisse',component: GestionCaisseComponent},
+
+
     ]
     }
 ];

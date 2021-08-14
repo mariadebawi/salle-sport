@@ -1,0 +1,16 @@
+h4.tewt-white.text-weight-bold {
+    font-weight: bold;
+}
+
+.form-control {
+    border-color: #fff !important;
+    &:hover , &:focus {
+        color: #fff !important;
+
+    }
+}
+
+.card label {
+    color: rgb(255 255 255 / 61%) !important;
+}
+ 

@@ -1,0 +1,51 @@
+button.btn-red{
+    background: rgb(255, 0, 0) !important;
+    &:focus , &:hover {
+        background: rgb(255, 0, 0) !important;
+    }
+}
+
+button.btn-green {
+    background: rgb(33, 226, 33) !important;
+    &:focus , &:hover {
+        background: rgb(33, 226, 33) !important;
+    }
+
+}
+
+.custom-control-label::before, .custom-file-label, .custom-select {
+    transition: none;
+    color: #fff !important;
+}
+
+.btn-white  { 
+    background: #fff !important;
+    i{
+        color: #000 !important;
+    }
+    color: #000 !important;
+&:focus , &:hover {
+    i{
+        color: #000 !important;
+    }
+    background: #fff !important;
+    color: #000 !important;
+}
+}
+
+h4.tewt-white.text-weight-bold {
+    font-weight: bold;
+}
+
+.form-control {
+    border-color: #fff !important;
+    &:hover , &:focus {
+        color: #fff !important;
+
+    }
+}
+
+.card label {
+    color: rgb(255 255 255 / 61%) !important;
+}
+ 

@@ -6,6 +6,7 @@ import {MangersComponent} from "./pages/mangers/mangers.component";
 import {GymsComponent} from "./pages/gym/gyms/gyms.component";
 import {DetailsGymComponent} from "./pages/gym/details-gym/details-gym.component";
 import { AdminProfileComponent } from "./pages/admin-profile/admin-profile.component";
+import { SubscriptionsComponent } from "./pages/subscriptions/subscriptions.component";
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -19,6 +20,8 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'gyms',component: GymsComponent},
       { path: 'gyms/:id',component: DetailsGymComponent},
       { path: 'my-profile',component: AdminProfileComponent},
+      { path: 'subscriptions',component: SubscriptionsComponent},
+
 
     ]
     }

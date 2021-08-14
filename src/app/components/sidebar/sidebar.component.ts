@@ -38,6 +38,13 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-chart-pie-36",
     class: ""
   },
+  {
+    path: "gestionCaisse",
+    title: "Gestion de Caisse",
+    icon: "icon-chart-pie-36",
+    class: ""
+  },
+  
 
 ];
 

@@ -17,6 +17,7 @@ import { NgToggleModule } from 'ng-toggle-button';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { EditOfComponent } from './pages/offers/editOf/editOf.component';
 import { EditEmplComponent } from './pages/employes/editEmpl/editEmpl.component';
+import { GestionCaisseComponent } from './pages/gestionCaisse/gestionCaisse.component';
 
 @NgModule({
     imports: [
@@ -40,7 +41,8 @@ import { EditEmplComponent } from './pages/employes/editEmpl/editEmpl.component'
         EditProfileComponent,
          DashboardComponent,
          EditOfComponent,
-         EditEmplComponent
+         EditEmplComponent,
+         GestionCaisseComponent
         ]
 })
 export class MangerModule { }

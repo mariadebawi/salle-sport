@@ -18,6 +18,7 @@
               <div ngbDropdown>
                 <a class="btn btn-role btn-sm" id="dropdownBasic2" ngbDropdownToggle>Coach/Receptioniste</a>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                  <button ngbDropdownItem (click)="getlistWithRole()">Tous</button>
                   <button ngbDropdownItem (click)="getlistWithRole('coach')">Coach</button>
                   <button ngbDropdownItem (click)="getlistWithRole('secretary')">Receptioniste</button>
                 </div>
@@ -46,7 +47,7 @@
               <td><img [src]=" getImage( mang.photo) " height="50px" style="border-radius: 50%"> </td>
               <td>{{mang.first_name}} {{mang.last_name}}   </td>
               <td>{{mang.email}}</td>
-              <td>{{mang.role}}</td>
+              <td>{{getRole(mang.role)}}</td>
               <td><span class="badge"
                 [ngClass]="{'badge-danger': !mang.status , 'badge-success': mang.status}">{{getStatus(mang.status)}}</span>
             </td>
