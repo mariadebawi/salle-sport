@@ -64,7 +64,7 @@ export class ListAdComponent implements OnInit {
       last_name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       address: [''],
-      phone:  ['', [Validators.required]],
+      phone: ['', [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     })
 
     this.getListAdherent(this.page);
@@ -80,7 +80,7 @@ export class ListAdComponent implements OnInit {
         currentPage: 1,
        totalItems: res?.data?.total
       };
-      
+
     })
   }
 
@@ -99,7 +99,7 @@ export class ListAdComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.serviceEmploy.changeStatusAdherent(id, status).subscribe((res: any) => {
-            this.getListAdherent(this.page);       
+            this.getListAdherent(this.page);
           });
           Swal.fire(
             'Bloqué!',
@@ -117,9 +117,9 @@ export class ListAdComponent implements OnInit {
         this.getListAdherent(this.page);
               });
     }
-    
+
   }
-  getPage(p) {   
+  getPage(p) {
     this.page = p.toString();
     }
 
@@ -133,7 +133,7 @@ export class ListAdComponent implements OnInit {
 
 
  open(content ,  adherent?:ManagerModel) {
-  
+
   if(adherent) {
     this.adherentUpdated = adherent ;
   }
@@ -183,7 +183,7 @@ addAdherent() {
           `erreur : ${error}` ,
           'error'
         )
-     
+
    }
 }
 
@@ -207,7 +207,7 @@ UpdateAdherent() {
           `erreur : ${error}` ,
           'error'
         )
-     
+
    }
 }
 

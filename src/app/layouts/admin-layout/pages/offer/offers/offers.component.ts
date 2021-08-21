@@ -49,7 +49,7 @@ export class OffersComponent implements OnInit {
   };
    offreForm: FormGroup;
    submitted = false;
- 
+
   public labels: any = {
       previousLabel: '&nbsp;',
       nextLabel: '&nbsp;',
@@ -57,8 +57,8 @@ export class OffersComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
- 
-  constructor(private _offersService:OffersService ,  private modalService: NgbModal , private formBuilder: FormBuilder, 
+
+  constructor(private _offersService:OffersService ,  private modalService: NgbModal , private formBuilder: FormBuilder,
     ) { }
 
 
@@ -77,7 +77,7 @@ export class OffersComponent implements OnInit {
   GetAllOffers(){
     this._offersService.getAlOffers(this.page).subscribe((res:any)=>{
       this.allOffers=res.data;
-  
+
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
@@ -103,7 +103,7 @@ export class OffersComponent implements OnInit {
     if (this.offreForm.invalid) {
         return;
     }
-    
+
     const offre  = {
       name: this.offreForm.value.name,
       duration:  this.offreForm.value.duration,
@@ -117,10 +117,10 @@ export class OffersComponent implements OnInit {
           'Modification !',
           'Votre offre est modifié avec succée.',
           'success'
-        )  
+        )
         this.GetAllOffers() ;
       }
-     
+
     },
     error => {
       Swal.fire(
@@ -190,7 +190,7 @@ addOffre() {
 }
 
   changeStatus(id,status) {
-    if(!status) {
+    if(status) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer cet offre ?!!",
@@ -218,7 +218,7 @@ addOffre() {
         this.GetAllOffers();
         });
     }
-    
+
   }
 
   getStatus(status : boolean){
@@ -240,7 +240,7 @@ addOffre() {
   if(unit === 'year') { return 'année' ;}
  }
 
- getPage(p) {   
+ getPage(p) {
   this.page = p.toString();
   }
 

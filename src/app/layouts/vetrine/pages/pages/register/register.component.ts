@@ -41,8 +41,8 @@ export class RegisterComponent implements OnInit {
 	  description: [''],
 	  lastname  :['', [Validators.required]],
 	  firstname:['', [Validators.required]],
-	  numroTel:['', [Validators.required]],
-	  addressDirector:[''],
+	  numroTel: ['', [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    addressDirector:[''],
 	  emailDirector : ['', [Validators.required, Validators.email]],
 	  passwordDirector:['', [Validators.required]],
 	  offreId:['', [Validators.required]],
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   getOffreList() {
-    this.offreService.getAlOffers('1').subscribe((res:any)=>{		
+    this.offreService.getAlOffers('1').subscribe((res:any)=>{
 		res.data.forEach(e => {
 			if(e.status) {
 				this.offreList.push(e);

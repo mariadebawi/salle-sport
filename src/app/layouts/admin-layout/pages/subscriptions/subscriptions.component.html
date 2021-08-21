@@ -13,11 +13,11 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-capitalize text-muted mb-0">Les ventes    </h5>
-                      <span class="h2 font-weight-bold mb-0">5555</span>
+                      <span class="h2 font-weight-bold mb-0">{{listCarts?.count_subscription_profit}} DT</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="far fa-money-bill-alt"></i>  
+                        <i class="far fa-money-bill-alt"></i>
                       </div>
                     </div>
                   </div>
@@ -30,7 +30,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-capitalize text-muted mb-0">Subscriptions Acceptées</h5>
-                      <span class="h2 font-weight-bold mb-0">5555</span>
+                      <span class="h2 font-weight-bold mb-0">{{listCarts?.count_subscription_accept}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -47,7 +47,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-capitalize text-muted mb-0">Subscriptions Terminées</h5>
-                      <span class="h2 font-weight-bold mb-0">5555</span>
+                      <span class="h2 font-weight-bold mb-0">{{listCarts?.count_subscription_profit}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-red text-white rounded-circle shadow">
@@ -64,11 +64,11 @@
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-capitalize text-muted mb-0">Subscriptions En Attente</h5>
-                    <span class="h2 font-weight-bold mb-0">5555</span>
+                    <span class="h2 font-weight-bold mb-0">{{listCarts?.count_subscription_enattente}}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-clock"></i>                
+                      <i class="fas fa-clock"></i>
                         </div>
                   </div>
                 </div>
@@ -95,12 +95,12 @@
                     <option *ngFor="let item of listOffre" [value]="item.id">{{item.name}}</option>
           </select>
         </div>
-        <div class="col-md-3"> 
-          <button class="btn btndefault btn-sm " style="margin-top :2rem"><i class="fas fa-search mr-2" (click)="chercher()"></i> Rechercher </button>
+        <div class="col-md-3">
+          <button class="btn btndefault btn-sm " style="margin-top :2rem" (click)="refresh()"><i class="fas fa-search mr-2" ></i> Refresh </button>
         </div>
-    
+
         </div>
-      
+
         <table class="table">
           <thead>
           <tr>
@@ -128,14 +128,14 @@
               [ngClass]="{'badge-danger': mang.status == 'refuser' , 'badge-success': mang.status == 'terminer' , 'badge-warning': mang.status == 'en attente'  }">{{mang.status}}</span>
           </td>
             <td>
-              <button class="btn btn-defaukt btn-sm" (click)="showRecu(mang.payment_receipt)"> <i class="fas fa-eye"> </i> afficher Reçu</button>
+              <button class="btn btn-defaukt btn-sm" (click)="showRecu(mang?.payment_receipt)"> <i class="fas fa-eye"> </i> afficher Reçu</button>
               <button class="btn btn-green btn-sm mx-2" (click)="changeSatus(mang.id , 'terminer' ) "  *ngIf="mang.status !== 'refuser' && mang.status !== 'terminer' "> <i class="fas fa-check-circle"> </i>Accepter</button>
               <button class="btn btn-red btn-sm mx-2" (click)="changeSatus(mang.id , 'refuser' ) "  *ngIf="mang.status !== 'refuser' "><i class="fas fa-minus-circle">Refuser</i></button>
             </td>
           </tr>
           </tbody>
         </table>
-        
+
         <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
           <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
             (pageChange)="config.currentPage = $event">

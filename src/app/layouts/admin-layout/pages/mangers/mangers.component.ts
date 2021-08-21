@@ -57,7 +57,7 @@ export class MangersComponent implements OnInit {
   }
 
   changeStatus(id , value) {
-    if(!value) {
+    if(value) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer ce manager ?!!",
@@ -90,7 +90,7 @@ export class MangersComponent implements OnInit {
           'success'
         )
     }
-    
+
 
   }
 
@@ -105,8 +105,8 @@ export class MangersComponent implements OnInit {
   GetAllManagers() {
       this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
       this.allManagers=res.data.list;
-      
-  
+
+
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,

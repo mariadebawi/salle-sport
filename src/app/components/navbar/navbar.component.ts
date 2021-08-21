@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from "src/app/services/auth.service";
+import {ManagerModel} from "../../models/gym.model";
 
 @Component({
   selector: "app-navbar",
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
+  currentUser : ManagerModel ;
 
   public isCollapsed = true;
 
@@ -26,7 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
-    private authService : AuthService 
+    private authService : AuthService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -43,6 +45,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
      }
    };
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
+
     window.addEventListener("resize", this.updateColor);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
@@ -55,6 +59,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+  }
+
+  getImage(photo:string) {
+    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
+    }else {
+      return photo
+    }
   }
 
   collapse() {

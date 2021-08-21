@@ -38,7 +38,7 @@
             <td>{{adh.phone}}  </td>
             <td>
               <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-              (change)="changeStatus(adh.id,adh.status)"	
+              (change)="changeStatus(adh.id,adh.status)"
               [(ngModel)]="adh.status"
               [disabled]="configg.disabled"
               [width]="configg.width"
@@ -92,7 +92,7 @@
   </div>
 
 
-  
+
   <!-- add adherent -->
 
   <ng-template #content let-modal>
@@ -125,7 +125,7 @@
                   </div>
                 </div>
               </div>
-             
+
             </div>
             <div class=" row">
               <div class=" col-md-6">
@@ -143,9 +143,12 @@
               <div class=" col-md-6">
                 <div class=" form-group">
                   <label> Phone </label>
-                  <input type="number"  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" formControlName="phone" placeholder="phone" class="form-control" />
+                  <input type="number" formControlName="phone" placeholder="phone" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                   <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                    <div *ngIf="f.phone.errors.required">Le phone est obligatoire</div>
+                    <div *ngIf="f.phone.errors.required" >Le numero de telephone est obligatoire</div>
+                    <div *ngIf="f.phone.errors.email">Le numero de telephone doit être une suite de chiffres
+                    </div>
                   </div>
                 </div>
               </div>
@@ -154,9 +157,9 @@
                   <label> Address </label>
                   <input type="text" formControlName="address" placeholder="address" class="form-control" />
                 </div>
-             
+
               </div>
-             
+
             </div>
 
             <div class=" card-footer">
@@ -203,7 +206,7 @@
                     </div>
                   </div>
                 </div>
-               
+
               </div>
               <div class=" row">
                 <div class=" col-md-6">
@@ -221,9 +224,12 @@
                 <div class=" col-md-6">
                   <div class=" form-group">
                     <label> Phone </label>
-                    <input type="number" [(ngModel)]="adherentUpdated.phone"  [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" formControlName="phone" placeholder="phone" class="form-control" />
+                    <input type="number"   [(ngModel)]="adherentUpdated.phone" formControlName="phone" placeholder="phone" class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                     <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                      <div *ngIf="f.phone.errors.required">Le phone est obligatoire</div>
+                      <div *ngIf="f.phone.errors.required" >Le numero de telephone est obligatoire</div>
+                      <div *ngIf="f.phone.errors.email">Le numero de telephone doit être une suite de chiffres
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -232,11 +238,11 @@
                     <label> Address </label>
                     <input   [(ngModel)]="adherentUpdated.address"  type="text" formControlName="address" placeholder="address" class="form-control" />
                   </div>
-               
+
                 </div>
-               
+
               </div>
-  
+
               <div class=" card-footer">
                 <button type="button" class="btn btn-outline-dark text-white mx-2"
               (click)="modal.dismiss('Cross click')">Annuler</button>
@@ -244,7 +250,7 @@
               </div>
             </form>
       </div>
-  
+
     </ng-template>
 
 

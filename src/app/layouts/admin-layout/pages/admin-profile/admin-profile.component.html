@@ -63,7 +63,7 @@
               <div class=" col-md-6">
                 <div class=" form-group form-password">
                   <label> Nouveau mot de passe  </label>
-                  <input  [type]="passwordType"  formControlName="newPassword" placeholder="Confirmer" class="form-control" 
+                  <input  [type]="passwordType"  formControlName="newPassword" placeholder="Confirmer" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }" />
                   <i class="fa" [ngClass]="passwordType === 'password' ? 'fa-eye' : 'fa-eye-slash '" (click)="ShowPassword()"></i>
                   <div *ngIf="submitted && f.newPassword.errors" class="invalid-feedback">
@@ -76,10 +76,16 @@
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
                   <label> Phone </label>
-                  <input type="number"   [(ngModel)]="me.phone" formControlName="phone" placeholder="phone" class="form-control"/>
+                  <input type="number"   [(ngModel)]="me.phone" formControlName="phone" placeholder="phone" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                  <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required" >Le numero de telephone est obligatoire</div>
+                    <div *ngIf="f.phone.errors.pattern">Le numero de telephone doit être une suite de chiffres
+                    </div>
+                  </div>
                 </div>
               </div>
-              
+
               <div class=" col-md-8 pl-md-1 mt-4">
                 <div class="row">
                   <div class="col-md-6">
@@ -106,7 +112,7 @@
             </div>
           </form>
         </div>
-   
+
       </div>
     </div>
     <div class=" col-md-4">
@@ -119,7 +125,7 @@
             <div class=" block block-three"></div>
             <div class=" block block-four"></div>
             <a href="javascript:void(0)">
-              <img alt="..." class=" avatar" [src]="me.photo" />
+              <img alt="..." class=" avatar" [src]="getImage(me?.photo)" />
 
               <h5 class=" title">  {{me.first_name}} {{me.last_name}}</h5>
             </a>

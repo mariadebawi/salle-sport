@@ -52,7 +52,7 @@
                     <div *ngIf="f.nomSalle.errors.required">Le nom de Salle est obligatoire</div>
                     </div>
                 </div>
-               
+
                 <div class="form-group has-label  col-md-4"><label> Addresse </label>
                   <input
                     class="form-control ng-untouched ng-pristine ng-invalid" formControlName="adresseSalle"
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group has-label  col-md-4"><label> Jour de congé
                   </label>
-                  <select class="custom-select  text-black" formControlName="jourConge"  
+                  <select class="custom-select  text-black" formControlName="jourConge"
                   [ngClass]="{ 'is-invalid': submitted && f.nomSalle.errors }" >
                     <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
@@ -104,7 +104,7 @@
                             <div *ngIf="submitted && !urlSalle">Logo est obligatoire</div>
                             </div>
                         </div>
-                        
+
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -137,13 +137,17 @@
                       <div *ngIf="f.lastname.errors.required">Le Nom est obligatoire</div>
                       </div>
                 </div>
+
                 <div class="form-group has-label  col-md-4"><label> N° Telephone </label><input
                     class="form-control" formControlName="numroTel" name="numroTel"
                     [ngClass]="{ 'is-invalid': submitted && f.numroTel.errors }"
                     required="" type="text">
                     <div *ngIf="submitted && f.numroTel.errors" class="invalid-feedback">
-                      <div *ngIf="f.numroTel.errors.required">Le Nom est obligatoire</div>
+                      <div *ngIf="f.numroTel.errors.required">Le numero de telephone est obligatoire</div>
+                      <div *ngIf="f.phone.errors.pattern">Le numero de telephone doit être une suite de chiffres
+
                       </div>
+                </div>
                 </div>
                 <div class="form-group has-label  col-md-4"><label> Address
                   </label><input class="form-control ng-untouched ng-pristine ng-invalid"
@@ -158,7 +162,7 @@
                       <div *ngIf="f.emailDirector.errors.email">L'email doit être une adresse e-mail valide
                       </div>
                   </div>
-                      
+
                 </div>
                 <div class="form-group has-label  col-md-4"><label> Mot de passe </label><input
                     class="form-control ng-untouched ng-pristine ng-invalid" formControlName="passwordDirector"

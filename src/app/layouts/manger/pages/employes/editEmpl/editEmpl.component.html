@@ -51,7 +51,13 @@
               <div class=" col-md-4 ">
                 <div class=" form-group">
                   <label> Phone </label>
-                  <input type="number" formControlName="phone" [(ngModel)]="employUpdated.phone" placeholder="phone" class="form-control" />
+                  <input type="number" formControlName="phone" placeholder="phone" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                  <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required" >Le numero de telephone est obligatoire</div>
+                    <div *ngIf="f.phone.errors.pattern">Le numero de telephone doit être une suite de chiffres
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class=" col-md-4">
@@ -107,7 +113,7 @@
             </div>
           </form>
         </div>
-    
+
       </div>
     </div>
   </div>

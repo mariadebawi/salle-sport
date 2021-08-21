@@ -19,7 +19,7 @@ export class AddEmpComponent implements OnInit {
   passwordType = 'password';
   roleEmploye='coach';
   constructor(private formBuilder: FormBuilder , private profileService :ProfileService   ,private authService : AuthService ) { }
-  
+
   ngOnInit(): void {
     this.employeProfile = this.formBuilder.group({
       first_name: ['', [Validators.required]],
@@ -27,21 +27,21 @@ export class AddEmpComponent implements OnInit {
       role: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       address: [''],
-      phone: [''],
+      phone: ['', [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       password: [''],
     })
   }
 
-   get f() { return this.employeProfile.controls; } 
-   
-   
+   get f() { return this.employeProfile.controls; }
+
+
   reset(){
     this.employeProfile.reset() ;
   }
 
   changeRole(value){
     this.roleEmploye=value;
-    
+
     if(this.roleEmploye !== 'secretary') {
       this.employeProfile.value.password = null;
       this.employeProfile.get('password').setValidators([]);
@@ -90,7 +90,7 @@ export class AddEmpComponent implements OnInit {
 
   addEmploye() {
     this.submitted = true;
-  
+
     this.profileService.updateProfileFunction(this.roleEmploye ,this.employeProfile , 'addEmployer',this.urlPhotot )
       .subscribe(
         (res :any) => {
@@ -108,10 +108,10 @@ export class AddEmpComponent implements OnInit {
             `erreur : ${error}` ,
             'error'
           )
-        }); 
+        });
 
 }
 
-  
- 
+
+
 }

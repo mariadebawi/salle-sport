@@ -10,17 +10,24 @@ export class SubscriptionsService {
   BASEURL=environment.basUrl;
   constructor(private http: HttpClient) { }
 
-  getSubscriptiolsList(page ,filters? ){
+  getSubscriptiolsList(page ,filters? ) {
+    if (!filters) {
       const params = new HttpParams()
-      //  .set('gym_id', filters?.salleName )
-      //  .set('offer_id', filters?.offreId)
-      //  .set('status', filters?.status)
-      .set('page', page) ;
-      return this.http.get(this.BASEURL+`cash_management`, { params: params } );
-  }
+        .set('page', page);
+      return this.http.get(this.BASEURL + `cash_management`, {params: params});
+    } else {
+     const paramss = new HttpParams()
+       .set('gym_id', filters.salleName)
+       .set('offer_id', filters.offreId)
+       .set('status', filters.status)
+       .set('page', page);
+        return this.http.get(this.BASEURL + `cash_management`, {params: paramss});
+      }
+
+    }
+
 
   getFilter() {
-    console.log('okkk');
     return this.http.get(this.BASEURL+`cash_management/get_settings`);
   }
 

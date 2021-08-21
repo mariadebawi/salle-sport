@@ -7,6 +7,7 @@ import { OffersModel } from "./offers.model";
         end_at: string;
         status: number;
         created_at: Date;
+         payment_receipt: string;
         adherent_id: number;
         types_subscription: OffersModel;
         adherent: ManagerModel;

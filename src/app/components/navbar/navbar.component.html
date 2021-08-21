@@ -29,15 +29,15 @@
         <li class=" nav-item" ngbDropdown>
           <a class=" nav-link" data-toggle="dropdown" href="javascript:void(0)" ngbDropdownToggle>
             <div class=" photo">
-              <img alt="Profile Photo" src="assets/img/anime3.png" />
+              <img alt="Profile Photo" [src]="getImage(currentUser?.photo)" />
             </div>
             <b class=" caret d-none d-lg-block d-xl-block"> </b>
             <p class=" d-lg-none">Log out</p>
           </a>
           <ul class=" dropdown-navbar" ngbDropdownMenu>
             <li class=" nav-link">
-              <a class=" nav-item" ngbDropdownItem routerLink="/manger/profile/edit">
-                Saif Eddine Hajji
+              <a class=" nav-item" ngbDropdownItem [routerLink]="[ '/admin/my-profile' ]" >
+               {{ currentUser?.first_name}} {{ currentUser?.last_name}}
               </a>
             </li>
             <li class=" dropdown-divider"></li>

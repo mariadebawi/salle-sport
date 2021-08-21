@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { SubscriptionAdherent } from 'src/app/models/SubscriptionAdherent.model';
+import { StatsService } from 'src/app/services/stats.service';
 import { SubscriptionsService } from 'src/app/services/subscriptions.service';
 import Swal from 'sweetalert2';
 
@@ -15,57 +16,82 @@ export class SubscriptionsComponent implements OnInit {
   config: any;
   listGym=[] ;
   listOffre =[] ;
-  filters : { salleName : number , status : string ; offreId :number} ; salleName=0; ; status=''; ; offreId=0;
-  constructor( private serviceSub : SubscriptionsService) { }
+  cards =[] ;listCarts ;
+  filters : { salleName? : number  , status? : string ; offreId? :number} = { salleName : 1  , status : 'en attente' , offreId :1}; salleName=0; status='';  offreId=0;
+
+  constructor( private serviceSub : SubscriptionsService , private serviceStat : StatsService) { }
 
   ngOnInit() {
     this.filter() ;
     this.getListSubscription(this.page) ;
+    this.getStatistique()
   }
 
-  
+
   filter() {
-    this.serviceSub.getFilter().subscribe((res:any)=>{      
+    this.serviceSub.getFilter().subscribe((res:any)=>{
+      this.listCarts=res.data.cards;
       this.listGym = res.data.list_gyms ;
-      this.listOffre = res.data.list_offers ;      
-      
+      this.listOffre = res.data.list_offers ;
+      this.filters.salleName = this.listGym[0].id;
+      this.filters.offreId = this.listOffre[0].id;
+      this.filters.status = 'en attente';
+
+    })
+  }
+
+  getStatistique() {
+    this.serviceStat.getAdminStats().subscribe((res:any)=>{
+      this.cards = res.data.cards ;
+
     })
   }
 
   findBySatus(status) {
      this.status = status;
-     this.filters.status =status 
-    
+     this.chercher( 'status' , this.status)
   }
 
-  findBySalleName(salle) {    
-     this.salleName = Number(salle) ; 
-    this.filters.salleName = Number(salle) ;
+  findBySalleName(salle) {
+     this.salleName = Number(salle) ;
+    this.chercher( 'salleName' ,this.salleName)
+
   }
 
 
-  
+
   findByOffreName(idOffre) {
     this.offreId= Number(idOffre)
-      this.filters.offreId = Number(idOffre)
-}
+    this.chercher( 'offreId', this.offreId)
 
-
-  chercher() {
-    console.log(this.filters);
-    
-    console.log(this.salleName);
-    console.log(this.offreId);
-    console.log(this.status);
-
-    
-    
   }
-  
-  getListSubscription(page) {  
-  
-    // if(this.filters) {
-       this.serviceSub.getSubscriptiolsList(page).subscribe((res:any)=>{
+
+  refresh() {
+    this.ngOnInit() ;
+  }
+
+  chercher(name : string , value : any) {
+    if(name === 'status') {
+      this.filters.status = value
+    }
+    if(name === 'offreId') {
+      this.filters.offreId = value
+    }
+    if(name === 'salleName') {
+      this.filters.salleName = value
+    }
+    this.serviceSub.getSubscriptiolsList(this.page , this.filters).subscribe((res:any)=> {
+      this.allSubscriptions=res.data.list;
+      this.config = {
+        itemsPerPage: 10,
+        currentPage: 1,
+        totalItems: this.allSubscriptions.length
+      };
+    })
+  }
+
+  getListSubscription(page) {
+     this.serviceSub.getSubscriptiolsList(page).subscribe((res:any)=>{
        this.allSubscriptions=res.data.list;
        this.config = {
         itemsPerPage: 10,
@@ -73,27 +99,14 @@ export class SubscriptionsComponent implements OnInit {
        totalItems: this.allSubscriptions.length
       };
        })
-      
-    //  }else {
-    //     this.serviceSub.getSubscriptiolsList(page).subscribe((res:any)=>{
-    //       this.allSubscriptions=res.data.list;
-    //       this.config = {
-    //         itemsPerPage: 10,
-    //         currentPage: 1,
-    //        totalItems: this.allSubscriptions.length
-    //       };
-    //     })
-       
-    //   }
- 
   }
 
   getDate(date) {
     return moment(date).format('DD-MM-YYYY')
   }
-  
+
   showRecu(photo) {
-    
+
     if(photo == null || !photo || photo ==="" || !photo.startsWith('http://localhost:8000') ){
       Swal.fire({
         icon: 'error',
@@ -102,12 +115,12 @@ export class SubscriptionsComponent implements OnInit {
       })
     } else {
       Swal.fire({
-        imageUrl: photo,     
+        imageUrl: photo,
         imageHeight: 500,
         imageAlt: 'A tall image'
       })
     }
-    
+
   }
 
 

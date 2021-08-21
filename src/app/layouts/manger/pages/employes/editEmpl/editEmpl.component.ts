@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class EditEmplComponent implements OnInit {
   photoProfile :any ;
-  msg ="" ;  
+  msg ="" ;
   employUpdated:ManagerModel;
   urlPhotot ="" ;
   employeProfile: FormGroup;
@@ -23,7 +23,7 @@ export class EditEmplComponent implements OnInit {
   roleEmploye='coach';
   id:number;
   constructor(private formBuilder: FormBuilder , private serviceEmploy :ProfileService   ,private authService : AuthService  ,  private _route: ActivatedRoute) { }
-  
+
   ngOnInit(): void {
     this._route.params.subscribe(params => {
       this.id = +params.id;
@@ -37,21 +37,21 @@ export class EditEmplComponent implements OnInit {
       role: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       address: [''],
-      phone: [''],
+      phone: ['', [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       password: [''],
     })
   }
 
-   get f() { return this.employeProfile.controls; } 
-   
-   
+   get f() { return this.employeProfile.controls; }
+
+
   reset(){
     this.employeProfile.reset() ;
   }
 
   changeRole(value){
     this.roleEmploye=value;
-    
+
     if(this.roleEmploye !== 'secretary') {
       this.employeProfile.value.password = null;
       this.employeProfile.get('password').setValidators([]);
@@ -120,7 +120,7 @@ export class EditEmplComponent implements OnInit {
 
   UpdateEmploye(){
     this.submitted = true;
-  
+
     this.serviceEmploy.updateProfileFunction(this.roleEmploye ,this.employeProfile , 'ediyEmploy' ,this.urlPhotot  , this.id)
       .subscribe(
         (res :any) => {
@@ -138,6 +138,6 @@ export class EditEmplComponent implements OnInit {
             `erreur : ${error}` ,
             'error'
           )
-        }); 
+        });
   }
 }

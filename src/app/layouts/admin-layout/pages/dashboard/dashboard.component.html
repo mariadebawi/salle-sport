@@ -7,8 +7,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Nombre de salle de sport</h5>
-                  <span class="h2 font-weight-bold mb-0">{{CardsAdmin.count_gyms}}</span>
+                  <h5 class="card-title text-capitalize text-danger mb-0">Nombre de salle de sport</h5>
+                  <span class="h2 font-weight-bold mb-0 text-white">{{CardsAdmin?.count_gyms}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -24,8 +24,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h5 class="card-title text-uppercase text-muted mb-0">Nombre de directeurs</h5>
-                <span class="h2 font-weight-bold mb-0">{{CardsAdmin.count_managers}}</span>
+                <h5 class="card-title text-capitalize text-warning mb-0">Nombre de directeurs</h5>
+                <span class="h2 font-weight-bold mb-0 text-white">{{CardsAdmin?.count_managers}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -41,8 +41,8 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <h5 class="card-title text-uppercase text-muted mb-0">Nombre des inscriptions total   </h5>
-              <span class="h2 font-weight-bold mb-0">{{CardsAdmin.count_subscriptions}}</span>
+              <h5 class="card-title text-capitalize text-info mb-0">Nombre des inscriptions total   </h5>
+              <span class="h2 font-weight-bold mb-0 text-white">{{CardsAdmin?.count_subscriptions}}</span>
             </div>
             <div class="col-auto">
               <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -58,8 +58,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title text-uppercase text-muted mb-0">Nombre des offers &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; </h5>
-            <span class="h2 font-weight-bold mb-0">{{CardsAdmin.count_offers}}</span>
+            <h5 class="card-title text-capitalize text-success mb-0">Nombre des offers &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; </h5>
+            <span class="h2 font-weight-bold mb-0 text-white">{{CardsAdmin?.count_offers}}</span>
           </div>
           <div class="col-auto">
             <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -71,7 +71,7 @@
   </div>
   </div>
     </div>
-  
+
   </div>
   <div class=" row">
     <div class=" col-12">
@@ -79,105 +79,53 @@
         <div class=" card-header">
           <div class=" row">
             <div class=" col-sm-6 text-left">
-              <h5 class=" card-category">Statstiques de nombre d'inscri pendent un anne</h5>
-              <h2 class=" card-title">Insceription</h2>
-            </div>
-            <div class=" col-sm-6">
-              <div
-                class=" btn-group btn-group-toggle float-right"
-                data-toggle="buttons"
-              >
-                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[0];updateOptions();clicked=true;clicked1=false;clicked2=false" [ngClass]="{'active':clicked===true}">
-                  <input checked="checked" name="options" type="radio" />
-
-                  <span
-                    class=" d-none d-sm-block d-md-block d-lg-block d-xl-block"
-                  >
-                    Accounts
-                  </span>
-                  <span class=" d-block d-sm-none">
-                    <i class=" tim-icons icon-single-02"> </i>
-                  </span>
-                </label>
-                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[1];updateOptions();clicked=false;clicked1=true;clicked2=false" [ngClass]="{'active':clicked1===true}">
-                  <input
-                    class=" d-none d-sm-none"
-                    name="options"
-                    type="radio"
-                  />
-
-                  <span
-                    class=" d-none d-sm-block d-md-block d-lg-block d-xl-block"
-                  >
-                    Purchases
-                  </span>
-                  <span class=" d-block d-sm-none">
-                    <i class=" tim-icons icon-gift-2"> </i>
-                  </span>
-                </label>
-                <label class=" btn btn-sm btn-danger btn-simple" (click)="data=datasets[2];updateOptions();clicked=false;clicked1=false;clicked2=true" [ngClass]="{'active':clicked2===true}">
-                  <input class=" d-none" name="options" type="radio" />
-
-                  <span
-                    class=" d-none d-sm-block d-md-block d-lg-block d-xl-block"
-                  >
-                    Sessions
-                  </span>
-                  <span class=" d-block d-sm-none">
-                    <i class=" tim-icons icon-tap-02"> </i>
-                  </span>
-                </label>
-              </div>
+              <h5 class=" card-category">Nombre d'inscription par jour</h5>
+              <h2 class=" card-title">Le mois actuel</h2>
             </div>
           </div>
         </div>
         <div class=" card-body">
-          <div class=" chart-area"><canvas id="chartBig1"> </canvas></div>
+          <canvas baseChart width="400" height="200"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  [plugins]="lineChartPlugins">
+          </canvas>
         </div>
       </div>
     </div>
   </div>
+
   <div class=" row">
-    <div class=" col-lg-4">
+    <div class=" col-12">
       <div class=" card card-chart">
         <div class=" card-header">
-          <h5 class=" card-category">Total Shipments</h5>
-          <h3 class=" card-title">
-            <i class=" tim-icons icon-bell-55 text-danger-states"> </i> 763,215
-          </h3>
+          <div class=" row">
+            <div class=" col-sm-6 text-left">
+              <h5 class=" card-category">les bénéfices de cet année</h5>
+              <h2 class=" card-title">2020/2021 </h2>
+            </div>
+          </div>
         </div>
         <div class=" card-body">
-          <div class=" chart-area"><canvas id="chartLineRed"> </canvas></div>
-        </div>
-      </div>
-    </div>
-    <div class=" col-lg-4">
-      <div class=" card card-chart">
-        <div class=" card-header">
-          <h5 class=" card-category">Daily Sales</h5>
-          <h3 class=" card-title">
-            <i class=" tim-icons icon-delivery-fast text-info"> </i> 3,500€
-          </h3>
-        </div>
-        <div class=" card-body">
-          <div class=" chart-area"><canvas id="CountryChart"> </canvas></div>
-        </div>
-      </div>
-    </div>
-    <div class=" col-lg-4">
-      <div class=" card card-chart">
-        <div class=" card-header">
-          <h5 class=" card-category">Completed Tasks</h5>
-          <h3 class=" card-title">
-            <i class=" tim-icons icon-send text-success"> </i> 12,100K
-          </h3>
-        </div>
-        <div class=" card-body">
-          <div class=" chart-area"><canvas id="chartLineGreen"> </canvas></div>
+          <canvas baseChart width="400" height="200"
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [colors]="barChartColors"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
         </div>
       </div>
     </div>
   </div>
+
+
   <div class=" row">
     <div class=" col-lg-12 col-md-12">
       <div class=" card">
@@ -206,8 +154,8 @@
               <td>{{subscrription.start_at|date}}</td>
               <td>{{subscrription.end_at|date}}</td>
               <td><span class="badge"
-                [ngClass]="{'badge-danger': !subscrription.status , 'badge-success': subscrription.status}">{{getStatus(subscrription.status)}}</span>
-            </td>
+                        [ngClass]="{'badge-danger': subscrription.status == 'refuser' , 'badge-success': subscrription.status == 'terminer' , 'badge-warning': subscrription.status == 'en attente'  }">{{subscrription.status}}</span>
+              </td>
             </tr>
 
             </tbody>
@@ -245,8 +193,8 @@
               <td>{{subscrription.start_at|date}}</td>
               <td>{{subscrription.end_at|date}}</td>
               <td><span class="badge"
-                [ngClass]="{'badge-danger': !subscrription.status , 'badge-success': subscrription.status}">{{getStatus(subscrription.status)}}</span>
-            </td>
+                        [ngClass]="{'badge-danger': subscrription.status == 'refuser' , 'badge-success': subscrription.status == 'terminer' , 'badge-warning': subscrription.status == 'en attente'  }">{{subscrription.status}}</span>
+              </td>
             </tr>
 
             </tbody>

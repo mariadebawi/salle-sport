@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ChartsModule} from 'ng2-charts';
 
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 
@@ -28,6 +29,7 @@ import { SubscriptionsComponent } from "./pages/subscriptions/subscriptions.comp
     NgToggleModule,
     ReactiveFormsModule,
     FormsModule,
+    ChartsModule
 
   ],
   declarations: [

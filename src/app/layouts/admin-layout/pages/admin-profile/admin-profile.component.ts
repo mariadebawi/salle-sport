@@ -24,23 +24,23 @@ export class AdminProfileComponent implements OnInit {
 
   ngOnInit() {
     this.me = JSON.parse(localStorage.getItem('currentUser')) ;
-    
-    this.photoProfile= this.me.photo ;
+
+    this.photoProfile=  this.getImage(this.me.photo)  ;
 
       this.adminProfile = this.formBuilder.group({
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         address: [''],
-        phone: [''],
+        phone: ['', [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
         oldPassword: [''],
         newPassword: [''],
       })
     }
-  
+
   get f() { return this.adminProfile.controls; }
-    
-  
+
+
   ShowPassword() {
     if (this.passwordType === 'password') {
         this.passwordType = 'text';
@@ -48,6 +48,15 @@ export class AdminProfileComponent implements OnInit {
         this.passwordType = 'password';
     }
 }
+
+  getImage(photo:string) {
+    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
+    }else {
+      return photo
+    }
+  }
+
 
   selectFilePrevStyle(event){
 		if(!event.target.files[0] || event.target.files[0].length == 0) {
@@ -79,7 +88,7 @@ export class AdminProfileComponent implements OnInit {
 
   updateProfile() {
     this.submitted = true;
-  
+
     this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,'updateAdmin' ,this.photoProfile  )
       .subscribe(
         (res : any) => {
@@ -88,8 +97,8 @@ export class AdminProfileComponent implements OnInit {
               'Modification!',
               'Modification de profile est effectuée avec succées',
               'success'
-            )     
-            localStorage.removeItem('currentUser')       
+            )
+            localStorage.removeItem('currentUser')
             localStorage.setItem('currentUser', JSON.stringify(res.data));
           }
         },
@@ -100,7 +109,7 @@ export class AdminProfileComponent implements OnInit {
             'error'
             )
         });
-    
+
 
 }
 
