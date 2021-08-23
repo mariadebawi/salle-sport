@@ -106,6 +106,14 @@ export class ActitviesListComponent implements OnInit {
     })
   }
 
+  
+  getStatus(status : boolean){
+    if(status) {
+      return 'disponible'
+    }else {
+      return 'pas disponible'
+    }
+ }
   changeStatus(id,status) {
     if(status) {
       Swal.fire({
@@ -144,13 +152,6 @@ export class ActitviesListComponent implements OnInit {
 
  
 
-  getStatus(status : boolean){
-    if(status) {
-      return 'disponible'
-    }else {
-      return 'pas disponible'
-    }
- }
 
   // delete(id) {
   //     this._activityServ.deleteActivity(id).subscribe((res : any) =>{

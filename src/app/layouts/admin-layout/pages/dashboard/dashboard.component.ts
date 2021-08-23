@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Jours' },
   ];
   public lineChartLabels: Label[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+  public lineChartOptions = {
     responsive: true,
     scales: {
       xAxes: [{

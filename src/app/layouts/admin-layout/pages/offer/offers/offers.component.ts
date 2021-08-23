@@ -98,6 +98,17 @@ export class OffersComponent implements OnInit {
     });
   }
 
+  private getDismissReason(reason: any): string {
+    this.onReset();
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  
   UpdateOffre() {
     this.submitted = true;
     if (this.offreForm.invalid) {
@@ -134,16 +145,6 @@ export class OffersComponent implements OnInit {
 
 
 
-  private getDismissReason(reason: any): string {
-    this.onReset();
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 
   onReset() {
     this.submitted = false;

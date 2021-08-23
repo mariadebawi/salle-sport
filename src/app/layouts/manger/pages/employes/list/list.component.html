@@ -25,7 +25,7 @@
               </div>
             </div>
           
-            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
+            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add" *ngIf=" currentUser?.role !== 'secretary'  || currentUser.is_blocked_service">Ajouter</a>
           </div>
           <hr>
           <table class="table">
@@ -38,7 +38,7 @@
               <th scope="col">Role</th>
               <th scope="col">Status</th>
               <th scope="col">Nom de salle de sport</th>
-              <th scope="col" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Bloquer</th>
+              <th scope="col" *ngIf="  currentUser?.role !== 'secretary'  || !currentUser.is_blocked_service">Bloquer</th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                 [ngClass]="{'badge-danger': !mang.status , 'badge-success': mang.status}">{{getStatus(mang.status)}}</span>
             </td>
               <td>{{mang.gym.name}}</td>
-              <td *ngIf=" currentUser && currentUser?.role !== 'secretary'">
+              <td *ngIf=" currentUser?.role !== 'secretary'  || !currentUser.is_blocked_service">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(mang.id,mang.status)"	
                 [(ngModel)]="mang.status"
@@ -66,7 +66,7 @@
                 [fontColor]="configg.fontColor"
                 [fontSize]="configg.fontSize"
               ></ng-toggle>
-              <a  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ 'edit', mang.id ]">
+              <a *ngIf="  currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ 'edit', mang.id ]">
                 <i class="fas fa-edit"></i>
               </a>
               </td>

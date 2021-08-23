@@ -17,4 +17,8 @@ export class StatsService {
   {
     return this.http.get(this.BASEURL+`stats/manager`);
   }
+
+  getStatiSubsManager() {
+    return this.http.get(this.BASEURL+`subscriptions/get_settings`);
+  }
 }

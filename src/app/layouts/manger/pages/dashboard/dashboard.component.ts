@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
 import { CardsManager } from 'src/app/models/CardsManger.model';
 import { SubscriptionAdherent } from 'src/app/models/SubscriptionAdherent.model';
 import { StatsService } from 'src/app/services/stats.service';

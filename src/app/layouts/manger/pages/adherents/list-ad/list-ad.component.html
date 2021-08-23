@@ -14,7 +14,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des adhérents</h4>
           <hr>
-          <a class="btn btn-success" style="float: right"  (click)="open(content)">Ajouter</a>
+          <a class="btn btn-success" style="float: right"  (click)="open(content)" *ngIf="!currentUser.is_blocked_service">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -38,7 +38,8 @@
             <td>{{adh.phone}}  </td>
             <td>
               <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-              (change)="changeStatus(adh.id,adh.status)"
+              (change)="changeStatus(adh.id,adh.status)" 
+              *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"
               [(ngModel)]="adh.status"
               [disabled]="configg.disabled"
               [width]="configg.width"
@@ -50,7 +51,7 @@
               [fontColor]="configg.fontColor"
               [fontSize]="configg.fontSize"
             ></ng-toggle>
-            <button  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+            <button  *ngIf="currentUser.is_blocked_service" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
               <i class="fas fa-edit"></i>
             </button>
             </td>

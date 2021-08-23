@@ -5,7 +5,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des offers</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add" *ngIf=" currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
+          <a class="btn btn-success" style="float: right" routerLink="/manager/offers/add" *ngIf=" currentUser && currentUser?.role !== 'secretary' || currentUser.is_blocked_service">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -16,11 +16,11 @@
               <th scope="col">Statut</th>
               <th>Nom d'activitée</th>
               <th>Nombre de séance</th>
-              <th *ngIf=" currentUser && currentUser?.role !== 'secretary'">Actions</th>
+              <th *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let offer of ListTypeSub">
+            <tr *ngFor="let offer of ListTypeSub | paginate: config">
               <td>{{offer.id}}</td>
               <td>{{offer.name}}</td>
               <td>{{offer.duration}} {{getUnit(offer.unit)}}</td>
@@ -32,7 +32,7 @@
               <td>{{offer.number_of_sessions}}</td>
               <td *ngIf=" currentUser && currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                (change)="changeStatus(offer.id,offer.status)"	
+                (change)="changeStatus(offer.id,offer.status)"	*ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"
                 [(ngModel)]="offer.status"
                 [disabled]="configg.disabled"
                 [width]="configg.width"
@@ -44,12 +44,39 @@
                 [fontColor]="configg.fontColor"
                 [fontSize]="configg.fontSize"
               ></ng-toggle>
-              <a *ngIf=" currentUser && currentUser?.role !== 'secretary'" placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ '/manager/offers', offer.id ]" >
+              <a *ngIf=" currentUser && currentUser?.role !== 'secretary'  || !currentUser.is_blocked_service" placement="top" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ '/manager/offers', offer.id ]" >
                 <i class="fas fa-edit"></i>
               </a>
             </tr>
             </tbody>
           </table>
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+            <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
+              (pageChange)="config.currentPage = $event">
+              <div class="custom-pagination">
+                <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                  <span *ngIf="!p.isFirstPage()" (click)="p.previous()">
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <ul class="pager">
+                  <li class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                    <span (click)="p.setCurrent(page.value)"
+                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                    <div *ngIf="p.getCurrent() === page.value">
+                      <span>{{ page.label }}</span>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                  <span *ngIf="!p.isLastPage()" (click)="p.next()"> <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+
+            </pagination-template>
+          </div>
         </div>
       </div>
     </div>

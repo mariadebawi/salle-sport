@@ -25,7 +25,9 @@
         gym_id?: number,
         created_at:Date;
         updated_at:Date;
-        gym?: GymModel
+        gym?: GymModel;
+        is_blocked_service: boolean;
+        is_blocked_button: boolean;
     }
   
 

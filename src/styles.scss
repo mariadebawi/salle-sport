@@ -9,11 +9,18 @@
     color: #ff0000 !important;
 }
 
+.alert-red{
+    background-color: #ff0000 !important;
+}
+
 .custom-file-input:lang(en) ~ .custom-file-label::after {
     content: "Parcourir" !important;
     color: #000;
 }
 
+.alert-dismissible {
+    padding-right: 1rem !important; 
+}
 
 
 .dropdown-item {
@@ -27,6 +34,7 @@ input.is-invalid   {
         border-color: #ff8d72 !important;
     }
 }
+
 
 
 .pager {

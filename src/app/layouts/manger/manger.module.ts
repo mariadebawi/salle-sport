@@ -9,7 +9,6 @@ import { AddAdherentComponent } from './pages/adherents/add-adherent/add-adheren
 import { ListAdComponent } from './pages/adherents/list-ad/list-ad.component';
 import { ListOfComponent } from './pages/offers/list-of/list-of.component';
 import { AddOfComponent } from './pages/offers/add-of/add-of.component';
-import { EditProfileComponent } from './pages/user/edit-profile/edit-profile.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -18,6 +17,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { EditOfComponent } from './pages/offers/editOf/editOf.component';
 import { EditEmplComponent } from './pages/employes/editEmpl/editEmpl.component';
 import { GestionCaisseComponent } from './pages/gestionCaisse/gestionCaisse.component';
+import { ManagerProfileComponent } from './manager-profile/manager-profile.component';
+import { RenouvelementComponent } from './Renouvelement/Renouvelement.component';
 
 @NgModule({
     imports: [
@@ -38,11 +39,12 @@ import { GestionCaisseComponent } from './pages/gestionCaisse/gestionCaisse.comp
       ListAdComponent, 
       ListOfComponent,
        AddOfComponent,
-        EditProfileComponent,
          DashboardComponent,
          EditOfComponent,
          EditEmplComponent,
-         GestionCaisseComponent
+         GestionCaisseComponent,
+         ManagerProfileComponent,
+         RenouvelementComponent
         ]
 })
 export class MangerModule { }

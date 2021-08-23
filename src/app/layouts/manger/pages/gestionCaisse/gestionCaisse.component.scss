@@ -1,16 +1,44 @@
+
+.find.custom-control-label::before, .find.custom-file-label, .find.custom-select {
+    transition: none;
+    color: #fff !important;
+}
+
+.btn-white  { 
+    background: #fff !important;
+    i{
+        color: #000 !important;
+    }
+    color: #000 !important;
+&:focus , &:hover {
+    i{
+        color: #000 !important;
+    }
+    background: #fff !important;
+    color: #000 !important;
+}
+}
+
+
+button.btn-green {
+    background: rgb(33, 226, 33) !important;
+    &:focus , &:hover {
+        background: rgb(33, 226, 33) !important;
+    }
+
+}
+
 h4.tewt-white.text-weight-bold {
     font-weight: bold;
 }
 
-.form-control {
-    border-color: #fff !important;
-    &:hover , &:focus {
-        color: #fff !important;
-
-    }
-}
-
-.card label {
-    color: rgb(255 255 255 / 61%) !important;
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #7770;
 }
  
+input {
+    border: 1px solid #cad1d7;
+}
+.btn-white {
+    background: #fff;
+}
