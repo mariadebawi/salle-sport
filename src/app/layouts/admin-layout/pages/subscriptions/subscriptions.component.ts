@@ -93,6 +93,8 @@ export class SubscriptionsComponent implements OnInit {
   getListSubscription(page) {
      this.serviceSub.getSubscriptiolsList(page).subscribe((res:any)=>{
        this.allSubscriptions=res.data.list;
+       console.log( this.allSubscriptions)
+
        this.config = {
         itemsPerPage: 10,
         currentPage: 1,
@@ -107,7 +109,7 @@ export class SubscriptionsComponent implements OnInit {
 
   showRecu(photo) {
 
-    if(photo == null || !photo || photo ==="" || !photo.startsWith('http://localhost:8000') ){
+    if(photo == null || !photo || photo ===""){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

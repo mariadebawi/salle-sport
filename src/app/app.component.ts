@@ -1,6 +1,7 @@
 import {  Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs";
+import Swal from "sweetalert2";
 import { ManagerModel } from "./models/gym.model";
 import { LoaderService } from "./services/loading.service";
 
@@ -20,16 +21,16 @@ export class AppComponent implements OnInit  {
     this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
   }
 
-  wichRoute(currentUser : ManagerModel) {    
-       if (currentUser  && currentUser.role === "admin") {            
-             this.router.navigate(['/admin']);
-            }else if(currentUser && currentUser.role === "manager" || currentUser && currentUser.role === "secretary" ) {
-              this.router.navigate(['/manager']);
-        }else {
-            this.router.navigate(['/login']);
-         }
+
+  wichRoute(currentUser) {
+    if (currentUser  && currentUser.role === "admin") {
+          this.router.navigate(['/admin']);
+         }else if(currentUser && currentUser.role === "manager" || currentUser && currentUser.role === "secretary" ) {
+           this.router.navigate(['/manager']);
+     }else {
+         this.router.navigate(['/login']);
+      }
 }
- 
 
 
 }

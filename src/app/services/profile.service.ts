@@ -52,6 +52,9 @@ export class ProfileService {
       return;
     }
 
+    console.log(formProfile);
+    
+
     if(formProfile.value.newPassword && formProfile.value.newPassword !== '') {        
         const  updatePass = {
           newPassword:formProfile.value.newPassword, 
@@ -68,7 +71,9 @@ export class ProfileService {
          address: formProfile.value.address ,
          phone: formProfile.value.phone ,
          photo : photoProfile,
-         role:profileRole
+         role:profileRole,
+         password:formProfile.value?.password, 
+
      } 
 
     switch (whatDO) {

@@ -94,9 +94,9 @@ export class MangersComponent implements OnInit {
 
   }
 
-  getImage(photo:string) {
-    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
-      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
+  getImage(photo:string) {    
+    if(photo === null || !photo || photo ==="") {
+      return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg' ;
     }else {
       return photo
     }

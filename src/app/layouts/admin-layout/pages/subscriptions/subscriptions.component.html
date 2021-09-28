@@ -120,7 +120,7 @@
           </tbody>
         </table>
 
-        <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+        <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="allSubscriptions.length>10">
           <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
             (pageChange)="config.currentPage = $event">
             <div class="custom-pagination">

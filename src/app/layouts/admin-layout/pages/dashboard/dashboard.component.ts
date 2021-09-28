@@ -30,13 +30,13 @@ export class DashboardComponent implements OnInit {
     },
   ]
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40 , 65, 59, 80, 81, 56, 55], label: 'Année/Mois' },
+    { data: [], label: 'Année/Mois' },
   ];
 
   public ListSubscriptionGymLast:subscriptionGym;
   public ListSubscriptionGymFirst:subscriptionGym;
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Jours' },
+    { data: [], label: 'Jours' },
   ];
   public lineChartLabels: Label[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
   public lineChartOptions = {
@@ -78,14 +78,15 @@ export class DashboardComponent implements OnInit {
   {
     this._ServiceStats.getAdminStats().subscribe((res:any)=>
     {
-      /*this.lineChartData.forEach(dat => {
-     dat.data = res.data.curve.number_subscription_of_day
-
-   })*/
+       this.lineChartData.forEach((dat :any) => {
+       dat.data=Object.values(res.data.curve.number_subscription_of_day) ;
+   })
+   this.barChartData.forEach((dat :any) => {
+    dat.data=Object.values(res.data.curve.price_of_months);    
+  })
       this.CardsAdmin=res.data.cards;
       this.ListSubscriptionGymLast=res.data.tables.last_add_list;
       this.ListSubscriptionGymFirst=res.data.tables.last_terminated_list;
-      console.log(this.ListSubscriptionGymFirst)
     })
   }
   getStatus(status : boolean){
