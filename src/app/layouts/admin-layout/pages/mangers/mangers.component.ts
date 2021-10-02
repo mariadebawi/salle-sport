@@ -56,8 +56,8 @@ export class MangersComponent implements OnInit {
     }
   }
 
-  changeStatus(id , value) {
-    if(value) {
+  changeStatus(id , value) {    
+    if(!value) {
       Swal.fire({
         title: 'Vous êtes sur ?',
         text: "vous êtes sur de bloquer ce manager ?!!",
@@ -77,19 +77,23 @@ export class MangersComponent implements OnInit {
             'ce manager est bloqué.',
             'success'
           )
+        }else {
+          this.GetAllManagers();
         }
       })
-    }
-    else {
-      this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
-        this.GetAllManagers();
-        });
-        Swal.fire(
-          'Débloqué!',
-          'ce manager est debloqué.',
-          'success'
-        )
-    }
+      }else {
+        this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
+          this.GetAllManagers();
+          Swal.fire(
+            'Débloqué!',
+            'ce manager est debloqué.',
+            'success'
+          )
+          });
+      }
+      
+    
+    
 
 
   }

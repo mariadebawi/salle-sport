@@ -25,7 +25,8 @@
               </div>
             </div>
           
-            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add" *ngIf=" currentUser?.role !== 'secretary'  || currentUser.is_blocked_service">Ajouter</a>
+            <a class="btn btn-success" style="float: right" routerLink="/manager/employees/add" 
+            *ngIf=" currentUser?.role !== 'secretary'">Ajouter</a>
           </div>
           <hr>
           <table class="table">
@@ -38,7 +39,7 @@
               <th scope="col">Role</th>
               <th scope="col">Status</th>
               <th scope="col">Nom de salle de sport</th>
-              <th scope="col" *ngIf="  currentUser?.role !== 'secretary'  || !currentUser.is_blocked_service">Bloquer</th>
+              <th scope="col" *ngIf="  currentUser?.role !== 'secretary'">Bloquer</th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +53,7 @@
                 [ngClass]="{'badge-danger': !mang.status , 'badge-success': mang.status}">{{getStatus(mang.status)}}</span>
             </td>
               <td>{{mang.gym.name}}</td>
-              <td *ngIf=" currentUser?.role !== 'secretary'  || !currentUser.is_blocked_service">
+              <td *ngIf=" currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(mang.id,mang.status)"	
                 [(ngModel)]="mang.status"
@@ -66,14 +67,14 @@
                 [fontColor]="configg.fontColor"
                 [fontSize]="configg.fontSize"
               ></ng-toggle>
-              <a *ngIf="  currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ 'edit', mang.id ]">
+              <a *ngIf="  currentUser?.role !== 'secretary'"  class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" [routerLink]="[ 'edit', mang.id ]">
                 <i class="fas fa-edit"></i>
               </a>
               </td>
             </tr>
             </tbody>
           </table>
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="listEmploye.length>10">
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">

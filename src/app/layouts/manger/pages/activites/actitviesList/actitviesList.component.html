@@ -8,7 +8,7 @@
           <h4 class=" card-title">Liste des activites</h4>
           <hr>
           <a class="btn btn-success" style="float: right" (click)="open(content)" 
-          *ngIf=" currentUser?.role !== 'secretary' || !currentUser.is_blocked_service">Ajouter</a>
+          *ngIf=" currentUser?.role !== 'secretary'">Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -32,7 +32,7 @@
             </td>
               <td>{{getDate(activity.created_at)}}</td>
 
-              <td *ngIf=" currentUser?.role !== 'secretary' && !currentUser.is_blocked_service">
+              <td *ngIf=" currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                 (change)="changeStatus(activity.id,activity.status)"
                 [(ngModel)]="activity.status"
@@ -46,7 +46,7 @@
                 [fontColor]="configg.fontColor"
                 [fontSize]="configg.fontSize"
               ></ng-toggle>
-              <button placement="top" *ngIf="  currentUser?.role !== 'secretary' && !currentUser.is_blocked_service" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt , activity)">
+              <button placement="top" *ngIf="currentUser?.role !== 'secretary'" ngbTooltip="modifier" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt , activity)">
                 <i class="fas fa-edit"></i>
               </button>
               </td>
@@ -54,7 +54,7 @@
 
             </tbody>
           </table>
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="allAvtivity.length>10" >
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">

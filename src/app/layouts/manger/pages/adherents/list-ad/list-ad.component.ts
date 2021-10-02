@@ -54,10 +54,12 @@ export class ListAdComponent implements OnInit {
    screenReaderCurrentLabel: `You're on page`
 };
 
+   currentUser: ManagerModel ;
 
   constructor(private serviceEmploy:ProfileService , private profileService :ProfileService ,private modalService: NgbModal , private formBuilder: FormBuilder ,) { }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
 
     this.formAdherent = this.formBuilder.group({
       first_name: ['', [Validators.required]],
@@ -195,15 +197,15 @@ UpdateAdherent() {
       (res :any) => {
         if(res.success){
           Swal.fire(
-            'Ajout	!',
-            'l\'insertion est effectué avec success',
+            'modification	!',
+            'la modification est effectué avec success',
             'success'
           )
           this.getListAdherent(this.page)
         }
       }) ,error => {
         Swal.fire(
-          'AJout	!',
+          'modification	!',
           `erreur : ${error}` ,
           'error'
         )

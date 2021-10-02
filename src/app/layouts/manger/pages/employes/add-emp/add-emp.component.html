@@ -63,7 +63,7 @@
               <div class=" col-md-4">
                 <div class=" form-group form-password">
                   <label> le role </label>
-                  <select class="custom-select  text-black" formControlName="role" (change)="changeRole($event.target.value)"
+                  <select class="custom-select" formControlName="role" (change)="changeRole($event.target.value)"
                     [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
                     <option value="coach">Coach</option>
                     <option value="secretary">Recepetionist</option>

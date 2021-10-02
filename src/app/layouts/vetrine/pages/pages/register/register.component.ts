@@ -153,12 +153,13 @@ export class RegisterComponent implements OnInit {
 		}
 	}
 
-
+   //Date End
 	onChange(value) {
 		this.offreId = value ;
 		this.offreList.forEach((e:any) => {
 			if(e.id == value) {
-			   this.DateEnd.setTime(this.DateEnd.getTime() +  (e.duration * 24 * 60 * 60 * 1000));
+              const dt = this.DateEnd.getTime() + 3 ;
+			  this.DateEnd = new Date(dt)
 			}
 		  })
 	}

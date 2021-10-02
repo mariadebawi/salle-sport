@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OffersService } from 'src/app/services/offers.service';
 import { SubscriptionsService } from 'src/app/services/subscriptions.service';
 import Swal from 'sweetalert2';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-Renouvelement',
@@ -22,14 +23,14 @@ export class RenouvelementComponent implements OnInit {
   config;
   currentUser : ManagerModel ;
   closeResult = '';
-  page="1" ;
+  page="1" ;dateFin ;
 	urlpayment_receipt:any;
 	msg = "";
 	offreList : OffersModel[] = [] ;
 	renouvellementForm: FormGroup;
 	submitted = false;
 	returnUrl: string;
-	error = '';
+	error = ''; dateNow = new Date() ;
     registerObject :any ;
 	offreId:number; DateEnd = new Date();
 	urlPayment = ""
@@ -39,9 +40,8 @@ export class RenouvelementComponent implements OnInit {
     private authService : AuthService ) { }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
-    console.log( this.currentUser);
     
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
    this.getListSub() ;
     this.getOffreList() ;
     this.renouvellementForm = this.formBuilder.group({
@@ -49,6 +49,7 @@ export class RenouvelementComponent implements OnInit {
       start_at :['', [Validators.required]],
       end_at:['', [Validators.required]],
     });
+
     }
   
     get f() { return this.renouvellementForm.controls; }
@@ -101,12 +102,18 @@ export class RenouvelementComponent implements OnInit {
   getListSub() {
     this.subrip.getSubscriptionManagerList().subscribe((res : any) =>{
       this.ListManagerSub=res.data.list;
-      
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
        totalItems: res.data.total
       };
+      this.ListManagerSub.forEach((e:any) => {    
+        if( e.gym_id === this.currentUser.gym_id ) {
+          this.dateFin =  e.end_at ;
+          console.log(this.dateNow > e.end_at);
+          console.log(this.dateNow < e.end_at());  
+        }
+   });
   })
   }
 

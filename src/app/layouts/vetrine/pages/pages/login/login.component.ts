@@ -24,7 +24,7 @@ export class LoginComponent  implements OnInit  {
    wichRoute(currentUser) {
            if (currentUser  && currentUser.role === "admin") {
                  this.router.navigate(['/admin']);
-                }else if(currentUser && currentUser.role === "manager" || currentUser && currentUser.role === "secretary" ) {
+                }else if(currentUser && currentUser.role === "manager" && currentUser.status || currentUser && currentUser.role === "secretary" && currentUser.status ) {
                   this.router.navigate(['/manager']);
             }else {
                 this.router.navigate(['/login']);
