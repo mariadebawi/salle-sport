@@ -17,8 +17,7 @@ export class SubscriptionsComponent implements OnInit {
   listGym=[] ;
   listOffre =[] ;
   cards =[] ;listCarts ;
-  filters : { salleName? : number  , status? : string ; offreId? :number} ;
-   salleName=0; status='';  offreId=0;
+  filters : { salleName? : number  , status? : string ; offreId? :number} = { salleName : 1  , status : 'en attente' , offreId :1}; salleName=0; status='';  offreId=0;
 
   constructor( private serviceSub : SubscriptionsService , private serviceStat : StatsService) { }
 
@@ -34,7 +33,9 @@ export class SubscriptionsComponent implements OnInit {
       this.listCarts=res.data.cards;
       this.listGym = res.data.list_gyms ;
       this.listOffre = res.data.list_offers ;
-   
+      this.filters.salleName = this.listGym[0].id;
+      this.filters.offreId = this.listOffre[0].id;
+      this.filters.status = 'en attente';
 
     })
   }
