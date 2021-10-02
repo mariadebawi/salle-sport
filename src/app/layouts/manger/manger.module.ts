@@ -19,6 +19,7 @@ import { EditEmplComponent } from './pages/employes/editEmpl/editEmpl.component'
 import { GestionCaisseComponent } from './pages/gestionCaisse/gestionCaisse.component';
 import { ManagerProfileComponent } from './manager-profile/manager-profile.component';
 import { RenouvelementComponent } from './Renouvelement/Renouvelement.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { RenouvelementComponent } from './Renouvelement/Renouvelement.component'
        ReactiveFormsModule ,
        NgToggleModule,
       NgxPaginationModule ,
-      NgbModule
+      NgbModule,
+      ChartsModule
     ],
 
    declarations: [   

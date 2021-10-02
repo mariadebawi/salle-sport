@@ -8,7 +8,7 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-white mb-0">Nombre des employees</h5>
-                <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_employees}}</span>
+                <span class="h2  text-white font-weight-bold mb-0">{{CardsManager?.count_employees}}</span>
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -25,7 +25,7 @@
           <div class="row">
             <div class="col">
               <h5 class="card-title text-uppercase text-white mb-0">Nombre de activites</h5>
-              <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_activites}}</span>
+              <span class="h2  text-white font-weight-bold mb-0">{{CardsManager?.count_activites}}</span>
             </div>
             <div class="col-auto">
               <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col">
             <h5 class="card-title text-uppercase text-white mb-0">Nombre des adherents   </h5>
-            <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_adherents}}</span>
+            <span class="h2   text-white font-weight-bold mb-0">{{CardsManager?.count_adherents}}</span>
           </div>
           <div class="col-auto">
             <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col">
           <h5 class="card-title text-uppercase text-white mb-0">Nombre des abonnements &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; </h5>
-          <span class="h2 font-weight-bold mb-0">{{CardsManager?.count_subscription}}</span>
+          <span class="   text-white h2 font-weight-bold mb-0">{{CardsManager?.count_subscription}}</span>
         </div>
         <div class="col-auto">
           <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -71,7 +71,57 @@
 </div>
 </div>
   </div>
+</div>
+<div class=" row ">
+  <div class=" col-12">
+    <div class=" card card-chart">
+      <div class=" card-header">
+        <div class=" row">
+          <div class=" col-sm-6 text-left">
+            <h5 class=" card-category">Nombre d'inscription par jour</h5>
+            <h2 class=" card-title">Le mois actuel</h2>
+          </div>
+        </div>
+      </div>
+      <div class=" card-body">
+        <canvas baseChart width="400" height="200"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class=" row">
+  <div class=" col-12">
+    <div class=" card card-chart">
+      <div class=" card-header">
+        <div class=" row">
+          <div class=" col-sm-6 text-left">
+            <h5 class=" card-category">les bénéfices de cet année</h5>
+            <h2 class=" card-title">2020/2021 </h2>
+          </div>
+        </div>
+      </div>
+      <div class=" card-body">
+        <canvas baseChart width="400" height="200"
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [colors]="barChartColors"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
 </div>
 
   <div class=" row">
@@ -102,6 +152,11 @@
               <td><span class="badge"
                 [ngClass]="{'badge-danger': !subscription.status , 'badge-success': subscription.status}">{{getStatus(subscription.status)}}</span>
             </td>
+            </tr>
+            <tr *ngIf="subscriptionAdherentLast.length === 0" >
+              <td colspan="7 " class="text-center">
+                <span class="text-white"> aucunes données</span>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -137,6 +192,11 @@
               <td><span class="badge"
                 [ngClass]="{'badge-danger': !subscription.status , 'badge-success': subscription.status}">{{getStatus(subscription.status)}}</span>
             </td>
+            </tr>
+            <tr *ngIf="subscriptionAdherentFirst.length === 0" >
+              <td colspan="7 " class="text-center">
+                <span class="text-white"> aucunes données</span>
+              </td>
             </tr>
             </tbody>
           </table>

@@ -59,6 +59,8 @@ currentUser: ManagerModel ;
   }
 
   getlistWithRole(value:string){
+    console.log(value);
+    
   if(value) {
     this.getAllEmloyer(value)
   }else {
@@ -67,13 +69,13 @@ currentUser: ManagerModel ;
   }
 
   getAllEmloyer(role?:string) {
-    if(role) {
+    if(role) {      
       this.serviceEmploy.getListEmployer(this.page , role).subscribe((res : any) =>{
-        this.listEmploye=res.data;
+        this.listEmploye=res.data.list;
         this.config = {
           itemsPerPage: 10,
           currentPage: 1,
-         totalItems: res.data.length
+         totalItems: res.data?.list?.length
         };
         
       })

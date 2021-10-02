@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./gestionCaisse.component.scss']
 })
 export class GestionCaisseComponent implements OnInit {
-  cards =[] ;  listOffre =[] ; listCoch=[]
+  cards =[] ;  list_subscriptions =[] ; listCoch=[]
   page='1' ;  config: any;closeResult;	submitted = false;
 	returnUrl: string;
 	error = '';
@@ -82,7 +82,7 @@ export class GestionCaisseComponent implements OnInit {
   getStatistique() {
     this.statis.getStatiSubsManager().subscribe((res:any)=>{
       this.cards = res.data.cards ;
-      this.listOffre = res.data.list_offers ;
+      this.list_subscriptions = res.data.list_subscriptions ;
       this.listCoch = res.data.list_coachs ;
     })
   }

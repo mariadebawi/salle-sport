@@ -16,10 +16,12 @@ export class SubscriptionsService {
         .set('page', page);
       return this.http.get(this.BASEURL + `cash_management`, {params: params});
     } else {
+      console.log(filters);
+      
      const paramss = new HttpParams()
-       .set('gym_id', filters.salleName)
-       .set('offer_id', filters.offreId)
-       .set('status', filters.status)
+       .set('gym_id', filters?.salleName)
+       .set('offer_id', filters?.offreId)
+       .set('status', filters?.status)
        .set('page', page);
         return this.http.get(this.BASEURL + `cash_management`, {params: paramss});
       }

@@ -17,10 +17,10 @@ export class ProfileService {
       let params = new HttpParams().set('page', page);
       return this.http.get(this.BASEURL+`employees`, { params: params } );
     }else {
-      let params = new HttpParams().set('role', role);
+      let params = new HttpParams().set('role', role).set('page', page);
       return this.http.get(this.BASEURL+`employees`, { params: params } );
     }
-     
+     //{{domaine}}/employees?role=secretary
   }
 
   getEmployById(id:number) {

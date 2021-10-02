@@ -87,9 +87,9 @@
                       <option [value]="cc?.id" *ngFor="let cc of listCoch"> {{cc?.first_name}} {{cc?.last_name}}</option>
             </select>
           </div>
-          <div class="form-group has-label text-white  col-md-4"><label> Liste des offres </label>
+          <div class="form-group has-label text-white  col-md-4"><label> Liste des subscriptions </label>
             <select class="custom-select  find text-black"  (change)="changeOffres($event.target.value)">
-                <option  [value]="of?.id" *ngFor="let of of listOffre">{{of?.name}}</option>
+                <option  [value]="of?.id" *ngFor="let of of list_subscriptions">{{of?.name}}</option>
             </select>
           </div>
         </div>
@@ -115,7 +115,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let sub of allSubscriptions | paginate: config">
+            <tr *ngFor="let sub of list_subscriptions | paginate: config">
               <td>{{sub.id}}</td>
               <td>{{sub.types_subscription.name}}</td>
               <td>{{sub.adherent.first_name}} {{sub.adherent.last_name}}</td> 
@@ -125,7 +125,7 @@
               <td> {{getDate(sub.end_at)}}</td>
               <td>
                 <span class="badge"
-                [ngClass]="{'badge-danger': sub.status == 'en attente' , 'badge-success': sub.is_terminated == 'terminer' , 'badge-warning': sub.is_terminated == 'pas en cours'  }">{{sub.is_terminated}}</span>
+                [ngClass]="{'badge-danger': sub.status == 'en attente' , 'badge-success': sub.is_terminated == 'accepter' , 'badge-warning': sub.is_terminated == 'pas en cours'  }">{{sub.is_terminated}}</span>
               </td>
 
                 <td class="d-flex" *ngIf=" currentUser?.role !== 'secretary' && !currentUser.is_blocked_service">
@@ -152,7 +152,7 @@
             </tr>
             </tbody>
           </table>
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="list_subscriptions.length">
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">

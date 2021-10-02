@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
     }
  }
  getlogo(photo:string)
- { if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') )
+ { if(photo == null || !photo || photo ===""  )
    {
      return "https://img2.freepng.fr/20180714/hxu/kisspng-user-profile-computer-icons-login-clip-art-profile-picture-icon-5b49de2f52aa71.9002514115315676633386.jpg";
    }
