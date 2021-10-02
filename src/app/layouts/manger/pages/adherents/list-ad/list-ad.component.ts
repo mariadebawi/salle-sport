@@ -53,11 +53,13 @@ export class ListAdComponent implements OnInit {
    screenReaderPageLabel: 'page',
    screenReaderCurrentLabel: `You're on page`
 };
-
+  currentUser:ManagerModel ;
 
   constructor(private serviceEmploy:ProfileService , private profileService :ProfileService ,private modalService: NgbModal , private formBuilder: FormBuilder ,) { }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(localStorage.getItem('User')) ;
+    console.log( this.currentUser.is_blocked_service )
 
     this.formAdherent = this.formBuilder.group({
       first_name: ['', [Validators.required]],
@@ -115,7 +117,7 @@ export class ListAdComponent implements OnInit {
     else {
       this.serviceEmploy.changeStatus(id, status).subscribe((res: any) => {
         this.getListAdherent(this.page);
-              });
+       });
     }
 
   }

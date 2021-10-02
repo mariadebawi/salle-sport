@@ -17,9 +17,7 @@ export class LoginComponent  implements OnInit  {
   error = '';
 
   constructor( private formBuilder: FormBuilder ,  private authService : AuthService ,  private route: ActivatedRoute, private router: Router, ) {
-   
-   }
-
+}
 
    wichRoute(currentUser) {
            if (currentUser  && currentUser.role === "admin") {
@@ -32,7 +30,7 @@ export class LoginComponent  implements OnInit  {
    }
 
   ngOnInit() {
-    
+
     if (JSON.parse(localStorage.getItem('currentUser'))) {
       this.wichRoute(JSON.parse(localStorage.getItem('currentUser')))
     }

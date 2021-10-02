@@ -15,16 +15,17 @@ export class AuthService {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 }
 
-public get currentUserValue() {  
+public get currentUserValue() {
     return this.currentUser;
 }
 
-login(email, password) {  
+login(email, password) {
     return this.http.post<any>(`${environment.basUrl}auth/login`, { email, password })
         .pipe(map(user => {
             localStorage.setItem('currentUser', JSON.stringify(user.data.user));
             localStorage.setItem('token', user.data.token);
-            return user;
+            localStorage.setItem('User', JSON.stringify(user.data));
+          return user;
         }));
 }
 

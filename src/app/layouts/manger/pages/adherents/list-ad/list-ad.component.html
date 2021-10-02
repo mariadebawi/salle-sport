@@ -14,7 +14,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des adhérents</h4>
           <hr>
-          <a class="btn btn-success" style="float: right"  (click)="open(content)" *ngIf="!currentUser.is_blocked_service">Ajouter</a>
+          <a class="btn btn-success" style="float: right"*ngIf=" currentUser && !currentUser?.is_blocked_service "  (click)="open(content)" >Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -36,10 +36,12 @@
             </td>
             <td>{{adh.email}}  </td>
             <td>{{adh.phone}}  </td>
+              <!-- *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"-->
             <td>
               <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-              (change)="changeStatus(adh.id,adh.status)" 
-              *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"
+              (change)="changeStatus(adh.id,adh.status)"
+              *ngIf=" currentUser && !currentUser?.is_blocked_service "
+
               [(ngModel)]="adh.status"
               [disabled]="configg.disabled"
               [width]="configg.width"
@@ -51,7 +53,8 @@
               [fontColor]="configg.fontColor"
               [fontSize]="configg.fontSize"
             ></ng-toggle>
-            <button  *ngIf="currentUser.is_blocked_service" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+              <!--*ngIf="currentUser.is_blocked_service"-->
+            <button *ngIf=" currentUser && !currentUser?.is_blocked_service " class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
               <i class="fas fa-edit"></i>
             </button>
             </td>
@@ -60,7 +63,8 @@
             </tbody>
           </table>
 
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5"  *ngIf=" listAdherent.length>0 "
+          >
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">
