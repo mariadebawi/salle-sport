@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getImage(photo:string) {
-    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+    if(photo == null || !photo || photo ===""  ){
       return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
     }else {
       return photo

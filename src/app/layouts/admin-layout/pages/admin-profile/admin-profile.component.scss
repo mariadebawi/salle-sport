@@ -8,12 +8,16 @@
         color: #979797;
     }
   }
+
+
+
   h4.tewt-white.text-weight-bold {
     font-weight: bold;
   }
 
   .form-control {
     border-color: #fff !important;
+    color: #fff !important;
     &:hover , &:focus {
       color: #fff !important;
 
