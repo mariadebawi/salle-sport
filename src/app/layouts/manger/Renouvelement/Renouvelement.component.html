@@ -1,7 +1,7 @@
 <div class=" content">
   <div class=" row">
     <div class=" col-lg-12 col-md-12">
-      <div class="alert alert-red alert-dismissible fade show" role="alert"  *ngIf="!currentUser.is_blocked_button">
+      <div class="alert alert-red alert-dismissible fade show" role="alert"  *ngIf="isRvl">
         <strong> {{ currentUser?.first_name}} {{ currentUser?.last_name}} </strong> Vous avez une abonnement terminée 
         <button class="btn btn-default pull-right btn-sm" (click)="open(content)"  >Renouvellement</button>
       </div>

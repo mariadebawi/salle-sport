@@ -51,11 +51,11 @@ export class ProfileService {
     if (formProfile.invalid) {
       return;
     }
-
-    console.log(formProfile);
     
 
-    if(formProfile.value.newPassword && formProfile.value.newPassword !== '') {        
+    if(formProfile.value.newPassword && formProfile.value.newPassword !== '') {    
+      console.log(formProfile.value.newPassword);
+          
         const  updatePass = {
           newPassword:formProfile.value.newPassword, 
           oldPassword:formProfile.value.oldPassword

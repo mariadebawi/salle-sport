@@ -10,7 +10,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { OffersService } from 'src/app/services/offers.service';
 import { SubscriptionsService } from 'src/app/services/subscriptions.service';
 import Swal from 'sweetalert2';
-import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-Renouvelement',
@@ -22,7 +21,7 @@ export class RenouvelementComponent implements OnInit {
   ListManagerSub :subscriptionGym[];
   config;
   currentUser : ManagerModel ;
-  closeResult = '';
+  closeResult = ''; isRvl=false ;
   page="1" ;dateFin ;
 	urlpayment_receipt:any;
 	msg = "";
@@ -108,10 +107,9 @@ export class RenouvelementComponent implements OnInit {
        totalItems: res.data.total
       };
       this.ListManagerSub.forEach((e:any) => {    
-        if( e.gym_id === this.currentUser.gym_id ) {
+        if( e.gym_id === this.currentUser.gym_id ) {        
           this.dateFin =  e.end_at ;
-          console.log(this.dateNow > e.end_at);
-          console.log(this.dateNow < e.end_at());  
+          this.isRvl = moment(this.dateNow).isAfter( e.end_at);
         }
    });
   })
@@ -154,7 +152,8 @@ renouveller(){
       title: 'Oops...',
       text: 'la date de fin doit etre superieur a date de début ',
     })
-  }else {
+  }
+  else {
      const renouvelle = {
       offer_id:this.renouvellementForm.value.offreId,
       start_at: this.renouvellementForm.value.start_at,
@@ -167,19 +166,18 @@ renouveller(){
      .subscribe(
        (res :any) => {
          if(res.success){
-           this.currentUser.is_blocked_button = true ;
-           localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
            this.getListSub() ;
            Swal.fire(
              'Renouvellement	!',
              'Votre renouvellement est effectué avec success',
              'success'
            )
+           this.isRvl= true ;
          }
        },
        error => {
          Swal.fire(
-           'Abonnement	!',
+           'Abonnement!',
            `erreur : ${error}` ,
            'error'
          )

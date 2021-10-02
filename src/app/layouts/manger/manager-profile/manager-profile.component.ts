@@ -50,7 +50,7 @@ export class ManagerProfileComponent implements OnInit {
 }
 
   getImage(photo:string) {
-    if(photo == null || !photo || photo ==="" || !photo.startsWith('https://cdn1.benouaiche.com/wp-content/uploads') ){
+    if(photo == null || !photo || photo ===""  ){
       return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
     }else {
       return photo
@@ -88,8 +88,7 @@ export class ManagerProfileComponent implements OnInit {
 
   updateProfile() {
     this.submitted = true;
-
-    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,'updateAdmin' ,this.photoProfile  )
+    this.profileService.updateProfileFunction(this.me.role ,this.adminProfile ,'updateAdmin' ,this.urlPhotot  )
       .subscribe(
         (res : any) => {
           if(res.success) {
