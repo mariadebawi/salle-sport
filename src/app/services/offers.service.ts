@@ -17,7 +17,7 @@ export class OffersService {
   //getAlOffers() { return this.http.get(this.BASEURL+`offers`); }
  // add(data:any) {return this.http.post<any>(this.BASEURL+`offers`, data);}
 
-  
+
   getAllActivites() { return this.http.get(this.BASEURL+`activities?list=1`); }
 
   getAlOffers(page:string) {
@@ -32,7 +32,7 @@ export class OffersService {
 
   changeStatus(id,status)
   {
-    return this.http.put(this.BASEURL+`offers`+'/change_status/'+id,{'status':status});
+    return this.http.put(this.BASEURL+`offers`+'/'+id+'/change_status',{'status':status});
   }
 
   changeStatusTypeSub(id,status)

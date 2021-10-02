@@ -55,7 +55,7 @@
               <td>{{mang.gym.name}}</td>
               <td *ngIf=" currentUser?.role !== 'secretary'">
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                (change)="changeStatus(mang.id,mang.status)"	
+                (change)="changeStatus(mang.id,mang.status)"
                 [(ngModel)]="mang.status"
                 [disabled]="configg.disabled"
                 [width]="configg.width"

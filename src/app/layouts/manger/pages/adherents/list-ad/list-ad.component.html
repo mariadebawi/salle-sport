@@ -30,10 +30,17 @@
             </td>
             <td>{{adh.email}}  </td>
             <td>{{adh.phone}}  </td>
+              <!-- *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"-->
             <td>
               <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
+<<<<<<< HEAD
               (change)="changeStatus(adh.id,adh.status)" 
               *ngIf=" currentUser && currentUser?.role !== 'secretary'"
+=======
+              (change)="changeStatus(adh.id,adh.status)"
+              *ngIf=" currentUser && !currentUser?.is_blocked_service "
+
+>>>>>>> 0694d05d777d30b580928195c72e7803d9eeef37
               [(ngModel)]="adh.status"
               [disabled]="configg.disabled"
               [width]="configg.width"
@@ -45,7 +52,12 @@
               [fontColor]="configg.fontColor"
               [fontSize]="configg.fontSize"
             ></ng-toggle>
+<<<<<<< HEAD
             <button   *ngIf=" currentUser && currentUser?.role !== 'secretary'" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+=======
+              <!--*ngIf="currentUser.is_blocked_service"-->
+            <button *ngIf=" currentUser && !currentUser?.is_blocked_service " class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+>>>>>>> 0694d05d777d30b580928195c72e7803d9eeef37
               <i class="fas fa-edit"></i>
             </button>
             </td>
@@ -54,7 +66,12 @@
             </tbody>
           </table>
 
+<<<<<<< HEAD
           <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="listAdherent.length>10">
+=======
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5"  *ngIf=" listAdherent.length>0 "
+          >
+>>>>>>> 0694d05d777d30b580928195c72e7803d9eeef37
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">
