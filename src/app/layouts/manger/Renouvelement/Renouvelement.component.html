@@ -2,10 +2,10 @@
   <div class=" row">
     <div class=" col-lg-12 col-md-12">
       <div class="alert alert-red alert-dismissible fade show" role="alert"  *ngIf="isRvl">
-        <strong> {{ currentUser?.first_name}} {{ currentUser?.last_name}} </strong> Vous avez une abonnement terminée 
+        <strong> {{ currentUser?.first_name}} {{ currentUser?.last_name}} </strong> Vous avez une abonnement terminée
         <button class="btn btn-default pull-right btn-sm" (click)="open(content)"  >Renouvellement</button>
       </div>
-       <div class=" card"> 
+       <div class=" card">
         <div class=" card-header">
           <h4 class=" card-title">Liste des abonnements</h4>
           <hr>
@@ -26,7 +26,7 @@
             <tr *ngFor="let sub of ListManagerSub | paginate: config">
               <td>{{sub.id}}</td>
               <td>{{sub.gym.name}}</td>
-              <td>{{sub.offer.name}}</td> 
+              <td>{{sub.offer.name}}</td>
               <td>{{sub.offer.price}}</td>
               <td>{{sub.offer.duration}} {{getUnit(sub.offer.unit)}}</td>
               <td> {{getDate(sub.start_at)}}</td>
@@ -39,7 +39,7 @@
           </table>
           <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
-              (pageChange)="config.currentPage = $event">
+                                 (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">
                 <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
                   <span *ngIf="!p.isFirstPage()" (click)="p.previous()">
@@ -49,7 +49,7 @@
                 <ul class="pager">
                   <li class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
                     <span (click)="p.setCurrent(page.value)"
-                      *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                          *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
                     <div *ngIf="p.getCurrent() === page.value">
                       <span>{{ page.label }}</span>
                     </div>
@@ -65,7 +65,7 @@
             </pagination-template>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
   <!-- add offre -->
@@ -112,26 +112,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group has-label  col-md-6"><label> Date de début </label>
+                <div class="form-group has-label  col-md-12"><label> Date de début </label>
                   <input  type="date" formControlName="start_at" placeholder="start_at" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.start_at.errors }" />
                   <div *ngIf="submitted && f.start_at.errors" class="invalid-feedback">
                     <div *ngIf="f.start_at.errors.required">Le > Date de début  est obligatoire</div>
                     </div>
                 </div>
-                <div class="form-group has-label  col-md-6"><label> Date de fin </label>
-                  <input type="date"  formControlName="end_at" placeholder="end_at" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.end_at.errors }" />
-                  <div *ngIf="submitted && f.end_at.errors" class="invalid-feedback">
-                    <div *ngIf="f.end_at.errors.required">Le > Date de fin  est obligatoire</div>
-                    </div>
-                </div>
+
               </div>
             <div class="  mt-4">
               <button class=" btn btn-success btn-lg btn-block mb-3"> Renouvellement </button>
             </div>
         </form>
-     
+
     </div>
 
   </ng-template>

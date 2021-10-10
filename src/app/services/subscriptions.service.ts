@@ -16,20 +16,20 @@ export class SubscriptionsService {
         .set('page', page);
       return this.http.get(this.BASEURL + `cash_management`, {params: params});
     } else {
-      console.log(filters);
-      
      const paramss = new HttpParams()
        .set('gym_id', filters?.salleName)
        .set('offer_id', filters?.offreId)
        .set('status', filters?.status)
        .set('page', page);
+
         return this.http.get(this.BASEURL + `cash_management`, {params: paramss});
       }
-
-      
-
     }
 
+
+  addAdherent(adherent){
+    return this.http.post(this.BASEURL+`subscriptions`, adherent);
+  }
 
     getSubscriptiolsListManager(page ,filters? ) {
       if (!filters) {
@@ -38,11 +38,11 @@ export class SubscriptionsService {
         return this.http.get(this.BASEURL + `subscriptions`, {params: params});
       } else {
        const paramss = new HttpParams()
-         .set('gym_id', filters.salleName)
-         .set('offer_id', filters.offreId)
-         .set('status', filters.status)
+         .set('type_subscriptions_id', filters.type_subscriptions_id)
+         .set('phone', filters.phone)
+         .set('coach_id', filters.coach_id)
          .set('page', page);
-          return this.http.get(this.BASEURL + `cash_management`, {params: paramss});
+          return this.http.get(this.BASEURL + `subscriptions`, {params: paramss});
         }
 
   }
@@ -60,8 +60,10 @@ export class SubscriptionsService {
     return this.http.put(this.BASEURL+`subscriptions/`+id+`/change_status`,  {status : status} );
   }
 
-  getSubscriptionManagerList(){
-    return this.http.get(this.BASEURL+`manager/subscriptions`);
+  getSubscriptionManagerList(page){
+    const params = new HttpParams()
+      .set('page', page);
+    return this.http.get(this.BASEURL+`manager/subscriptions` , {params: params});
 
   }
 
@@ -69,11 +71,9 @@ export class SubscriptionsService {
     return this.http.post(this.BASEURL+`manager/subscriptions`, renouvelle);
   }
 
-  effectuerOffre(renouvelle) {
-    return this.http.post(this.BASEURL+`subscriptions`, renouvelle);
-  }
 
-  updateOffre(renouvelle , id) {    
+  updateOffre(renouvelle , id) {
+    console.log(renouvelle , id)
     return this.http.put(this.BASEURL+`subscriptions/`+id, renouvelle);
   }
 

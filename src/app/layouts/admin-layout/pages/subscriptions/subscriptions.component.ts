@@ -33,9 +33,9 @@ export class SubscriptionsComponent implements OnInit {
       this.listCarts=res.data.cards;
       this.listGym = res.data.list_gyms ;
       this.listOffre = res.data.list_offers ;
-      this.filters.salleName = this.listGym[0].id;
-      this.filters.offreId = this.listOffre[0].id;
-      this.filters.status = 'en attente';
+      this.filters.salleName = null;
+      this.filters.offreId = null;
+      this.filters.status = null;
 
     })
   }
@@ -81,6 +81,7 @@ export class SubscriptionsComponent implements OnInit {
       this.filters.salleName = value
     }
     this.serviceSub.getSubscriptiolsList(this.page , this.filters).subscribe((res:any)=> {
+      console.log('res',res)
       this.allSubscriptions=res.data.list;
       this.config = {
         itemsPerPage: 10,
@@ -91,20 +92,25 @@ export class SubscriptionsComponent implements OnInit {
   }
 
   getListSubscription(page) {
+
      this.serviceSub.getSubscriptiolsList(page).subscribe((res:any)=>{
        this.allSubscriptions=res.data.list;
-       console.log( this.allSubscriptions)
-
+console.log(this.allSubscriptions)
        this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.allSubscriptions.length
+       totalItems:res.data.total
       };
        })
   }
 
   getDate(date) {
     return moment(date).format('DD-MM-YYYY')
+  }
+
+  getPage(p) {
+    this.page = p.toString();
+    this.getListSubscription(this.page) ;
   }
 
   showRecu(photo) {

@@ -61,13 +61,13 @@ export class ActitviesListComponent implements OnInit {
 };
 
   currentUser : ManagerModel ;
-  
+
   constructor(private _activityServ:ActivityService ,private _CoachServ:CoachsService, private modalService: NgbModal , private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
 
-    this.getALLactivities();
+    this.getALLactivities(this.page);
     this.GetListCoach();
     this.activityForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -77,28 +77,29 @@ export class ActitviesListComponent implements OnInit {
 
   }
 
-  getALLactivities(){
-    this._activityServ.getAllActivites().subscribe((res : any) =>{
+  getALLactivities(page){
+    this._activityServ.getAllActivites(page).subscribe((res : any) =>{
       this.allAvtivity=res.data.list;
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.allAvtivity.length
+       totalItems: res.data.total
       };
      })
   }
 
   get f() { return this.activityForm.controls; }
 
-  getPage(p) {   
+  getPage(p) {
     this.page = p.toString();
-    }
+    this.getALLactivities(this.page);
+  }
 
     getDate(date) {
       return moment(date).format('DD-MM-YYYY')
     }
 
-    
+
   GetListCoach()
   {
     this._CoachServ.getAllCoach().subscribe((res : any) =>{
@@ -106,7 +107,7 @@ export class ActitviesListComponent implements OnInit {
     })
   }
 
-  
+
   getStatus(status : boolean){
     if(status) {
       return 'disponible'
@@ -128,7 +129,7 @@ export class ActitviesListComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this._activityServ.changeStatus(id, status).subscribe((res: any) => {
-            this.getALLactivities();
+            this.getALLactivities(this.page);
             });
           Swal.fire(
             'Bloqué!',
@@ -137,20 +138,20 @@ export class ActitviesListComponent implements OnInit {
           )
         }
         else {
-          this.getALLactivities();
+          this.getALLactivities(this.page);
         }
       })
     }
     else {
       this._activityServ.changeStatus(id, status).subscribe((res: any) => {
-        this.getALLactivities();
+        this.getALLactivities(this.page);
         });
     }
-    
-    
+
+
   }
 
- 
+
 
 
   // delete(id) {
@@ -161,7 +162,7 @@ export class ActitviesListComponent implements OnInit {
 
 
   open(content ,  activity?:ActivityModel) {
-  
+
     if(activity) {
       this.activityUpdated = activity ;
     }
@@ -184,7 +185,7 @@ export class ActitviesListComponent implements OnInit {
     }
   }
 
-  
+
   onReset() {
     this.submitted = false;
     this.activityForm.reset();
@@ -206,8 +207,8 @@ addActivity() {
             'l\'ajout est effectué avec success.',
             'success'
           )
-          this.getALLactivities() ;
-        } 
+          this.getALLactivities(this.page);
+        }
       } , error => {
           Swal.fire(
             'Ajout!',
@@ -224,17 +225,17 @@ updateActivity() {
   if (this.activityForm.invalid) {
       return;
   }
-  
+
   this._activityServ.updateActivity( this.activityForm.value , this.activityUpdated.id).subscribe((res : any) => {
     if(res.success) {
       Swal.fire(
         'Modification !',
         'Votre activitée est modifié avec succée.',
         'success'
-      )  
-      this.getALLactivities() ;
+      )
+      this.getALLactivities(this.page);
     }
-   
+
   },
   error => {
     Swal.fire(

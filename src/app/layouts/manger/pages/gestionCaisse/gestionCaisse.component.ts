@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./gestionCaisse.component.scss']
 })
 export class GestionCaisseComponent implements OnInit {
-  cards =[] ;  list_subscriptions =[] ; listCoch=[]
+  cards =[] ;  list_subscriptions =[] ; listCoch=[] ; dherentList=[]
   page='1' ;  config: any;closeResult;	submitted = false;
 	returnUrl: string;
 	error = '';
@@ -48,7 +48,10 @@ export class GestionCaisseComponent implements OnInit {
     }
   };
   subForm: FormGroup;
-  offf : SubscriptionAdherent ;
+  offf ;
+  filters : { type_subscriptions_id? : number  , coach_id? : number ; phone? :number} = { type_subscriptions_id : 1  , coach_id : 1 , phone :1};
+  type_subscriptions_id=0; coach_id=0;  phone=0;
+
   currentUser:ManagerModel ; adherentEfffect:ManagerModel ;adherentName=''
   public labels: any = {
     previousLabel: '&nbsp;',
@@ -58,23 +61,22 @@ export class GestionCaisseComponent implements OnInit {
     screenReaderCurrentLabel: `You're on page`
  };
   allSubscriptions :SubscriptionAdherent[]
-  constructor( private statis : StatsService , private serviceSub : SubscriptionsService  
+  constructor( private statis : StatsService , private serviceSub : SubscriptionsService
     ,private formBuilder: FormBuilder ,
     private modalService: NgbModal , ) { }
 
   ngOnInit() {
+    this.filter()
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
-
-    this.getStatistique() ; 
     this.getListSubscription(this.page) ;
+    this.getStatistique() ;
     this.subForm = this.formBuilder.group({
       offreId:['', [Validators.required]],
       start_at :['', [Validators.required]],
-      end_at:['', [Validators.required]],
       adherentId:['', [Validators.required]],
     });
     }
-  
+
     get f() { return this.subForm.controls; }
 
 
@@ -84,6 +86,8 @@ export class GestionCaisseComponent implements OnInit {
       this.cards = res.data.cards ;
       this.list_subscriptions = res.data.list_subscriptions ;
       this.listCoch = res.data.list_coachs ;
+      this.dherentList = res.data.list_adherents ;
+
     })
   }
 
@@ -98,8 +102,75 @@ export class GestionCaisseComponent implements OnInit {
       })
  }
 
+  changeCoachs(salle) {
+    this.coach_id = Number(salle) ;
+    this.chercher( 'coach_id' ,this.coach_id)
+  }
 
- getDate(date) {
+  changeOffres(idOffre) {
+    this.type_subscriptions_id= Number(idOffre)
+    this.chercher( 'type_subscriptions_id', this.type_subscriptions_id)
+
+  }
+
+
+  refresh() {
+    this.ngOnInit() ;
+  }
+
+  AjouterAdherent(){
+    this.submitted = true;
+    if (this.subForm.invalid) {
+      return;
+    }
+
+    else {
+      const adherent = {
+        type_subscriptions_id:this.subForm.value.offreId,
+        start_at: this.subForm.value.start_at,
+        adherent_id:this.subForm.value.adherentId,
+
+      }
+
+      this.serviceSub.addAdherent(adherent)
+        .pipe(first())
+        .subscribe(
+          (res :any) => {
+            if(res.success){
+              this.getListSubscription(this.page) ;
+              Swal.fire(
+                'Ajout	!',
+                'cet abonnement est effectué avec success',
+                'success'
+              )
+            }
+          },
+          error => {
+            Swal.fire(
+              'Ajout!',
+              `erreur : ${error}` ,
+              'error'
+            )
+          });
+
+    }
+  }
+
+
+
+  getUnit(unit : string) {
+    if(unit === 'day') { return 'jours' ;}
+    if(unit === 'month') { return 'mois' ;}
+    if(unit === 'year') { return 'année' ;}
+  }
+
+
+  filter() {
+      this.filters.type_subscriptions_id = null;
+      this.filters.coach_id = null;
+      this.filters.phone = null;
+  }
+  getDate(date) {
   return moment(date).format('DD-MM-YYYY')
 }
 
@@ -110,6 +181,28 @@ getStatus(status : boolean){
     return 'pas disponible'
   }
 }
+
+
+  chercher(name : string , value : any) {
+    if(name === 'type_subscriptions_id') {
+      this.filters.type_subscriptions_id = value
+    }
+    if(name === 'coach_id') {
+      this.filters.coach_id = value
+    }
+    if(this.phone) {
+      this.filters.phone = this.phone
+    }
+
+    this.serviceSub.getSubscriptiolsListManager(this.page  , this.filters).subscribe((res:any)=>{
+      this.allSubscriptions=res.data.list;
+      this.config = {
+        itemsPerPage: 10,
+        currentPage: 1,
+        totalItems: res.data.total
+      };
+    })
+  }
 
 
 changeStatus(id,status) {
@@ -141,7 +234,7 @@ changeStatus(id,status) {
       this.getListSubscription(this.page) ;
       });
   }
-  
+
 }
 
 
@@ -173,66 +266,15 @@ private getDismissReason(reason: any): string {
 
 
 
-effectuerOffre(){
-  this.submitted = true;
-  if (this.subForm.invalid) {
-    return;
-  }
-  if(this.subForm.value.end_at < this.subForm.value.start_at ) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'la date de fin doit etre superieur a date de début ',
-    })
-  }else {
-     const offreAdherent = {
-      type_subscriptions_id:this.subForm.value.offreId,
-      start_at: this.subForm.value.start_at,
-      end_at:this.subForm.value.end_at ,
-      adherent_id : this.adherentEfffect.id ,
-     }
-
-     this.serviceSub.effectuerOffre(offreAdherent)
-     .pipe(first())
-     .subscribe(
-       (res :any) => {
-         if(res.success){
-           this.getListSubscription(this.page) ;
-           Swal.fire(
-             'Effecter	!',
-             'ofOre de Votre adherent ' +this.adherentName + ' a eté modifier avec succées',
-             'success'
-           )
-         }
-       },
-       error => {
-         Swal.fire(
-           'Abonnement	!',
-           `erreur : ${error}` ,
-           'error'
-         )
-       });
-
-  }
-}
-
-
 modifierOffre() {
 this.submitted = true;
 if (this.subForm.invalid) {
   return;
 }
-if(this.subForm.value.end_at < this.subForm.value.start_at ) {
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'la date de fin doit etre superieur a date de début ',
-  })
-}else {
+else {
    const offreAdherent = {
     type_subscriptions_id:this.subForm.value.offreId,
     start_at: this.subForm.value.start_at,
-    end_at:this.subForm.value.end_at ,
     adherent_id : this.adherentEfffect.id ,
    }
 
@@ -241,7 +283,6 @@ if(this.subForm.value.end_at < this.subForm.value.start_at ) {
    .subscribe(
      (res :any) => {
        if(res.success){
-         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
          this.getListSubscription(this.page) ;
          Swal.fire(
            'Effecter	!',
@@ -260,5 +301,14 @@ if(this.subForm.value.end_at < this.subForm.value.start_at ) {
 
 }
 }
+
+  getPage(p) {
+    this.page = p.toString();
+    this.getListSubscription(this.page)
+  }
+
+
+
+
 
 }

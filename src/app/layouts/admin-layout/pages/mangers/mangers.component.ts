@@ -45,7 +45,7 @@ export class MangersComponent implements OnInit {
   constructor( private gymSerrvic :GymService) { }
 
   ngOnInit(): void {
-    this.GetAllManagers() ;
+    this.GetAllManagers(this.page) ;
   }
 
   getStatus(status : boolean){
@@ -56,7 +56,7 @@ export class MangersComponent implements OnInit {
     }
   }
 
-  changeStatus(id , value) {    
+  changeStatus(id , value) {
     if(!value) {
       Swal.fire({
         title: 'Vous êtes sur ?',
@@ -70,7 +70,7 @@ export class MangersComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
-            this.GetAllManagers();
+            this.GetAllManagers(this.page);
             });
           Swal.fire(
             'Bloqué!',
@@ -78,12 +78,12 @@ export class MangersComponent implements OnInit {
             'success'
           )
         }else {
-          this.GetAllManagers();
+          this.GetAllManagers(this.page);
         }
       })
       }else {
         this.gymSerrvic.changeStatusMang(id).subscribe((res: any) => {
-          this.GetAllManagers();
+          this.GetAllManagers(this.page);
           Swal.fire(
             'Débloqué!',
             'ce manager est debloqué.',
@@ -91,14 +91,14 @@ export class MangersComponent implements OnInit {
           )
           });
       }
-      
-    
-    
+
+
+
 
 
   }
 
-  getImage(photo:string) {    
+  getImage(photo:string) {
     if(photo === null || !photo || photo ==="") {
       return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg' ;
     }else {
@@ -106,17 +106,24 @@ export class MangersComponent implements OnInit {
     }
   }
 
-  GetAllManagers() {
-      this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
+  GetAllManagers(page) {
+      this.gymSerrvic.getAllManger(page).subscribe((res:any)=>{
       this.allManagers=res.data.list;
 
 
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.allManagers.length
+       totalItems: res.data.total
       };
     })
+  }
+
+
+
+  getPage(p) {
+    this.page = p.toString();
+    this.GetAllManagers(this.page) ;
   }
 
 }

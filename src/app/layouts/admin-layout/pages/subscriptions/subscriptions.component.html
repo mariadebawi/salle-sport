@@ -41,7 +41,7 @@
                 </div>
             </div>
             </div>
-            
+
           <div class="col-md-4">
             <div class="card card-stats mb-4 mb-lg-0 bg-white">
               <div class="card-body">
@@ -93,9 +93,8 @@
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Nom d'offre</th>
-            <th scope="col">Nom Directeur</th>
+            <th scope="col">prix d'offre</th>
             <th scope="col">Nom Sallle de sport</th>
-            <th scope="col">Numero de TEl Direct </th>
             <th scope="col">Date de départ </th>
             <th scope="col">Date de fin </th>
             <th scope="col">Status </th>
@@ -106,9 +105,8 @@
           <tr   *ngFor="let mang of allSubscriptions | paginate: config ">
             <td >{{mang.id}}</td>
             <td >{{mang.offer?.name}}</td>
-            <td>  nom directeur</td>
+            <td>  {{mang.offer?.price}}</td>
             <td>{{mang.gym?.name}}</td>
-            <td>  tel directeur</td>
             <td> {{getDate(mang.start_at)}}</td>
             <td> {{getDate(mang.end_at)}}</td>
             <td><span class="badge"
@@ -123,7 +121,7 @@
           </tbody>
         </table>
 
-        <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="allSubscriptions.length>10">
+        <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" >
           <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
             (pageChange)="config.currentPage = $event">
             <div class="custom-pagination">

@@ -17,7 +17,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./Renouvelement.component.scss']
 })
 export class RenouvelementComponent implements OnInit {
-  
   ListManagerSub :subscriptionGym[];
   config;
   currentUser : ManagerModel ;
@@ -35,24 +34,23 @@ export class RenouvelementComponent implements OnInit {
 	urlPayment = ""
   constructor( private subrip: SubscriptionsService ,private formBuilder: FormBuilder ,
     private offreService : OffersService  ,
-    private modalService: NgbModal , 
+    private modalService: NgbModal ,
     private authService : AuthService ) { }
 
   ngOnInit() {
-    
+
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
-   this.getListSub() ;
+   this.getListSub(this.page) ;
     this.getOffreList() ;
     this.renouvellementForm = this.formBuilder.group({
       offreId:['', [Validators.required]],
-      start_at :['', [Validators.required]],
-      end_at:['', [Validators.required]],
+      start_at :['', [Validators.required]]
     });
 
     }
-  
+
     get f() { return this.renouvellementForm.controls; }
-  
+
     getOffreList() {
       this.offreService.getAlOffers('1').subscribe((res:any)=>{
       res.data.forEach(e => {
@@ -62,35 +60,35 @@ export class RenouvelementComponent implements OnInit {
       });
       })
     }
-  
+
     getUnit(unit : string) {
        if(unit === 'day') { return 'jours' ;}
      if(unit === 'month') { return 'mois' ;}
      if(unit === 'year') { return 'année' ;}
     }
-  
+
     selectFilePrevStyle(event){
       if(!event.target.files[0] || event.target.files[0].length == 0) {
         this.msg = 'You must select an image';
         return;
       }
-  
+
       var mimeType = event.target.files[0].type;
-  
+
       if (mimeType.match(/image\/*/) == null) {
         this.msg = "Only images are supported";
         return;
       }
-  
+
       this.authService.uploadFile(event.target.files[0])
           .pipe(first())
           .subscribe((res: any) => {
               this.urlPayment = res.data.path
            });
-  
+
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
-  
+
       reader.onload = (_event) => {
        this.msg = "";
            this.urlpayment_receipt= reader.result;
@@ -98,16 +96,16 @@ export class RenouvelementComponent implements OnInit {
     }
 
 
-  getListSub() {
-    this.subrip.getSubscriptionManagerList().subscribe((res : any) =>{
+  getListSub(page) {
+    this.subrip.getSubscriptionManagerList(page).subscribe((res : any) =>{
       this.ListManagerSub=res.data.list;
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
        totalItems: res.data.total
       };
-      this.ListManagerSub.forEach((e:any) => {    
-        if( e.gym_id === this.currentUser.gym_id ) {        
+      this.ListManagerSub.forEach((e:any) => {
+        if( e.gym_id === this.currentUser.gym_id ) {
           this.dateFin =  e.end_at ;
           this.isRvl = moment(this.dateNow).isAfter( e.end_at);
         }
@@ -119,7 +117,7 @@ export class RenouvelementComponent implements OnInit {
  getDate(date) {
   return moment(date).format('DD-MM-YYYY')
 }
- 
+
 
 open(content) {
 
@@ -139,25 +137,18 @@ private getDismissReason(reason: any): string {
     return `with: ${reason}`;
   }
 }
-  
+
 
 renouveller(){
   this.submitted = true;
   if (this.renouvellementForm.invalid) {
     return;
   }
-  if(this.renouvellementForm.value.end_at < this.renouvellementForm.value.start_at ) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'la date de fin doit etre superieur a date de début ',
-    })
-  }
+
   else {
      const renouvelle = {
       offer_id:this.renouvellementForm.value.offreId,
       start_at: this.renouvellementForm.value.start_at,
-      end_at:this.renouvellementForm.value.end_at ,
       payment_receipt:  this.urlPayment,
      }
 
@@ -166,7 +157,7 @@ renouveller(){
      .subscribe(
        (res :any) => {
          if(res.success){
-           this.getListSub() ;
+           this.getListSub(this.page) ;
            Swal.fire(
              'Renouvellement	!',
              'Votre renouvellement est effectué avec success',
@@ -185,5 +176,10 @@ renouveller(){
 
   }
 }
+
+  getPage(p) {
+    this.page = p.toString();
+    this.getListSub(this.page) ;
+  }
 
 }

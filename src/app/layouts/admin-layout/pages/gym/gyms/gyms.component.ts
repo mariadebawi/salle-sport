@@ -14,11 +14,11 @@ export class GymsComponent implements OnInit {
   constructor( private gymSerrvic :GymService) { }
 
   ngOnInit(): void {
-    this.GetAllManagers() ;
+    this.GetAllManagers(this.page) ;
   }
 
-  GetAllManagers() {
-      this.gymSerrvic.getAllManger(this.page).subscribe((res:any)=>{
+  GetAllManagers(page) {
+      this.gymSerrvic.getAllManger(page).subscribe((res:any)=>{
       this.allManagers=res.data.list;
 
       this.config = {
@@ -39,9 +39,16 @@ export class GymsComponent implements OnInit {
 
 
 
+  getPage(p) {
+    this.page = p.toString();
+    this.GetAllManagers(this.page) ;
+  }
 
 
 
-  
+
+
+
+
 
 }

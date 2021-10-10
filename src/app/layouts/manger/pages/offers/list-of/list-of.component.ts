@@ -43,21 +43,21 @@ export class ListOfComponent implements OnInit {
   };
 
   currentUser : ManagerModel ;
-  
+
   constructor(private _OfferService:OffersService) { }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
 
-    this.getListOffer();
+    this.getListOffer(this.page);
   }
-  getListOffer()  {
-    this._OfferService.getAllTypeSubscription().subscribe((res : any) =>{
+  getListOffer(page)  {
+    this._OfferService.getAllTypeSubscription(page).subscribe((res : any) =>{
       this.ListTypeSub=res.data.list;
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.ListTypeSub.length
+       totalItems:res.data.total
       };
   })
   }
@@ -67,7 +67,7 @@ export class ListOfComponent implements OnInit {
   if(unit === 'month') { return 'mois' ;}
   if(unit === 'year') { return 'année' ;}
  }
-  
+
 
  changeStatus(id,status) {
   if(status) {
@@ -83,7 +83,8 @@ export class ListOfComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._OfferService.changeStatusTypeSub(id, status).subscribe((res: any) => {
-          this.getListOffer();
+          console.log(res)
+          this.getListOffer(this.page);
           });
         Swal.fire(
           'Bloqué!',
@@ -95,10 +96,10 @@ export class ListOfComponent implements OnInit {
   }
   else {
     this._OfferService.changeStatus(id, status).subscribe((res: any) => {
-      this.getListOffer();
+      this.getListOffer(this.page);
       });
   }
-  
+
 }
 
 getStatus(status : boolean){
@@ -109,5 +110,9 @@ getStatus(status : boolean){
   }
 }
 
+  getPage(p) {
+    this.page = p.toString();
+    this.getListOffer(this.page)
+  }
 
 }

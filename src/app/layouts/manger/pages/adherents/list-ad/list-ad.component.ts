@@ -119,9 +119,7 @@ export class ListAdComponent implements OnInit {
     }
 
   }
-  getPage(p) {
-    this.page = p.toString();
-    }
+
 
   getStatus(status : boolean){
     if(status) {
@@ -212,7 +210,10 @@ UpdateAdherent() {
 }
 
 
-
+  getPage(p) {
+    this.page = p.toString();
+    this.getListAdherent(this.page);
+  }
 
 
 }

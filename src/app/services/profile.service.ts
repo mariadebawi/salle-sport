@@ -10,17 +10,19 @@ export class ProfileService {
 
   BASEURL=environment.basUrl;
   constructor(private http: HttpClient) { }
-   
+
 
   getListEmployer(page:string , role?:string) {
+console.log('role',role)
+    console.log('page',page)
     if(!role) {
       let params = new HttpParams().set('page', page);
       return this.http.get(this.BASEURL+`employees`, { params: params } );
-    }else {
+    }
+    else {
       let params = new HttpParams().set('role', role).set('page', page);
       return this.http.get(this.BASEURL+`employees`, { params: params } );
     }
-     //{{domaine}}/employees?role=secretary
   }
 
   getEmployById(id:number) {
@@ -46,23 +48,23 @@ export class ProfileService {
 
 
 
- 
+
   updateProfileFunction( profileRole : string , formProfile : FormGroup , whatDO :string, photoProfile? : string , id?:number ) {
     if (formProfile.invalid) {
       return;
     }
-    
 
-    if(formProfile.value.newPassword && formProfile.value.newPassword !== '') {    
+
+    if(formProfile.value.newPassword && formProfile.value.newPassword !== '') {
       console.log(formProfile.value.newPassword);
-          
+
         const  updatePass = {
-          newPassword:formProfile.value.newPassword, 
+          newPassword:formProfile.value.newPassword,
           oldPassword:formProfile.value.oldPassword
         }
        return this.http.put(this.BASEURL+`auth/update_password`,updatePass) ;
       }
-  
+
 
      const profileAdmin = {
          first_name : formProfile.value.first_name ,
@@ -72,9 +74,9 @@ export class ProfileService {
          phone: formProfile.value.phone ,
          photo : photoProfile,
          role:profileRole,
-         password:formProfile.value?.password, 
+         password:formProfile.value?.password,
 
-     } 
+     }
 
     switch (whatDO) {
       case 'updateAdmin':
@@ -87,7 +89,7 @@ export class ProfileService {
               return this.http.post(this.BASEURL+`adherents`, profileAdmin);
               case 'editAdherent':
                 return this.http.put(this.BASEURL+`adherents/`+id, profileAdmin);
-              
+
       default:
         break;
     }

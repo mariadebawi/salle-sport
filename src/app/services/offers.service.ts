@@ -28,7 +28,9 @@ export class OffersService {
   addNewTypeSubscription(data:any) {return this.http.post<any>(this.BASEURL+`types_subscriptions`, data) }
 
 
-  getAllTypeSubscription() { return this.http.get(this.BASEURL+`types_subscriptions`); }
+  getAllTypeSubscription(page) {
+    let params = new HttpParams().set('page', page);
+    return this.http.get(this.BASEURL+`types_subscriptions` , {params:params}); }
 
   changeStatus(id,status)
   {

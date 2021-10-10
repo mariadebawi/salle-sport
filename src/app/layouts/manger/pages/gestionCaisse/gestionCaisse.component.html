@@ -77,26 +77,35 @@
         </div>
       </div>
       <div class="mb-5">
-        <h4 class="tewt-white text-weight-bold"> <i class="fas fa-search"></i> Recherche par :</h4>
+        <div class="d-flex justify-content-between">
+          <h4 class="tewt-white text-weight-bold"> <i class="fas fa-search"></i> Recherche par :</h4>
+          <button class="icon icon-shape bg-success text-white rounded-circle shadow mx-4"
+                    (click)="open(contenttt )">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
         <div class="row ">
-          <div class="form-group has-label text-white col-md-4"><label> Numero de Tel de l'adherent </label>
-            <input type="number" placeholder=" Nom de l'adherent" class="form-control"/>
+          <div class="form-group has-label text-white col-md-3"><label> Numero de Tel de l'adherent </label>
+            <input type="number"    [(ngModel)]="phone" placeholder=" Nom de l'adherent" class="form-control"/>
           </div>
-          <div class="form-group has-label text-white  col-md-4"><label> Liste de coachs </label>
+          <div class="form-group has-label text-white  col-md-3"><label> Liste de coachs </label>
             <select class="custom-select find  text-black" (change)="changeCoachs($event.target.value)">
                       <option [value]="cc?.id" *ngFor="let cc of listCoch"> {{cc?.first_name}} {{cc?.last_name}}</option>
             </select>
           </div>
-          <div class="form-group has-label text-white  col-md-4"><label> Liste des subscriptions </label>
+          <div class="form-group has-label text-white  col-md-3"><label> Liste des subscriptions </label>
             <select class="custom-select  find text-black"  (change)="changeOffres($event.target.value)">
                 <option  [value]="of?.id" *ngFor="let of of list_subscriptions">{{of?.name}}</option>
             </select>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btndefault btn-sm " style="margin-top :2rem" (click)="refresh()"><i class="fas fa-search mr-2" ></i> Refresh </button>
           </div>
         </div>
       </div>
 
 
-   <div class=" card"> 
+   <div class=" card">
         <div class=" card-header">
           <h4 class=" card-title">Liste des abonnements</h4>
           <hr>
@@ -115,11 +124,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let sub of list_subscriptions | paginate: config">
+            <tr *ngFor="let sub of allSubscriptions | paginate: config">
               <td>{{sub.id}}</td>
               <td>{{sub.types_subscription.name}}</td>
-              <td>{{sub.adherent.first_name}} {{sub.adherent.last_name}}</td> 
-              <td>{{sub.types_subscription.activity.coach.first_name}} {{sub.types_subscription.activity.coach.last_name}}</td> 
+              <td>{{sub.adherent.first_name}} {{sub.adherent.last_name}}</td>
+              <td>{{sub.types_subscription.activity.coach.first_name}} {{sub.types_subscription.activity.coach.last_name}}</td>
               <td>{{sub.types_subscription.activity.name}} </td>
               <td> {{getDate(sub.start_at)}}</td>
               <td> {{getDate(sub.end_at)}}</td>
@@ -128,7 +137,7 @@
                 [ngClass]="{'badge-danger': sub.status == 'en attente' , 'badge-success': sub.is_terminated == 'accepter' , 'badge-warning': sub.is_terminated == 'pas en cours'  }">{{sub.is_terminated}}</span>
               </td>
 
-                <td class="d-flex" *ngIf=" currentUser?.role !== 'secretary' && !currentUser.is_blocked_service">
+                <td class="d-flex">
                   <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
                   (change)="changeStatus(sub.id,sub.status)"
                   [(ngModel)]="sub.status"
@@ -142,13 +151,12 @@
                   [fontColor]="configg.fontColor"
                   [fontSize]="configg.fontSize"
                 ></ng-toggle>
-               
+
                   <button class="btn btn-info btn-sm mx-2 " (click)="open(contentt ,sub ) " > <i class="fas fa-edit"> </i>modifier </button>
-                  <button class="btn btn-green btn-sm mx-2" (click)="open(content ,sub ) " > <i class="fas fa-check-circle"> </i>Effectuer</button>  
-   
-          
+
+
               </td>
-             
+
             </tr>
             </tbody>
           </table>
@@ -180,60 +188,13 @@
             </pagination-template>
           </div>
         </div>
-      </div> 
+      </div>
 
     </div>
     </div>
   </div>
   </div>
 
-
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Effectuer une offre à {{adherentEfffect?.first_name}} {{adherentEfffect?.last_name}}</h3>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <form class=" form-horizontal" [formGroup]="subForm" (ngSubmit)="effectuerOffre()">
-              <div class="row">
-                <div class="form-group has-label  col-md-6"><label> L'adherent </label>
-                  <input  disabled type="text" [(ngModel)]="adherentName" formControlName="adherentId" placeholder="adherent" class="form-control"/>
-                </div>
-                <div class="form-group has-label  col-md-6"><label> Type d'offre </label>
-                  <select class="custom-select   text-black" [(ngModel)]="offreId" formControlName="offreId"
-                  [ngClass]="{ 'is-invalid': submitted && f.offreId.errors }"
-                   >
-                    <option [value]="off.id" *ngFor="let off of listOffre"> <span class="spanName">{{off.name}} </span> </option>
-                  </select>
-                  <div *ngIf="submitted && f.offreId.errors" class="invalid-feedback">
-                    <div *ngIf="f.offreId.errors.required">Choisir un type d'offre</div>
-                    </div>
-                </div>
-
-                <div class="form-group has-label  col-md-6"><label> Date de début </label>
-                  <input  type="date" formControlName="start_at" placeholder="start_at" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.start_at.errors }" />
-                  <div *ngIf="submitted && f.start_at.errors" class="invalid-feedback">
-                    <div *ngIf="f.start_at.errors.required">Le > Date de début  est obligatoire</div>
-                    </div>
-                </div>
-                <div class="form-group has-label  col-md-6"><label> Date de fin </label>
-                  <input type="date"  formControlName="end_at" placeholder="end_at" class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.end_at.errors }" />
-                  <div *ngIf="submitted && f.end_at.errors" class="invalid-feedback">
-                    <div *ngIf="f.end_at.errors.required">Le > Date de fin  est obligatoire</div>
-                    </div>
-                </div>
-              </div>
-            <div class="  mt-4">
-              <button class=" btn btn-green btn-lg btn-block mb-3"> Effectuer </button>
-            </div>
-        </form>
-    </div>
-
-  </ng-template>
 
   <ng-template #contentt let-modal>
     <div class="modal-header">
@@ -248,36 +209,85 @@
                 <div class="form-group has-label  col-md-6"><label> L'adherent </label>
                   <input  disabled type="text" [(ngModel)]="adherentName" formControlName="adherentId" placeholder="adherent" class="form-control"/>
                 </div>
-                <div class="form-group has-label  col-md-6"><label> Type d'offre </label>
-                  <select class="custom-select   text-black" [(ngModel)]="offf.type_subscriptions_id" formControlName="offreId"
-                  [ngClass]="{ 'is-invalid': submitted && f.offreId.errors }"
-                   >
-                    <option [value]="off.id" *ngFor="let off of listOffre"> <span class="spanName">{{off.name}} </span> </option>
-                  </select>
-                  <div *ngIf="submitted && f.offreId.errors" class="invalid-feedback">
-                    <div *ngIf="f.offreId.errors.required">Choisir un type d'offre</div>
-                    </div>
-                </div>
+                <div class="form-group has-label  col-md-6"><label> Type sunscription </label>
 
-                <div class="form-group has-label  col-md-6"><label> Date de début </label>
+                  <select [(ngModel)]="offf.types_subscription.id"   class="custom-select  text-black" formControlName="offreId"
+                        [ngClass]="{ 'is-invalid': submitted && f.offreId.errors }"
+                        (change)="onChange($event.target.value)">
+                  <option [value]="off.id" *ngFor="let off of list_subscriptions">
+                    <span class="spanName">{{off?.name}} :</span>
+                    {{off.duration}} {{getUnit(off?.unit)}} / {{off?.price}} DT</option>
+                </select>
+                </div>
+                <div class="form-group has-label  col-md-12"><label> Date de début </label>
                   <input  type="date" formControlName="start_at"  [(ngModel)]="offf.start_at" placeholder="start_at" class="form-control"
                   [ngClass]="{ 'is-invalid': submitted && f.start_at.errors }" />
                   <div *ngIf="submitted && f.start_at.errors" class="invalid-feedback">
                     <div *ngIf="f.start_at.errors.required">Le > Date de début  est obligatoire</div>
                     </div>
                 </div>
-                <div class="form-group has-label  col-md-6"><label> Date de fin </label>
-                  <input type="date"  formControlName="end_at" placeholder="end_at"   [(ngModel)]="offf.end_at"  class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f.end_at.errors }" />
-                  <div *ngIf="submitted && f.end_at.errors" class="invalid-feedback">
-                    <div *ngIf="f.end_at.errors.required">Le > Date de fin  est obligatoire</div>
-                    </div>
-                </div>
+
               </div>
             <div class="  mt-4">
               <button class=" btn btn-info btn-lg btn-block mb-3"> Modifier </button>
             </div>
         </form>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #contenttt let-modal>
+    <div class="modal-header">
+      <h3 style="font-weight: bold;" class="modal-title  " id="modal-basic-title">Ajouter une abonnement</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class=" form-horizontal" [formGroup]="subForm" (ngSubmit)="AjouterAdherent()">
+        <div class="row">
+          <div class="form-group has-label  col-md-6"><label> Type sunscription </label>
+            <select class="custom-select  text-black" formControlName="offreId"
+                    [ngClass]="{ 'is-invalid': submitted && f.offreId.errors }"
+                    (change)="onChange($event.target.value)">
+              <option [value]="off.id" *ngFor="let off of list_subscriptions">
+                <span class="spanName">{{off?.name}} :</span>
+                {{off.duration}} {{getUnit(off?.unit)}} / {{off?.price}} DT</option>
+            </select>
+            <div *ngIf="submitted && f.offreId.errors" class="invalid-feedback">
+              <div *ngIf="f.offreId.errors.required">Choisir un type d'offre</div>
+            </div>
+          </div>
+
+          <div class="form-group has-label  col-md-6"><label> Nom adherent </label>
+            <select class="custom-select  text-black"  formControlName="adherentId"
+                    [ngClass]="{ 'is-invalid': submitted && f.adherentId.errors }"
+                    (change)="onChange($event.target.value)">
+              <option [value]="off.id" *ngFor="let off of this.dherentList">
+                <span class="spanName">{{off.first_name}} {{off.last_name}} </span>
+
+              </option>
+            </select>
+            <div *ngIf="submitted && f.adherent.errors" class="invalid-feedback">
+              <div *ngIf="f.adherent.errors.required">Choisir un adherent</div>
+            </div>
+          </div>
+
+          <div class="form-group has-label  col-md-12"><label> Date de début </label>
+            <input  type="date" formControlName="start_at" placeholder="start_at" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.start_at.errors }" />
+            <div *ngIf="submitted && f.start_at.errors" class="invalid-feedback">
+              <div *ngIf="f.start_at.errors.required">Le > Date de début  est obligatoire</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="  mt-4">
+          <button class=" btn btn-success btn-lg btn-block mb-3"> Ajouter Adherent </button>
+        </div>
+      </form>
+
     </div>
 
   </ng-template>

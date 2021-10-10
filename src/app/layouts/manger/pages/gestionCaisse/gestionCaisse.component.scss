@@ -3,8 +3,11 @@
     transition: none;
     color: #fff !important;
 }
+.text-black {
+  color: #000 !important;
+}
 
-.btn-white  { 
+.btn-white  {
     background: #fff !important;
     i{
         color: #000 !important;
@@ -35,7 +38,7 @@ h4.tewt-white.text-weight-bold {
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #7770;
 }
- 
+
 input {
     border: 1px solid #cad1d7;
 }

@@ -20,7 +20,7 @@
             <tbody>
             <tr   *ngFor="let mang of allManagers | paginate: config ">
               <th scope="row">{{mang.id}}</th>
-              <td><img [src]="getImage(mang.photo)" height="50px" style="border-radius: 50%"> </td>
+              <td><img [src]="getImage(mang.photo)" height="50px" width="50px" > </td>
               <td>{{mang.first_name}} {{mang.last_name}}   </td>
               <td>{{mang.email}}</td>
               <td><span class="badge"
@@ -30,7 +30,7 @@
               <td>{{mang.gym.name}}</td>
               <td>
                 <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-                (change)="changeStatus(mang.id,mang.status)"	
+                (change)="changeStatus(mang.id,mang.status)"
                 [(ngModel)]="mang.status"
                 [disabled]="configg.disabled"
                 [width]="configg.width"

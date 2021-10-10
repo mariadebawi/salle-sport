@@ -182,7 +182,6 @@ export class RegisterComponent implements OnInit {
 			vacation_day: this.registerForm.value.jourConge,
 			url_fcb: this.registerForm.value.urlFacebookSalle,
 			start_at: moment(date).format('YYYY-MM-DD'),
-			end_at:   moment(this.DateEnd).format('YYYY-MM-DD'),
 			payment_receipt: this.urlPayment,
 			offer_id:Number(this.offreId),
 		}

@@ -7,7 +7,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des adhérents</h4>
           <hr>
-          <a class="btn btn-success" style="float: right"  (click)="open(content)"  
+          <a class="btn btn-success" style="float: right"  (click)="open(content)"
            *ngIf="currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
           <table class="table">
             <thead>
@@ -33,7 +33,7 @@
               <!-- *ngIf=" currentUser && currentUser?.role !== 'secretary' || !currentUser.is_blocked_service"-->
             <td>
               <ng-toggle placement="top" ngbTooltip="Bloquer/Débloquer"
-              (change)="changeStatus(adh.id,adh.status)" 
+              (change)="changeStatus(adh.id,adh.status)"
               *ngIf=" currentUser && currentUser?.role !== 'secretary'"
               [(ngModel)]="adh.status"
               [disabled]="configg.disabled"
@@ -54,7 +54,7 @@
 
             </tbody>
           </table>
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="listAdherent.length>10">
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" >
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">

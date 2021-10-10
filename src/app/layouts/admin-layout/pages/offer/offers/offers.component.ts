@@ -64,7 +64,7 @@ export class OffersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.GetAllOffers();
+    this.GetAllOffers(this.page);
 
     this.offreForm = this.formBuilder.group({
       unit:['', [Validators.required]],
@@ -74,14 +74,13 @@ export class OffersComponent implements OnInit {
     });
   }
 
-  GetAllOffers(){
-    this._offersService.getAlOffers(this.page).subscribe((res:any)=>{
+  GetAllOffers(page){
+    this._offersService.getAlOffers(page).subscribe((res:any)=>{
       this.allOffers=res.data;
-
       this.config = {
         itemsPerPage: 10,
         currentPage: 1,
-       totalItems: this.allOffers.length
+       totalItems: res.data.length
       };
     })
   }
@@ -108,7 +107,7 @@ export class OffersComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  
+
   UpdateOffre() {
     this.submitted = true;
     if (this.offreForm.invalid) {
@@ -129,7 +128,7 @@ export class OffersComponent implements OnInit {
           'Votre offre est modifié avec succée.',
           'success'
         )
-        this.GetAllOffers() ;
+        this.GetAllOffers(this.page) ;
       }
 
     },
@@ -153,7 +152,7 @@ export class OffersComponent implements OnInit {
 
 get f() { return this.offreForm.controls; }
 
-addOffre() {
+addOffre(page) {
   this.submitted = true;
   // stop here if form is invalid
   if (this.offreForm.invalid) {return;}
@@ -176,7 +175,7 @@ addOffre() {
        'success'
        )
 
-      this.GetAllOffers();
+      this.GetAllOffers(this.page)
       this.onReset() ;
     }
     },
@@ -204,7 +203,7 @@ addOffre() {
       }).then((result) => {
         if (result.isConfirmed) {
           this._offersService.changeStatus(id, status).subscribe((res: any) => {
-            this.GetAllOffers();
+            this.GetAllOffers(this.page);
             });
           Swal.fire(
             'Bloqué!',
@@ -216,7 +215,7 @@ addOffre() {
     }
     else {
       this._offersService.changeStatus(id, status).subscribe((res: any) => {
-        this.GetAllOffers();
+        this.GetAllOffers(this.page);
         });
     }
 
@@ -241,8 +240,10 @@ addOffre() {
   if(unit === 'year') { return 'année' ;}
  }
 
- getPage(p) {
-  this.page = p.toString();
+
+  getPage(p) {
+    this.page = p.toString();
+    this.GetAllOffers(this.page) ;
   }
 
 }

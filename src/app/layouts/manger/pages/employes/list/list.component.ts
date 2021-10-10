@@ -54,30 +54,30 @@ currentUser: ManagerModel ;
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')) ;
-
-    this.getAllEmloyer();
+    this.getAllEmloyer(this.page);
   }
 
   getlistWithRole(value:string){
-    console.log(value);
-    
-  if(value) {
-    this.getAllEmloyer(value)
-  }else {
-    this.getAllEmloyer()
-  }
+    switch (value)
+    {
+      case "coach":
+      case "secretary":
+        this.getAllEmloyer(this.page,value)
+        break;
+      default:
+        this.getAllEmloyer(this.page)
+    }
   }
 
-  getAllEmloyer(role?:string) {
-    if(role) {      
-      this.serviceEmploy.getListEmployer(this.page , role).subscribe((res : any) =>{
+  getAllEmloyer(page , role?:string) {
+    if(role) {
+      this.serviceEmploy.getListEmployer(page , role).subscribe((res : any) =>{
         this.listEmploye=res.data.list;
         this.config = {
           itemsPerPage: 10,
           currentPage: 1,
-         totalItems: res.data?.list?.length
+         totalItems: res.data.total
         };
-        
       })
     }else {
       this.serviceEmploy.getListEmployer(this.page).subscribe((res : any) =>{
@@ -87,14 +87,14 @@ currentUser: ManagerModel ;
           currentPage: 1,
          totalItems: res?.data?.total
         };
-        
+
       })
     }
-    
+
   }
 
   getImage(photo:string) {
-    if(photo == null || !photo || photo ===""  ){
+    if(photo == null || !photo || photo ==="" || photo === "path photo"   ){
       return 'https://cdn1.benouaiche.com/wp-content/uploads/2018/12/homme-medecine-chirurgie-esthetique-dr-benouaiche-paris.jpg'
     }else {
       return photo
@@ -110,7 +110,7 @@ currentUser: ManagerModel ;
     }
   }
 
-  
+
   changeStatus(id,status) {
     if(!status) {
       Swal.fire({
@@ -125,8 +125,8 @@ currentUser: ManagerModel ;
       }).then((result) => {
         if (result.isConfirmed) {
           this.serviceEmploy.changeStatus(id, status).subscribe((res: any) => {
-            this.getAllEmloyer();
-            });
+            this.getAllEmloyer(this.page)
+          });
           Swal.fire(
             'Bloqué!',
             'cet employer est bloquée.',
@@ -134,20 +134,21 @@ currentUser: ManagerModel ;
           )
         }
         else {
-          this.getAllEmloyer();
+          this.getAllEmloyer(this.page)
         }
       })
     }
     else {
       this.serviceEmploy.changeStatus(id, status).subscribe((res: any) => {
-        this.getAllEmloyer();
-        });
+        this.getAllEmloyer(this.page)
+      });
     }
-    
-    
+
+
   }
-  getPage(p) {   
+  getPage(p) {
     this.page = p.toString();
+    this.getAllEmloyer(this.page)
     }
 
   getStatus(status : boolean){
@@ -157,5 +158,7 @@ currentUser: ManagerModel ;
       return 'pas disponible'
     }
  }
+
+
 
 }

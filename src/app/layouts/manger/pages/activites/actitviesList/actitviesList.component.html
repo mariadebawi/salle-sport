@@ -7,7 +7,7 @@
         <div class=" card-header">
           <h4 class=" card-title">Liste des activites</h4>
           <hr>
-          <a class="btn btn-success" style="float: right" (click)="open(content)" 
+          <a class="btn btn-success" style="float: right" (click)="open(content)"
           *ngIf=" currentUser?.role !== 'secretary'">Ajouter</a>
           <table class="table">
             <thead>
@@ -54,7 +54,7 @@
 
             </tbody>
           </table>
-          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5" *ngIf="allAvtivity.length>10" >
+          <div class="row d-flex justify-content-end  mt-5 mb-2 mr-5">
             <pagination-template #p="paginationApi" [id]="config.id" (click)="getPage(config.currentPage)"
               (pageChange)="config.currentPage = $event">
               <div class="custom-pagination">
@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  
+
   <!-- add activity -->
 
   <ng-template #content let-modal>
@@ -115,7 +115,7 @@
           <select class="custom-select  text-black"  formControlName="coach_id"
             [ngClass]="{ 'is-invalid': submitted && f.coach_id.errors }" >
             <option [value]="coach.id" *ngFor="let coach of allcoachs">{{coach.first_name}} {{coach.last_name}}</option>
-          
+
           </select>
           <div *ngIf="submitted && f.coach_id.errors" class="invalid-feedback">
             <div *ngIf="f.coach_id.errors.required">Le nom de coatch est obligatoire</div>
@@ -168,7 +168,7 @@
           <select class="custom-select  text-black" [(ngModel)]="activityUpdated.coach.id"  formControlName="coach_id"
             [ngClass]="{ 'is-invalid': submitted && f.coach_id.errors }" >
             <option [value]="coach.id" *ngFor="let coach of allcoachs">{{coach.first_name}} {{coach.last_name}}</option>
-          
+
           </select>
           <div *ngIf="submitted && f.coach_id.errors" class="invalid-feedback">
             <div *ngIf="f.coach_id.errors.required">Le nom de coatch est obligatoire</div>
