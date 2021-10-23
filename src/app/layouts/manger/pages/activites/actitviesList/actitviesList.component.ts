@@ -81,9 +81,9 @@ export class ActitviesListComponent implements OnInit {
     this._activityServ.getAllActivites(page).subscribe((res : any) =>{
       this.allAvtivity=res.data.list;
       this.config = {
-        itemsPerPage: 10,
-        currentPage: 1,
-       totalItems: res.data.total
+         itemsPerPage: 10,
+         currentPage: 1,
+         totalItems: res.data.total
       };
      })
   }

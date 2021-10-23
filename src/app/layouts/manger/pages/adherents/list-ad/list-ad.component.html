@@ -8,7 +8,7 @@
           <h4 class=" card-title">Liste des adhérents</h4>
           <hr>
           <a class="btn btn-success" style="float: right"  (click)="open(content)"
-           *ngIf="currentUser && currentUser?.role !== 'secretary'">Ajouter</a>
+          >Ajouter</a>
           <table class="table">
             <thead>
             <tr>
@@ -46,7 +46,7 @@
               [fontColor]="configg.fontColor"
               [fontSize]="configg.fontSize"
             ></ng-toggle>
-            <button   *ngIf=" currentUser && currentUser?.role !== 'secretary'" class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
+            <button    class="icon icon-shape bg-success text-white rounded-circle shadow mx-4" (click)="open(contentt ,adh )">
               <i class="fas fa-edit"></i>
             </button>
             </td>
